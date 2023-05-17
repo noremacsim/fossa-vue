@@ -1,0 +1,36 @@
+@import './base.css';
+
+.appsImage {
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+.newAppIcon {
+    cursor: pointer;
+}
+
+.settingsButton {
+    top: 0;
+    right: 0;
+    position: absolute;
+    background: #3b71ca;
+    box-shadow: 0 4px 9px -4px #3b71ca;
+    padding: 13px;
+    font-size: 25px;
+    margin: 10px;
+    border-radius: 25px;
+    color: white;
+}
+
+.fullscreenButton {
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: #3b71ca;
+    box-shadow: 0 4px 9px -4px #3b71ca;
+    padding: 13px;
+    font-size: 25px;
+    margin: 10px;
+    border-radius: 25px;
+    color: white;
+}
