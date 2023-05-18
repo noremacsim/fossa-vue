@@ -6,11 +6,7 @@
   </div>
 
   <Teleport to="body">
-    <newAppModal :show="showModal" @close="showModal = false">
-      <template #header>
-        <h3>Add New Site</h3>
-      </template>
-    </newAppModal>
+    <newAppModal :show="showModal" @close="showModal = false" />
   </Teleport>
 </template>
 

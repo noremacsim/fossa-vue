@@ -1,6 +1,7 @@
 <script setup>
 import HomeView from "@/views/HomeView.vue";
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
+import SettingsButton from "@/components/buttons/settingsButton.vue";
 </script>
 
 <template>
@@ -10,10 +11,7 @@ import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
 
     <div class="topNav" role="navigation">
 
-      <fontAwsomeButton
-          icon="cog"
-          className="floatButton settingsButton"
-      />
+      <settings-button />
 
       <fontAwsomeButton
           icon="up-right-and-down-left-from-center"
@@ -28,7 +26,6 @@ import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
   <HomeView />
 
 </template>
-
 <style scoped>
 
 .floatButton {

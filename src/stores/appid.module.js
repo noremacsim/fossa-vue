@@ -1,4 +1,4 @@
-import {CREATE_APPID, GET_APPID} from "@/stores/action.type";
+import {CREATE_APPID, GET_APPID, FETCH_APPS} from "@/stores/action.type";
 import {SET_APPID, SET_ERROR} from "@/stores/mutations.type";
 import appidService from "@/common/appid.service";
 
@@ -21,6 +21,7 @@ const actions = {
             appidService.getAppID()
                 .then((data) => {
                     context.commit(SET_APPID, data);
+                    context.dispatch(FETCH_APPS);
                     resolve(data);
                 })
                 .catch(data => {

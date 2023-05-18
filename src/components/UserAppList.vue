@@ -44,7 +44,7 @@
 </template>
 <script>
 
-import {CREATE_APP, FETCH_APPS, REMOVE_APP} from "@/stores/action.type";
+import {FETCH_APPS, REMOVE_APP} from "@/stores/action.type";
 import {mapGetters} from "vuex";
 import NewAppButton from "@/components/buttons/newAppButton.vue";
 
@@ -57,14 +57,11 @@ export default {
   components: {NewAppButton},
   mounted() {
     let vue = this;
-    vue.$store.dispatch(FETCH_APPS);
-
     document.querySelector('body').addEventListener('click', function(e) {
       if (!e.target.classList.contains('deleteApp') && !e.target.classList.contains('appsImage')) {
         vue.showDelete = false
       }
     })
-
   },
   computed: {
     ...mapGetters(["apps"]),

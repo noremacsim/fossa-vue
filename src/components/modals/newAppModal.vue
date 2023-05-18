@@ -51,81 +51,10 @@ export default {
 </template>
 
 
-<style>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  transition: opacity 0.3s ease;
-}
-
-.modalHeader {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1rem;
-  border-bottom: 2px solid #f5f5f5;
-  border-top-left-radius: calc(0.5rem - 1px);
-  border-top-right-radius: calc(0.5rem - 1px);
-}
-
-.modal-title {
-  color: #515151;
-}
-
-.modal-container {
-  max-width: 570px !important;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  border-radius: 0.5rem;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 1.75rem;
-  height: fit-content;
-}
-
-.modal-header h5 {
-  color: #727272;;
-}
-
-.modal-body {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  pointer-events: auto;
-  background-clip: padding-box;
-  outline: 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-
+<style scoped>
 #newAppList {
   max-height: 500px;
   overflow-x: hidden;
   overflow-y: scroll;
-}
-
-.modal-enter-from {
-  opacity: 0;
-}
-
-.modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 </style>
