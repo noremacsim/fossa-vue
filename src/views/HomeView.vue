@@ -3,6 +3,7 @@ import UserHeader from "@/components/UserHeader.vue";
 import UserAppList from "@/components/UserAppList.vue";
 import UserAppListSkeleton from "@/components/skeleton/UserAppListSkeleton.vue";
 import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
+import HomeFooter from "@/components/HomeFooter.vue";
 </script>
 
 <template>
@@ -18,6 +19,8 @@ import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
       <UserAppListSkeleton v-else />
 
     </div>
+
+    <HomeFooter />
 
   </main>
 
