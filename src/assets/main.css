@@ -9,9 +9,8 @@
     cursor: pointer;
 }
 
-.settingsButton {
+.floatButton {
     top: 0;
-    right: 0;
     position: absolute;
     background: #3b71ca;
     box-shadow: 0 4px 9px -4px #3b71ca;
@@ -20,19 +19,16 @@
     margin: 10px;
     border-radius: 25px;
     color: white;
+    cursor: pointer;
+}
+
+.settingsButton {
+    right: 0;
 }
 
 .fullscreenButton {
-    top: 0;
     left: 0;
-    position: absolute;
-    background: #3b71ca;
-    box-shadow: 0 4px 9px -4px #3b71ca;
-    padding: 13px;
-    font-size: 25px;
-    margin: 10px;
-    border-radius: 25px;
-    color: white;
+    cursor: pointer;
 }
 
 .modal-mask {

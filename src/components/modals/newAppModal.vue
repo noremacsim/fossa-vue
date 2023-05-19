@@ -1,16 +1,12 @@
 <script>
 import {allApps} from "@/common/allApps";
 import {CREATE_APP} from "@/stores/action.type";
-import VLazyImage from "v-lazy-image";
 
 export default {
   data() {
     return {
       allApps: allApps
     }
-  },
-  components: {
-    "v-lazy-image": VLazyImage,
   },
   props: {
     show: Boolean
@@ -44,7 +40,7 @@ export default {
 
           <div class="d-flex justify-content-center flex-wrap mb-3" id="newAppList">
             <div v-for="app of allApps" :value="app.value" :key="app.value" @click="addNewApp(app[0], app[1], app[3])" class="d-inline-flex position-relative p-2 addApp">
-              <v-lazy-image class="rounded-9 shadow-4 appsImage" v-bind:src="app[3]" alt="${element[0]}" style="width: 75px; height: 75px;" />
+              <img class="rounded-9 shadow-4 appsImage" v-bind:src="app[3]" alt="${element[0]}" style="width: 75px; height: 75px;" />
             </div>
           </div>
 

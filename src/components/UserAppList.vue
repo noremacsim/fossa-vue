@@ -24,7 +24,7 @@
         >
 
         <transition name="slide-fade">
-          <v-lazy-image
+          <img
               v-if="app.image"
               loading="lazy"
               class="rounded-9 shadow-4 appsImage userAppStyle"
@@ -47,7 +47,6 @@
 import {REMOVE_APP} from "@/stores/action.type";
 import {mapGetters} from "vuex";
 import NewAppButton from "@/components/buttons/newAppButton.vue";
-import VLazyImage from "v-lazy-image";
 
 export default {
   data() {
@@ -57,7 +56,6 @@ export default {
   },
   components: {
     NewAppButton,
-    "v-lazy-image": VLazyImage,
   },
   mounted() {
     let vue = this;

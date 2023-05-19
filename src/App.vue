@@ -11,11 +11,12 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
 
     <div class="topNav" role="navigation">
 
-      <settings-button />
+      <settings-button className="floatButton settingsButton" />
 
       <fontAwsomeButton
           icon="up-right-and-down-left-from-center"
           className="floatButton fullscreenButton"
+          @click="goFullscreen"
       />
 
     </div>
@@ -26,27 +27,16 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
   <HomeView />
 
 </template>
+<script>
+export default {
+  methods: {
+    goFullscreen() {
+      window.location = 'https://youtube.com/redirect?q=https://fossa-app.site';
+    }
+  },
+}
+</script>
 <style scoped>
-
-.floatButton {
-  top: 0;
-  position: absolute;
-  background: #3b71ca;
-  box-shadow: 0 4px 9px -4px #3b71ca;
-  padding: 13px;
-  font-size: 25px;
-  margin: 10px;
-  border-radius: 25px;
-  color: white;
-}
-
-.settingsButton {
-  right: 0;
-}
-
-.fullscreenButton {
-  left: 0;
-}
 
 header {
   line-height: 1.5;
