@@ -1,7 +1,8 @@
 <script>
 import {GET_APPID, FETCH_APPS} from "@/stores/action.type";
 import cookieService from "@/common/cookie.service";
-
+import { useToast } from "vue-toastification";
+import {mapState} from "vuex";
 
 export default {
   props: {
@@ -9,10 +10,12 @@ export default {
   },
   data() {
     return {
-      'appID': '123-abcdefg',
       showImport: false,
       code: ''
     }
+  },
+  computed: {
+    ...mapState(['appid'])
   },
   methods: {
     async importCode() {
@@ -20,6 +23,10 @@ export default {
       cookieService.setCookie('appId', this.code, 365).then(() => {
         this.$store.dispatch(GET_APPID)
         this.$store.dispatch(FETCH_APPS);
+        const toast = useToast();
+        toast.success("Imported Successfully", {
+          timeout: 2000
+        });
       });
     }
   }
@@ -46,7 +53,7 @@ export default {
                 <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
                   <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
                     <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
-                      <input v-show="!showImport" :value="appID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;" readonly=""></div>
+                      <input v-show="!showImport" :value="appid.appID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;" readonly=""></div>
                       <input v-show="showImport" v-model="code" type="text" class="form-control rounded appId" placeholder="Fossa Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: white;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: black;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;">
                   </div>
                 </div>
@@ -55,7 +62,7 @@ export default {
               <div style="display: flex;flex-wrap: wrap;align-items: center;justify-content: center;padding-top:15px">
                 <button @click="showImport = true" v-show="!showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">import</button>
                 <button @click="showImport = false" id="cancelImport" type="button" v-show="showImport" class="btn btn-warning btn-rounded" style="margin-right: 12px; display: none;">cancel</button>
-                <button @click="importCode = true" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">Save</button>
+                <button @click="importCode" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">Save</button>
                 <button id="shareCode" type="button" v-show="!showImport" class="btn btn-success btn-rounded">Share</button>
               </div>
             </div>

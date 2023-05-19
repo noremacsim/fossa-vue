@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import router from './router'
 import API_URL from "@/common/config";
 import Vue3TouchEvents from "vue3-touch-events";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus);
 axios.defaults.baseURL = API_URL;
@@ -26,5 +28,12 @@ app.use(router)
 app.use(store);
 app.use(VueAxios, axios);
 app.use(Vue3TouchEvents);
+
+const options = {
+    maxToasts: 3,
+    newestOnTop: true
+};
+app.use(Toast, options);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.mount('#app')
+

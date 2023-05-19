@@ -9,12 +9,12 @@ import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
 
   <main>
 
-    <UserHeader v-if="!getAppIDLoading || !getAppsLoading" />
+    <UserHeader v-if="!appid.loading && !apps.loading" />
     <UserHeaderSkeleton v-else />
 
     <div class="appContainer" role="main">
 
-      <UserAppList v-if="!getAppIDLoading || !getAppsLoading" />
+      <UserAppList v-if="!appid.loading && !apps.loading" />
       <UserAppListSkeleton v-else />
 
     </div>
@@ -24,22 +24,16 @@ import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex";
+import {mapState} from "vuex";
 import {GET_APPID} from "@/stores/action.type";
 
 export default {
   async mounted() {
     await this.$store.dispatch(GET_APPID)
+    console.log(this.apps);
   },
   computed: {
-    ...mapState(["appID"]),
-    ...mapGetters(["currentAppID", "apps"]),
-    getAppIDLoading() {
-      return this.$store.state.appid.loading;
-    },
-    getAppsLoading() {
-      return this.$store.state.apps.loading;
-    }
+    ...mapState(["appid", "apps"]),
   },
 }
 </script>

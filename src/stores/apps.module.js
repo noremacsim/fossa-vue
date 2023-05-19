@@ -3,6 +3,9 @@ import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR} from "@/stores/mutations.type"
 import {starterApps} from "@/common/starterApps";
 import apiService from "@/common/api.service";
 import appsService from "@/common/apps.service";
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 const initialState = {
     apps: starterApps,
@@ -21,19 +24,42 @@ const actions = {
 
     async [FETCH_APPS](context) {
         const { data } = await apiService.get(`/user/get?name=${context.rootState.appid.appID}`);
-        context.commit(SET_APPS, data.data.apps);
-        return data;
+        if (data.status !== true) {
+            toast.error("Error Loading App Data, Try Refreshing", {
+                position: "top-center",
+                timeout: 10000,
+                closeOnClick: false,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: false,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: false,
+                icon: true,
+                rtl: false
+            });
+        } else {
+            context.commit(SET_APPS, data.data.apps);
+        }
     },
 
     async [CREATE_APP](context, payload) {
         await appsService.addApp(context.rootState.appid.appID, payload.name, payload.url, payload.image).then((data) => {
-            context.commit(ADD_APP, {id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
+            if (data.data.status !== true) {
+                toast.error("Failed to add app");
+            } else {
+                context.commit(ADD_APP, {id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
+            }
         });
     },
 
     async [REMOVE_APP](context, appID) {
         await appsService.removeApp(context.rootState.appid.appID, appID).then((data) => {
-            context.commit(DELETE_APP, appID)
+            if (data.data.status !== true) {
+                toast.error("Failed to remove app");
+            } else {
+                context.commit(DELETE_APP, appID);
+            }
         });
     }
 }
@@ -52,6 +78,7 @@ const mutations = {
     },
     [DELETE_APP](state, appID) {
         const index = state.apps.map(item => item.id).indexOf(appID);
+        toast.warning(`${state.apps[index].name} Removed`);
         state.apps.splice(index, 1);
     }
 };

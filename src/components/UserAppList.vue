@@ -24,29 +24,30 @@
         >
 
         <transition name="slide-fade">
-          <img
+          <v-lazy-image
               v-if="app.image"
               loading="lazy"
               class="rounded-9 shadow-4 appsImage userAppStyle"
               :src="app.image"
               v-bind:alt="app.name"
               style="width: 100px; height: 100px;"
-          >
+          />
         </transition>
 
     </div>
 
     <transition name="slide-fade">
-      <new-app-button v-if="!getAppsLoading" />
+      <new-app-button v-if="!apps.loading" />
     </transition>
 
   </div>
 </template>
 <script>
 
-import {FETCH_APPS, REMOVE_APP} from "@/stores/action.type";
+import {REMOVE_APP} from "@/stores/action.type";
 import {mapGetters} from "vuex";
 import NewAppButton from "@/components/buttons/newAppButton.vue";
+import VLazyImage from "v-lazy-image";
 
 export default {
   data() {
@@ -54,7 +55,10 @@ export default {
       showDelete: false
     }
   },
-  components: {NewAppButton},
+  components: {
+    NewAppButton,
+    "v-lazy-image": VLazyImage,
+  },
   mounted() {
     let vue = this;
     document.querySelector('body').addEventListener('click', function(e) {
@@ -65,9 +69,6 @@ export default {
   },
   computed: {
     ...mapGetters(["apps"]),
-    getAppsLoading() {
-      return this.$store.state.apps.loading;
-    }
   },
   methods: {
     showAppDeletes() {
