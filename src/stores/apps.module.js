@@ -1,5 +1,5 @@
-import {FETCH_APPS, CREATE_APP, REMOVE_APP} from "@/stores/action.type";
-import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR} from "@/stores/mutations.type";
+import {FETCH_APPS, CREATE_APP, REMOVE_APP, GET_SUBSCRIPTION} from "@/stores/action.type";
+import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR, SET_SUBSCRIPTION} from "@/stores/mutations.type";
 import {starterApps} from "@/common/starterApps";
 import apiService from "@/common/api.service";
 import appsService from "@/common/apps.service";
@@ -22,6 +22,11 @@ const getters = {
 
 const actions = {
 
+    async [GET_SUBSCRIPTION](context) {
+        const { data } = await apiService.get(`/user/subscription?user=${context.rootState.appid.appID}`);
+        context.commit(SET_SUBSCRIPTION, data.data.subscription);
+    },
+
     async [FETCH_APPS](context) {
         const { data } = await apiService.get(`/user/get?name=${context.rootState.appid.appID}`);
         if (data.status !== true) {
@@ -40,6 +45,7 @@ const actions = {
             });
         } else {
             context.commit(SET_APPS, data.data.apps);
+            context.commit(SET_SUBSCRIPTION, data.data.subscription);
         }
     },
 
@@ -72,6 +78,9 @@ const mutations = {
         state.apps = apps;
         state.errors = {};
         state.loading = false;
+    },
+    [SET_SUBSCRIPTION](state, subscription) {
+        state.subscription = subscription;
     },
     [ADD_APP](state, app) {
         state.apps.push(app)

@@ -17,6 +17,7 @@ import API_URL from "@/common/config";
 import Vue3TouchEvents from "vue3-touch-events";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import LoadScript from 'vue-plugin-load-script';
 
 library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus);
 axios.defaults.baseURL = API_URL;
@@ -28,6 +29,7 @@ app.use(router)
 app.use(store);
 app.use(VueAxios, axios);
 app.use(Vue3TouchEvents);
+app.use(LoadScript);
 
 const options = {
     maxToasts: 3,

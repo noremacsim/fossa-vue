@@ -27,6 +27,9 @@ export default {
         toast.success("Imported Successfully", {
           timeout: 2000
         });
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+        delay(2000);
+        location.reload();
       });
     }
   }

@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "@paypal/paypal-js": "^6.0.0",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
@@ -40,6 +41,7 @@
     "eslint-plugin-vue": "^9.11.0",
     "prettier": "^2.8.8",
     "vite": "^4.3.5",
-    "vite-plugin-pwa": "^0.14.7"
+    "vite-plugin-pwa": "^0.14.7",
+    "vue-plugin-load-script": "^2.1.1"
   }
 }

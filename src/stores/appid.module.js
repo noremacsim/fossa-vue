@@ -15,7 +15,6 @@ const getters = {
 };
 
 const actions = {
-
     [GET_APPID](context) {
         return new Promise(resolve => {
             appidService.getAppID()

@@ -10,6 +10,10 @@ import HomeFooter from "@/components/HomeFooter.vue";
 
   <main>
 
+    <Teleport to="body">
+      <paymentsModal :show="showModal" @close="showModal = false" />
+    </Teleport>
+
     <UserHeader v-if="!appid.loading && !apps.loading" />
     <UserHeaderSkeleton v-else />
 
@@ -29,14 +33,36 @@ import HomeFooter from "@/components/HomeFooter.vue";
 <script>
 import {mapState} from "vuex";
 import {GET_APPID} from "@/stores/action.type";
+import paymentsModal from "@/components/modals/paymentsModal.vue";
+
 
 export default {
   async mounted() {
     await this.$store.dispatch(GET_APPID)
-    console.log(this.apps);
+    if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
+      this.showModal = true;
+    } else {
+      console.log(this.apps.subscription);
+      this.showModal = false;
+    }
+  },
+  updated() {
+    if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
+      this.showModal = true;
+    } else {
+      this.showModal = false;
+    }
   },
   computed: {
-    ...mapState(["appid", "apps"]),
+    ...mapState(["appid", "apps", "subscription"]),
+  },
+  components: {
+    paymentsModal
+  },
+  data() {
+    return {
+      showModal: false,
+    }
   },
 }
 </script>
