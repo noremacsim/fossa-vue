@@ -42,7 +42,7 @@ export default {
                   onApprove: function (data, actions) {
                     apiService.post(`/user/subscribe?user=${this.appid.appID}`);
                     this.$emit('close');
-                    location.reload();
+                    alert('thank you, refresh page');
                   }
                 })
                 .render("#paypal-button-container-P-9JU57379J2256173EMSFNB7A")
