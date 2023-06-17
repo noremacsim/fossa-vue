@@ -11,7 +11,7 @@ import HomeFooter from "@/components/HomeFooter.vue";
   <main>
 
     <Teleport to="body">
-      <paymentsModal :show="showModal" @close="showModal = false" />
+      <paymentsModal :show="showModal" :subid="appid.appID" @close="showModal = false" />
     </Teleport>
 
     <UserHeader v-if="!appid.loading && !apps.loading" />

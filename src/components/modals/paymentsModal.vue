@@ -8,6 +8,7 @@ import { loadScript } from "@paypal/paypal-js";
 export default {
   props: {
     show: Boolean,
+    subid: String,
   },
   computed: {
     ...mapState(["appid", "apps", "subscription"]),
@@ -18,6 +19,7 @@ export default {
   updated() {
     const delay = ms => new Promise(res => setTimeout(res, ms));
     delay(1000);
+    let app = this;
     if (!this.created) {
       loadScript({
         clientId: "Adl4YeWUq5Etf9kHEPLFyCfes8h3biKNZfedjhIqTIX3A5jmTKV9ZM2EgtcVxzNGjDs7aS04-Qvew47B",
@@ -40,9 +42,9 @@ export default {
                     });
                   },
                   onApprove: function (data, actions) {
-                    apiService.post(`/user/subscribe?user=${this.appid.appID}`);
-                    this.$emit('close');
-                    alert('thank you, refresh page');
+                    apiService.post(`/user/subscribe?user=${app.subid}`);
+                    app.$emit('close');
+                    app.show = false;
                   }
                 })
                 .render("#paypal-button-container-P-9JU57379J2256173EMSFNB7A")
