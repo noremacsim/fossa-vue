@@ -1,5 +1,5 @@
 <script>
-import {GET_APPID, FETCH_APPS} from "@/stores/action.type";
+import {GET_APPID, FETCH_APPS, APPID_LOGIN, APPID_REGISTER, RESET_APPID} from "@/stores/action.type";
 import cookieService from "@/common/cookie.service";
 import { useToast } from "vue-toastification";
 import {mapState} from "vuex";
@@ -11,11 +11,20 @@ export default {
   data() {
     return {
       showImport: false,
-      code: ''
+      showLogin: false,
+      code: '',
+      email: '',
+      password: '',
+      registered: false,
+      showRegister: false,
     }
   },
   computed: {
-    ...mapState(['appid'])
+    ...mapState(['appid', 'apps'])
+  },
+  updated() {
+    console.log(this.apps);
+    this.registered = this.apps?.registered;
   },
   methods: {
     async importCode() {
@@ -31,6 +40,23 @@ export default {
         delay(2000);
         location.reload();
       });
+    },
+    async loginUser() {
+      let loginForm = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch(APPID_LOGIN, loginForm)
+    },
+    async registerUser() {
+      let loginForm = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch(APPID_REGISTER, loginForm)
+    },
+    async logoutUser() {
+      this.$store.dispatch(RESET_APPID);
     }
   }
 }
@@ -47,7 +73,7 @@ export default {
         </div>
 
         <div class="modal-body">
-          <div class="card">
+          <div class="card" v-show="!showLogin">
             <div class="card-body" style="background: #f2f2f2">
               <h5 style="color: black;font-weight: bold;text-align: center;">Your Fossa ID</h5>
 
@@ -66,11 +92,38 @@ export default {
                 <button @click="showImport = true" v-show="!showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">import</button>
                 <button @click="showImport = false" id="cancelImport" type="button" v-show="showImport" class="btn btn-warning btn-rounded" style="margin-right: 12px; display: none;">cancel</button>
                 <button @click="importCode" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">Save</button>
-                <button id="shareCode" type="button" v-show="!showImport" class="btn btn-success btn-rounded">Share</button>
+<!--                <button id="shareCode" type="button" v-show="!showImport" class="btn btn-success btn-rounded">Share</button>-->
+                <button id="LoginCode" type="button" @click="showLogin = true; showRegister = false" v-show="registered === '0'" class="btn btn-success btn-rounded" style="margin-right: 12px;">Login</button>
+                <button id="LoginCode" type="button" @click="showLogin = true; showRegister = true" v-show="registered === '0'" class="btn btn-success btn-rounded">Register</button>
+                <button id="LoginCode" type="button" @click="logoutUser" v-show="registered === '1'" class="btn btn-danger btn-rounded">Logout</button>
+
               </div>
             </div>
           </div>
 
+          <div class="card" v-show="showLogin">
+            <div class="card-body" style="background: #f2f2f2">
+              <h5 style="color: black;font-weight: bold;text-align: center;" v-show="!showRegister">Login</h5>
+              <h5 style="color: black;font-weight: bold;text-align: center;" v-show="showRegister">Register</h5>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="password">
+              </div>
+
+              <div style="display: flex;flex-wrap: wrap;align-items: center;justify-content: center;padding-top:15px">
+                <button id="loginUserCancel" type="button" @click="showLogin = false" class="btn btn-danger btn-rounded" style="margin-right: 12px;">Cancel</button>
+                <button id="loginUser" type="button" @click="loginUser" class="btn btn-success btn-rounded" v-show="!showRegister">Login</button>
+                <button id="loginUser" type="button" @click="registerUser" class="btn btn-success btn-rounded" v-show="showRegister">Register</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

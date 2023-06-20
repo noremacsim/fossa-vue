@@ -1,5 +1,5 @@
 <template>
-  <font-awesome-icon icon="cog" :class="className" @click="showModal = true" />
+  <font-awesome-icon icon="user" :class="className" @click="showModal = true" />
   <Teleport to="body">
     <settingsModal :show="showModal" @close="showModal = false" />
   </Teleport>

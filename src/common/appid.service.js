@@ -27,6 +27,30 @@ const appidService = {
 
     },
 
+    resetAppID() {
+        return new Promise((resolve) => {
+            this.createAppID().then(data => {
+                resolve(data);
+            });
+        });
+    },
+
+    loginUser(email, password) {
+        return new Promise((resolve) => {
+            apiService.post(`/user/login?email=${email}&password=${password}`).then((data) => {
+                resolve(data);
+            });
+        });
+    },
+
+    registerUser(email, password, appID) {
+        return new Promise((resolve) => {
+            apiService.post(`/user/register?email=${email}&password=${password}&name=${appID}`).then((data) => {
+                resolve(data);
+            });
+        });
+    },
+
     createAppID() {
         return new Promise((resolve) => {
             apiService.get("user/create").then( async response => {
