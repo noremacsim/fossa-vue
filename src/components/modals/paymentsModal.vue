@@ -17,7 +17,7 @@ export default {
   },
   updated() {
     const delay = ms => new Promise(res => setTimeout(res, ms));
-    delay(1000);
+    delay(2000);
     let app = this;
     if (!this.created) {
       loadScript({

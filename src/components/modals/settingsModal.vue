@@ -93,8 +93,8 @@ export default {
                 <button @click="showImport = false" id="cancelImport" type="button" v-show="showImport" class="btn btn-warning btn-rounded" style="margin-right: 12px; display: none;">cancel</button>
                 <button @click="importCode" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">Save</button>
 <!--                <button id="shareCode" type="button" v-show="!showImport" class="btn btn-success btn-rounded">Share</button>-->
-                <button id="LoginCode" type="button" @click="showLogin = true; showRegister = false" v-show="registered === '0'" class="btn btn-success btn-rounded" style="margin-right: 12px;">Login</button>
-                <button id="LoginCode" type="button" @click="showLogin = true; showRegister = true" v-show="registered === '0'" class="btn btn-success btn-rounded">Register</button>
+                <button id="LoginCode" type="button" @click="showLogin = true; showRegister = false" v-show="registered === '0' && !showImport" class="btn btn-success btn-rounded" style="margin-right: 12px;">Login</button>
+                <button id="LoginCode" type="button" @click="showLogin = true; showRegister = true" v-show="registered === '0' && !showImport" class="btn btn-success btn-rounded">Register</button>
                 <button id="LoginCode" type="button" @click="logoutUser" v-show="registered === '1'" class="btn btn-danger btn-rounded">Logout</button>
 
               </div>
