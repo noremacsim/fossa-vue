@@ -32,26 +32,30 @@ import HomeFooter from "@/components/HomeFooter.vue";
 
 <script>
 import {mapState} from "vuex";
-import {GET_APPID} from "@/stores/action.type";
+// import {GET_APPID} from "@/stores/action.type";
 import paymentsModal from "@/components/modals/paymentsModal.vue";
 
 
 export default {
   async mounted() {
-    await this.$store.dispatch(GET_APPID)
-    if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
-      this.showModal = true;
-    } else {
-      console.log(this.apps.subscription);
-      this.showModal = false;
-    }
+    // await this.$store.dispatch(GET_APPID)
+    this.showModal = true;
+
+    // if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
+    //   this.showModal = true;
+    // } else {
+    //   console.log(this.apps.subscription);
+    //   this.showModal = false;
+    // }
   },
   updated() {
-    if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
-      this.showModal = true;
-    } else {
-      this.showModal = false;
-    }
+    this.showModal = true;
+
+    // if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
+    //   this.showModal = true;
+    // } else {
+    //   this.showModal = false;
+    // }
   },
   computed: {
     ...mapState(["appid", "apps", "subscription"]),

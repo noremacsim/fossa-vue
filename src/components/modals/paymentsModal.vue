@@ -1,5 +1,5 @@
 <script>
-import {mapState} from "vuex";
+// import {mapState} from "vuex";
 //import { loadScript } from "vue-plugin-load-script";
 import settingsModal from "@/components/modals/settingsModal.vue";
 import apiService from "@/common/api.service";
@@ -11,7 +11,7 @@ export default {
     subid: String,
   },
   computed: {
-    ...mapState(["appid", "apps", "subscription"]),
+    // ...mapState(["appid", "apps", "subscription"]),
   },
   components: {
     settingsModal
