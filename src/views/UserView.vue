@@ -9,7 +9,7 @@ import UserProfile from "@/components/UserProfile.vue";
 
   <main>
 
-    <div class="container" v-show="part === '' && part != 'profile'">
+    <div class="container" v-show="part === '' && part != 'profile'" style="padding: 10px;">
       <h1>All apps in one place</h1>
       <p>Login or Register an account to save and load your apps on other devices</p>
       <button @click="part = 'login'" type="button" class="btn button-primary btn-rounded" style="width: 100%;">Log In</button>

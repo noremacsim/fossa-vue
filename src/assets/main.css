@@ -114,7 +114,8 @@
     background: #3b71ca !important;
     border: #3b71ca !important;
     color: white !important;
-    margin: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     box-shadow: #3b71ca40 0px 6px 12px -2px, #3b71ca4d 0px 3px 7px -3px !important;
 }
 
@@ -122,6 +123,7 @@
     background: white !important;
     border-color: #3b71ca !important;
     color: black !important;
-    margin: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     box-shadow: #3b71ca40 0px 6px 12px -2px, #3b71ca4d 0px 3px 7px -3px !important;
 }
