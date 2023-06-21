@@ -1,4 +1,4 @@
-import {FETCH_APPS, CREATE_APP, REMOVE_APP, GET_SUBSCRIPTION} from "@/stores/action.type";
+import {FETCH_APPS, CREATE_APP, REMOVE_APP, GET_SUBSCRIPTION, RESET_APPID} from "@/stores/action.type";
 import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR, SET_REGISTERED, SET_SUBSCRIPTION, SET_VISITS} from "@/stores/mutations.type";
 import {starterApps} from "@/common/starterApps";
 import apiService from "@/common/api.service";
@@ -43,6 +43,9 @@ const actions = {
                 icon: true,
                 rtl: false
             });
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+            delay(3000);
+            context.dispatch(RESET_APPID);
         } else {
             context.commit(SET_APPS, data.data.apps);
             context.commit(SET_SUBSCRIPTION, data.data.subscription);
