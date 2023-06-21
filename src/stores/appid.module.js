@@ -28,7 +28,6 @@ const actions = {
                     resolve(data);
                 })
                 .catch(data => {
-                    console.log(data);
                     context.commit(SET_ERROR, data.data.errors);
                 });
         });
@@ -45,7 +44,6 @@ const actions = {
                 location.reload();
             })
             .catch(data => {
-                console.log(data);
                 context.commit(SET_ERROR, data.data.errors);
             });
     },

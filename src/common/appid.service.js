@@ -54,7 +54,6 @@ const appidService = {
     createAppID() {
         return new Promise((resolve) => {
             apiService.get("user/create").then( async response => {
-                console.log(response.data.data);
                 localStorage.setItem("appId", response.data.data.uniqueID);
                 await cookieService.setCookie('appId', response.data.data.uniqueID, 365);
                 await this.initStarterApps(response.data.data.uniqueID);

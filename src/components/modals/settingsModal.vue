@@ -23,7 +23,6 @@ export default {
     ...mapState(['appid', 'apps'])
   },
   updated() {
-    console.log(this.apps);
     this.registered = this.apps?.registered;
   },
   methods: {

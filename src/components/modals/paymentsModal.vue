@@ -1,6 +1,5 @@
 <script>
 import {mapState} from "vuex";
-import settingsModal from "@/components/modals/settingsModal.vue";
 import apiService from "@/common/api.service";
 import { loadScript } from "@paypal/paypal-js";
 
@@ -12,8 +11,52 @@ export default {
   computed: {
     ...mapState(["appid", "apps", "subscription"]),
   },
-  components: {
-    settingsModal
+  methods: {
+    loginPageShow() {
+      this.$emit('loginPage')
+    },
+  },
+  mounted() {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    delay(2000);
+    let app = this;
+    if (!this.created) {
+      loadScript({
+        clientId: "Adl4YeWUq5Etf9kHEPLFyCfes8h3biKNZfedjhIqTIX3A5jmTKV9ZM2EgtcVxzNGjDs7aS04-Qvew47B",
+        vault: true,
+        intent: 'subscription'
+      })
+          .then((paypal) => {
+            paypal
+                .Buttons({
+                  style: {
+                    shape: 'pill',
+                    color: 'gold',
+                    layout: 'vertical',
+                    label: 'subscribe'
+                  },
+                  createSubscription: function (data, actions) {
+                    return actions.subscription.create({
+                      /* Creates the subscription */
+                      plan_id: 'P-9JU57379J2256173EMSFNB7A'
+                    });
+                  },
+                  onApprove: function (data, actions) {
+                    apiService.post(`/user/subscribe?user=${app.subid}`);
+                    app.$emit('close');
+                    app.show = false;
+                  }
+                })
+                .render("#paypal-button-container-P-9JU57379J2256173EMSFNB7A")
+                .catch((error) => {
+                  console.error("failed to render the PayPal Buttons", error);
+                });
+          })
+          .catch((error) => {
+            console.error("failed to load the PayPal JS SDK script", error);
+          });
+      this.created = true;
+    }
   },
   updated() {
     const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -59,7 +102,6 @@ export default {
   },
   data() {
     return {
-      showSettingsModal: false,
       created: false,
       loading: true,
     }
@@ -68,10 +110,6 @@ export default {
 </script>
 
 <template>
-  <Teleport to="body">
-    <settingsModal :show="showSettingsModal" @close="showSettingsModal = false" />
-  </Teleport>
-
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
       <div class="modal-container">
@@ -94,7 +132,7 @@ export default {
               </ul>
               <div class="form-group mb-2">
                 <div id="paypal-button-container-P-9JU57379J2256173EMSFNB7A"></div>
-                <button @click="showSettingsModal = true" id="importCode" type="button" class="btn btn-primary btn-full btn-rounded" style="margin-right: 12px; width: 100%">Import Subscription</button>
+                <button @click="loginPageShow" id="importCode" type="button" class="btn btn-primary btn-full btn-rounded" style="margin-right: 12px; width: 100%">Login / Signup</button>
               </div>
             </div>
           </div>

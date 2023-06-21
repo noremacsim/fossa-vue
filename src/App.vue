@@ -1,7 +1,7 @@
 <script setup>
 import HomeView from "@/views/HomeView.vue";
+import UserView from "@/views/UserView.vue";
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
-import SettingsButton from "@/components/buttons/settingsButton.vue";
 </script>
 
 <template>
@@ -11,7 +11,19 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
 
     <div class="topNav" role="navigation">
 
-      <settings-button className="floatButton settingsButton" />
+      <fontAwsomeButton
+          icon="user"
+          className="floatButton settingsButton"
+          @click="page = 'user'"
+          v-show="page === 'home'"
+      />
+
+      <fontAwsomeButton
+          icon="home"
+          className="floatButton settingsButton"
+          @click="page = 'home'"
+          v-show="page === 'user'"
+      />
 
       <fontAwsomeButton
           icon="up-right-and-down-left-from-center"
@@ -24,7 +36,8 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
   </header>
 
   <!-- MAIN PAGE -->
-  <HomeView />
+  <HomeView v-show="page === 'home'" @showLogin="page = 'user'" :page="page" />
+  <UserView v-show="page === 'user'" />
 
 </template>
 <script>
@@ -32,6 +45,11 @@ export default {
   methods: {
     goFullscreen() {
       window.location = 'https://youtube.com/redirect?q=https://fossa-app.site';
+    }
+  },
+  data() {
+    return {
+      page: 'home',
     }
   },
 }

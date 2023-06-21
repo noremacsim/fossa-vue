@@ -1,5 +1,5 @@
 import {FETCH_APPS, CREATE_APP, REMOVE_APP, GET_SUBSCRIPTION} from "@/stores/action.type";
-import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR, SET_REGISTERED, SET_SUBSCRIPTION} from "@/stores/mutations.type";
+import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR, SET_REGISTERED, SET_SUBSCRIPTION, SET_VISITS} from "@/stores/mutations.type";
 import {starterApps} from "@/common/starterApps";
 import apiService from "@/common/api.service";
 import appsService from "@/common/apps.service";
@@ -46,6 +46,7 @@ const actions = {
         } else {
             context.commit(SET_APPS, data.data.apps);
             context.commit(SET_SUBSCRIPTION, data.data.subscription);
+            context.commit(SET_VISITS, data.data.visits);
             context.commit(SET_REGISTERED, data.data.registered)
         }
     },
@@ -85,6 +86,9 @@ const mutations = {
     },
     [SET_REGISTERED](state, registered) {
         state.registered = registered;
+    },
+    [SET_VISITS](state, visits) {
+        state.visits = visits;
     },
     [ADD_APP](state, app) {
         state.apps.push(app)

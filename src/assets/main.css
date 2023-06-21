@@ -109,3 +109,19 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
+
+.button-primary {
+    background: #3b71ca !important;
+    border: #3b71ca !important;
+    color: white !important;
+    margin: 10px;
+    box-shadow: #3b71ca40 0px 6px 12px -2px, #3b71ca4d 0px 3px 7px -3px !important;
+}
+
+.button-secondry {
+    background: white !important;
+    border-color: #3b71ca !important;
+    color: black !important;
+    margin: 10px;
+    box-shadow: #3b71ca40 0px 6px 12px -2px, #3b71ca4d 0px 3px 7px -3px !important;
+}

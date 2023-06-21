@@ -10,8 +10,8 @@ import HomeFooter from "@/components/HomeFooter.vue";
 
   <main>
 
-    <Teleport to="body">
-      <paymentsModal :show="showModal" :subid="appid.appID" @close="showModal = false" />
+    <Teleport to="body" v-if="showModal">
+      <paymentsModal :show="showModal" :subid="appid.appID" @close="showModal = false" @loginPage="showLogin" />
     </Teleport>
 
     <UserHeader v-if="!appid.loading && !apps.loading" />
@@ -39,15 +39,14 @@ import paymentsModal from "@/components/modals/paymentsModal.vue";
 export default {
   async mounted() {
     await this.$store.dispatch(GET_APPID)
-    if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
+    if ((this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.apps.visits >= 5) {
       this.showModal = true;
     } else {
-      console.log(this.apps.subscription);
       this.showModal = false;
     }
   },
   updated() {
-    if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
+    if ((this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.apps.visits >= 5 && this.page === 'home') {
       this.showModal = true;
     } else {
       this.showModal = false;
@@ -59,11 +58,20 @@ export default {
   components: {
     paymentsModal
   },
+  methods: {
+    showLogin() {
+      this.showModal = false;
+      this.$emit('showLogin')
+    },
+  },
   data() {
     return {
       showModal: false,
     }
   },
+  props: {
+    page: String
+  }
 }
 </script>
 
