@@ -39,14 +39,19 @@ import paymentsModal from "@/components/modals/paymentsModal.vue";
 export default {
   async mounted() {
     await this.$store.dispatch(GET_APPID)
-    if ((this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.apps.visits >= 5) {
+    if (this.apps.registered === '1' && (this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.page === 'home') {
+      this.$emit('showSubscribe');
+    } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.apps.visits >= 5  && this.page === 'home') {
       this.showModal = true;
     } else {
       this.showModal = false;
     }
   },
   updated() {
-    if ((this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.apps.visits >= 5 && this.page === 'home') {
+    console.log(this.apps);
+    if (this.apps.registered === '1' && (this.apps.subscription === '0' || this.apps.subscription === 'undefined')  && this.page === 'home') {
+      this.$emit('showSubscribe');
+    } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.apps.visits >= 5 && this.page === 'home') {
       this.showModal = true;
     } else {
       this.showModal = false;

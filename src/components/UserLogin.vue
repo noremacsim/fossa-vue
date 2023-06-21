@@ -49,7 +49,7 @@ export default {
 
         <div>
           <button id="loginUser" type="button" @click="loginUser" class="btn button-primary btn-rounded" style="width: 100%; margin: 0px !important; margin-bottom: 10px !important; margin-top: 10px !important;">Sign In</button>
-          <p>Already have an account? <a href="#" @click="signup">Sign Up</a></p>
+          <p>Don't have an account? <a href="#" @click="signup">Sign Up</a></p>
         </div>
       </div>
     </div>

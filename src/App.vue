@@ -2,6 +2,7 @@
 import HomeView from "@/views/HomeView.vue";
 import UserView from "@/views/UserView.vue";
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
+import SubscriptionView from "@/views/SubscriptionView.vue";
 </script>
 
 <template>
@@ -15,7 +16,7 @@ import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
           icon="user"
           className="floatButton settingsButton"
           @click="page = 'user'"
-          v-show="page === 'home'"
+          v-show="page === 'home' || page === 'subscribe'"
       />
 
       <fontAwsomeButton
@@ -36,8 +37,9 @@ import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
   </header>
 
   <!-- MAIN PAGE -->
-  <HomeView v-show="page === 'home'" @showLogin="page = 'user'" :page="page" />
+  <HomeView v-show="page === 'home'" @showSubscribe="page = 'subscribe'" @showLogin="page = 'user'" :page="page" />
   <UserView v-show="page === 'user'" />
+  <SubscriptionView v-show="page === 'subscribe'" @showHome="page = 'home'" />
 
 </template>
 <script>
