@@ -2,7 +2,7 @@
   <footer class="footer">
     <a href="https://github.com/noremacsim/fossa-vue/issues" style="margin-left: 10px;color: black;"><span>Report Issue</span></a>
     <a href="https://github.com/noremacsim/fossa-vue" style="margin-left: 10px;color: black;"><span>Github</span></a>
-    <a href="https://patreon.com/SimFlix" style="margin-left: 10px;color: black;">Donate</a>
+    <a href="https://www.paypal.com/donate/?hosted_button_id=RAFQ4WLY2NX62" style="margin-left: 10px;color: black;">Donate</a>
   </footer>
 </template>
 
