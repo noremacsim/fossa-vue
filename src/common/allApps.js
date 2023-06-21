@@ -18,6 +18,7 @@ export const allApps = [
     ['Directv', 'https://www.directv.com/', true, 'https://www.mactrast.com/wp-content/uploads/2016/09/directv-app-logo-new.jpg', 'stream'],
     ['Amazon Music', 'https://music.amazon.co.uk/', true, 'https://store-images.s-microsoft.com/image/apps.20311.13756631990520576.c7bf8936-a11d-4c89-b498-2442c2977baf.d9909661-86c4-4ca8-b820-20101dd12a50?w=120', 'stream'],
     ['Youtube Music', 'https://music.youtube.com/', true, 'https://downloadr2.apkmirror.com/wp-content/uploads/2023/05/86/64518f59938dd.png', 'stream'],
+    ['Youtube TV', 'https://tv.youtube.com/welcome/', true, 'https://www.trustedreviews.com/wp-content/uploads/sites/54/2022/06/youtube-tv.png', 'stream'],
     ['SoundCloud', 'https://soundcloud.com/', true, 'https://store-images.s-microsoft.com/image/apps.60306.13510798887403399.cc25e849-22ff-46b7-b971-cca1b8e3eda1.88314623-c0fe-4405-919b-89cbf200d52c?w=120', 'stream'],
     ['Apple Music', 'https://music.apple.com/', true, 'https://store-images.s-microsoft.com/image/apps.62962.14205055896346606.c235e3d6-fbce-45bb-9051-4be6c2ecba8f.28d7c3cb-0c64-40dc-9f24-53326f80a6dd?w=120', 'stream'],
     ['Pluto Tv', 'https://pluto.tv/', true, 'https://webtech-web-blu-assets.pluto.tv/assets/images/og_logo-9aeeae8b9656922ae6c516104741602f.png', 'stream'],
