@@ -48,11 +48,6 @@ export default {
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="password">
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" v-model="passwordCheck">
-        </div>
-
         <div>
           <button id="loginUser" type="button" @click="registerUser" class="btn button-primary btn-rounded" style="width: 100%; margin: 0px !important; margin-bottom: 10px !important; margin-top: 10px !important;">Sign Up</button>
           <p>Already have an account? <a href="#" @click="signin">Sign In</a></p>
