@@ -1,5 +1,14 @@
 import {FETCH_APPS, CREATE_APP, REMOVE_APP, GET_SUBSCRIPTION, RESET_APPID} from "@/stores/action.type";
-import {ADD_APP, DELETE_APP, SET_APPS, SET_ERROR, SET_REGISTERED, SET_SUBSCRIPTION, SET_VISITS} from "@/stores/mutations.type";
+import {
+    ADD_APP,
+    DELETE_APP,
+    SET_APPS,
+    SET_ERROR,
+    SET_PROFILEIMAGE,
+    SET_REGISTERED,
+    SET_SUBSCRIPTION,
+    SET_VISITS
+} from "@/stores/mutations.type";
 import {starterApps} from "@/common/starterApps";
 import apiService from "@/common/api.service";
 import appsService from "@/common/apps.service";
@@ -51,6 +60,7 @@ const actions = {
             context.commit(SET_SUBSCRIPTION, data.data.subscription);
             context.commit(SET_VISITS, data.data.visits);
             context.commit(SET_REGISTERED, data.data.registered)
+            context.commit(SET_PROFILEIMAGE, data.data.profileImage);
         }
     },
 
@@ -92,6 +102,9 @@ const mutations = {
     },
     [SET_VISITS](state, visits) {
         state.visits = visits;
+    },
+    [SET_PROFILEIMAGE](state, profileImage) {
+        state.profileImage = profileImage;
     },
     [ADD_APP](state, app) {
         state.apps.push(app)

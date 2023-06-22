@@ -1,4 +1,12 @@
-import {CREATE_APPID, GET_APPID, FETCH_APPS, APPID_LOGIN, APPID_REGISTER, RESET_APPID} from "@/stores/action.type";
+import {
+    CREATE_APPID,
+    GET_APPID,
+    FETCH_APPS,
+    APPID_LOGIN,
+    APPID_REGISTER,
+    RESET_APPID,
+    USER_UPLOAD
+} from "@/stores/action.type";
 import {SET_APPID, SET_ERROR} from "@/stores/mutations.type";
 import appidService from "@/common/appid.service";
 import { useToast } from 'vue-toastification'
@@ -97,6 +105,23 @@ const actions = {
                     context.commit(SET_ERROR, data.data.errors);
                 });
         });
+    },
+
+    [USER_UPLOAD](context, image) {
+        appidService.uploadUserImage(context.rootState.appid.appID, image)
+            .then((data) => {
+                if (data.data.status === true) {
+                    context.dispatch(FETCH_APPS);
+                    toast.success("New Image Uploaded Successfully", {
+                        timeout: 2000
+                    });
+                } else {
+                    toast.error(data?.data?.message ?? 'Unkown Error');
+                }
+            })
+            .catch(data => {
+                toast.error(data?.data?.message ?? 'Unkown Error');
+            });
     },
 
     [CREATE_APPID](context) {

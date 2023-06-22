@@ -14,12 +14,11 @@ import UserProfile from "@/components/UserProfile.vue";
       <p>Login or Register an account to save and load your apps on other devices</p>
       <button @click="part = 'login'" type="button" class="btn button-primary btn-rounded" style="width: 100%;">Log In</button>
       <button @click="part = 'signup'" type="button" class="btn button-secondry btn-rounded" style="width: 100%;">Sign Up</button>
-
     </div>
 
     <UserLogin @signupPage="part = 'signup'" v-show="part === 'login'" />
     <UserRegister @signinPage="part = 'login'" :part="part" v-show="part === 'signup'" />
-    <UserProfile :part="part" v-show="part === 'profile'" />
+    <UserProfile :part="part" v-show="part === 'profile'" @showingsub="$emit('showSubscription');"/>
 
 
     <HomeFooter />

@@ -51,6 +51,14 @@ const appidService = {
         });
     },
 
+    uploadUserImage(appID, image) {
+        return new Promise((resolve) => {
+            apiService.post(`/user/uploadimage?name=${appID}`, image).then((data) => {
+                resolve(data);
+            });
+        });
+    },
+
     createAppID() {
         return new Promise((resolve) => {
             apiService.get("user/create").then( async response => {

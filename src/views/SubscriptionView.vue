@@ -35,59 +35,68 @@ export default {
       })
           .then((paypal) => {
 
-            paypal.Buttons({
-              style: style,
-              createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                  plan_id: 'P-9JU57379J2256173EMSFNB7A'
-                });
-              },
-              onApprove: function (data, actions) {
-                apiService.post(`/user/subscribe?user=${app.subid}&level=1`);
-                app.$emit('close');
-                app.show = false;
-                app.$emit('showHome');
-              }
-            }).render("#paypal-button-container-P-9JU57379J2256173EMSFNB7A")
-            .catch((error) => {
-              console.error("failed to render the PayPal Buttons", error);
-            });
+            if (app.apps.subscription !== '1') {
+              paypal.Buttons({
+                style: style,
+                createSubscription: function (data, actions) {
+                  return actions.subscription.create({
+                    plan_id: 'P-9JU57379J2256173EMSFNB7A'
+                  });
+                },
+                onApprove: function (data, actions) {
+                  apiService.post(`/user/subscribe?user=${app.subid}&level=1`);
+                  app.$emit('close');
+                  app.show = false;
+                  app.$emit('showHome');
+                }
+              }).render("#paypal-button-container-P-9JU57379J2256173EMSFNB7A")
+                  .catch((error) => {
+                    console.error("failed to render the PayPal Buttons", error);
+                  });
+            }
 
-            paypal.Buttons({
-              style: style,
-              createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                  plan_id: 'P-1S0500021D1781410MSJQOEQ'
-                });
-              },
-              onApprove: function (data, actions) {
-                apiService.post(`/user/subscribe?user=${app.subid}&level=2`);
-                app.$emit('close');
-                app.show = false;
-                app.$emit('showHome');
-              }
-            }).render("#paypal-button-container-P-1S0500021D1781410MSJQOEQ")
-                .catch((error) => {
-                  console.error("failed to render the PayPal Buttons", error);
-            });
+            if (app.apps.subscription !== '2') {
 
-            paypal.Buttons({
-              style: style,
-              createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                  plan_id: 'P-0SS45486C4036632MMSJQXXI'
-                });
-              },
-              onApprove: function (data, actions) {
-                apiService.post(`/user/subscribe?user=${app.subid}&level=3`);
-                app.$emit('close');
-                app.show = false;
-                app.$emit('showHome');
-              }
-            }).render("#paypal-button-container-P-0SS45486C4036632MMSJQXXI")
-                .catch((error) => {
-                  console.error("failed to render the PayPal Buttons", error);
-                });
+              paypal.Buttons({
+                style: style,
+                createSubscription: function (data, actions) {
+                  return actions.subscription.create({
+                    plan_id: 'P-1S0500021D1781410MSJQOEQ'
+                  });
+                },
+                onApprove: function (data, actions) {
+                  apiService.post(`/user/subscribe?user=${app.subid}&level=2`);
+                  app.$emit('close');
+                  app.show = false;
+                  app.$emit('showHome');
+                }
+              }).render("#paypal-button-container-P-1S0500021D1781410MSJQOEQ")
+                  .catch((error) => {
+                    console.error("failed to render the PayPal Buttons", error);
+                  });
+            }
+
+            if (app.apps.subscription !== '3') {
+
+              paypal.Buttons({
+                style: style,
+                createSubscription: function (data, actions) {
+                  return actions.subscription.create({
+                    plan_id: 'P-0SS45486C4036632MMSJQXXI'
+                  });
+                },
+                onApprove: function (data, actions) {
+                  apiService.post(`/user/subscribe?user=${app.subid}&level=3`);
+                  app.$emit('close');
+                  app.show = false;
+                  app.$emit('showHome');
+                }
+              }).render("#paypal-button-container-P-0SS45486C4036632MMSJQXXI")
+                  .catch((error) => {
+                    console.error("failed to render the PayPal Buttons", error);
+                  });
+            }
+
           })
           .catch((error) => {
             console.error("failed to load the PayPal JS SDK script", error);
@@ -107,7 +116,7 @@ export default {
 <template>
   <div class="container">
     <div class="card-deck mb-3 text-center">
-      <div class="card mb-4 box-shadow">
+      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '1'">
         <div class="card-header" style="background:#0000ff63;">
           <h4 class="my-0 font-weight-normal">Access Supporter</h4>
         </div>
@@ -122,7 +131,7 @@ export default {
           <div id="paypal-button-container-P-9JU57379J2256173EMSFNB7A"></div>
         </div>
       </div>
-      <div class="card mb-4 box-shadow">
+      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '2'">
         <div class="card-header" style="background: #ffee94;">
           <h4 class="my-0 font-weight-normal">Gold Supporter</h4>
         </div>
@@ -132,15 +141,15 @@ export default {
             <li>Get Site Access</li>
             <li>Save and Share across devices</li>
             <li>Upload Profile Picture</li>
-            <li>Change Shape, Color and style of App Icons</li>
-            <li>Upload a custom Background</li>
+            <li>Change Shape, Color and style of App Icons *</li>
+            <li>Upload a custom Background *</li>
             <li>Premium Support Contact</li>
             <li>Enhanced Experience</li>
           </ul>
           <div id="paypal-button-container-P-1S0500021D1781410MSJQOEQ"></div>
         </div>
       </div>
-      <div class="card mb-4 box-shadow">
+      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '3'">
         <div class="card-header" style="background: #d2fff7;">
           <h4 class="my-0 font-weight-normal">Diamond Supporter</h4>
         </div>
@@ -154,6 +163,7 @@ export default {
           <div id="paypal-button-container-P-0SS45486C4036632MMSJQXXI"></div>
         </div>
       </div>
+      <span>Items marked with * are coming soon to be release within 14 days</span>
     </div>
   </div>
 </template>

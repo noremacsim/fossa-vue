@@ -7,4 +7,4 @@ export const GET_SUBSCRIPTION = "get subscription";
 export const APPID_LOGIN = "login user";
 export const APPID_REGISTER = "Register user";
 export const RESET_APPID = "reset appid";
-
+export const USER_UPLOAD = 'Upload user image';

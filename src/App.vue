@@ -38,7 +38,7 @@ import SubscriptionView from "@/views/SubscriptionView.vue";
 
   <!-- MAIN PAGE -->
   <HomeView v-show="page === 'home'" @showSubscribe="page = 'subscribe'" @showLogin="page = 'user'" :page="page" />
-  <UserView v-show="page === 'user'" />
+  <UserView v-show="page === 'user'" @showSubscription="page = 'subscribe'" />
   <SubscriptionView v-show="page === 'subscribe'" @showHome="page = 'home'" />
 
 </template>
