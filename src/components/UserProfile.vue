@@ -29,6 +29,7 @@ export default {
       this.$emit('showingsub');
     },
     async logoutUser() {
+      this.$emit('setpart');
       this.$store.dispatch(RESET_APPID);
     },
     async imageUploaded() {
@@ -62,7 +63,7 @@ export default {
 }
 </script>
 
-<template>
+<template v-show="part === 'profile'">
   <div class="container">
     <div class="card" style="border: 0px;">
       <div class="card-body">

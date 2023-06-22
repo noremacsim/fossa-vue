@@ -18,8 +18,7 @@ import UserProfile from "@/components/UserProfile.vue";
 
     <UserLogin @signupPage="part = 'signup'" v-show="part === 'login'" />
     <UserRegister @signinPage="part = 'login'" :part="part" v-show="part === 'signup'" />
-    <UserProfile :part="part" v-show="part === 'profile'" @showingsub="$emit('showSubscription');"/>
-
+    <UserProfile :part="part" @setpart="part = ''" v-if="part === 'profile'" @showingsub="$emit('showSubscription');"/>
 
     <HomeFooter />
 
@@ -40,12 +39,16 @@ export default {
   async mounted() {
     if (this.apps.registered === '1') {
       this.part = 'profile';
+    } else {
+      this.part = '';
     }
   },
   updated() {
     if (this.apps.registered === '1') {
       this.part = 'profile';
     }
+    console.log(this.apps);
+    console.log(this.part)
   },
   computed: {
     ...mapState(["appid", "apps", "subscription"]),
