@@ -141,6 +141,7 @@ export default {
             <li>Get Site Access</li>
             <li>Save and Share across devices</li>
             <li>Upload Profile Picture</li>
+            <li>Add Your own Custom app and links</li>
             <li>Change Shape, Color and style of App Icons *</li>
             <li>Upload a custom Background *</li>
             <li>Premium Support Contact</li>

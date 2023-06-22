@@ -37,7 +37,7 @@
     </div>
 
     <transition name="slide-fade">
-      <new-app-button v-if="!apps.loading" />
+      <new-app-button v-if="!apps.loading" @showAppUpgrade="showingUpgrade" />
     </transition>
 
   </div>
@@ -69,6 +69,9 @@ export default {
     ...mapGetters(["apps"]),
   },
   methods: {
+    showingUpgrade() {
+      this.$emit('showUpgrade')
+    },
     showAppDeletes() {
       this.showDelete = true;
     },

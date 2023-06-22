@@ -6,7 +6,7 @@
   </div>
 
   <Teleport to="body">
-    <newAppModal :show="showModal" @close="showModal = false" />
+    <newAppModal :show="showModal" @close="showModal = false" @showUpgradePage="emitShowUpgrade" />
   </Teleport>
 </template>
 
@@ -23,6 +23,11 @@ export default {
       showModal: false
     }
   },
+  methods: {
+    emitShowUpgrade() {
+      this.$emit('showAppUpgrade');
+    }
+  }
 }
 </script>
 

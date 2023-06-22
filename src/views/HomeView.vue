@@ -19,7 +19,7 @@ import HomeFooter from "@/components/HomeFooter.vue";
 
     <div class="appContainer" role="main">
 
-      <UserAppList v-if="!appid.loading && !apps.loading" />
+      <UserAppList v-if="!appid.loading && !apps.loading" @showUpgrade="showTheUpgrade"/>
       <UserAppListSkeleton v-else />
 
     </div>
@@ -67,6 +67,9 @@ export default {
       this.showModal = false;
       this.$emit('showLogin')
     },
+    showTheUpgrade() {
+      this.$emit('showSubscribe')
+    }
   },
   data() {
     return {

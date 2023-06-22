@@ -64,14 +64,7 @@ export default {
 </script>
 
 <template v-show="part === 'profile'">
-  <div class="container">
-    <div class="card" style="border: 0px;">
-      <div class="card-body">
-        <p>We are making a lot of changes to this page so more features will be added soon</p>
-      </div>
-    </div>
-  </div>
-
+  <p style="text-align: center">We are making a lot of changes to this page so more features will be added soon</p>
   <div class="header" role="banner">
     <div class="userimgContainer">
       <img id="userProfileImage" :src="apps.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 150px; height: 150px; border: 3px solid white;" alt="Avatar" />

@@ -47,8 +47,6 @@ export default {
     if (this.apps.registered === '1') {
       this.part = 'profile';
     }
-    console.log(this.apps);
-    console.log(this.part)
   },
   computed: {
     ...mapState(["appid", "apps", "subscription"]),

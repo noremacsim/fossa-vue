@@ -65,6 +65,22 @@ const actions = {
     },
 
     async [CREATE_APP](context, payload) {
+
+        if (payload.name === '') {
+            toast.error("App Name must be provided");
+            return;
+        }
+
+        if (payload.url === '') {
+            toast.error("App URL must be provided");
+            return;
+        }
+
+        if (payload.image === '') {
+            toast.error("App Image must be provided");
+            return;
+        }
+
         await appsService.addApp(context.rootState.appid.appID, payload.name, payload.url, payload.image).then((data) => {
             if (data.data.status !== true) {
                 toast.error("Failed to add app");
