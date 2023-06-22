@@ -2,6 +2,7 @@
 import {mapState} from "vuex";
 import apiService from "@/common/api.service";
 import { loadScript } from "@paypal/paypal-js";
+import {useToast} from "vue-toastification";
 
 export default {
   props: {
@@ -27,6 +28,7 @@ export default {
     const delay = ms => new Promise(res => setTimeout(res, ms));
     delay(2000);
     let app = this;
+    const toast = useToast()
     if (!this.created) {
       loadScript({
         clientId: "Adl4YeWUq5Etf9kHEPLFyCfes8h3biKNZfedjhIqTIX3A5jmTKV9ZM2EgtcVxzNGjDs7aS04-Qvew47B",
@@ -34,7 +36,6 @@ export default {
         intent: 'subscription'
       })
           .then((paypal) => {
-
             if (app.apps.subscription !== '1') {
               paypal.Buttons({
                 style: style,
@@ -44,10 +45,12 @@ export default {
                   });
                 },
                 onApprove: function (data, actions) {
-                  apiService.post(`/user/subscribe?user=${app.subid}&level=1`);
+                  apiService.post(`/user/subscribe?user=${app.appid.appID}&level=1`);
                   app.$emit('close');
-                  app.show = false;
                   app.$emit('showHome');
+                  toast.success("Subscribed Successfully. Please Refresh Page", {
+                    timeout: 2000,
+                  });
                 }
               }).render("#paypal-button-container-P-9JU57379J2256173EMSFNB7A")
                   .catch((error) => {
@@ -65,10 +68,12 @@ export default {
                   });
                 },
                 onApprove: function (data, actions) {
-                  apiService.post(`/user/subscribe?user=${app.subid}&level=2`);
+                  apiService.post(`/user/subscribe?user=${app.appid.appID}&level=2`);
                   app.$emit('close');
-                  app.show = false;
                   app.$emit('showHome');
+                  toast.success("Subscribed Successfully. Please Refresh Page", {
+                    timeout: 2000,
+                  });
                 }
               }).render("#paypal-button-container-P-1S0500021D1781410MSJQOEQ")
                   .catch((error) => {
@@ -86,10 +91,12 @@ export default {
                   });
                 },
                 onApprove: function (data, actions) {
-                  apiService.post(`/user/subscribe?user=${app.subid}&level=3`);
+                  apiService.post(`/user/subscribe?user=${app.appid.appID}&level=3`);
                   app.$emit('close');
-                  app.show = false;
                   app.$emit('showHome');
+                  toast.success("Subscribed Successfully. Please Refresh Page", {
+                    timeout: 2000,
+                  });
                 }
               }).render("#paypal-button-container-P-0SS45486C4036632MMSJQXXI")
                   .catch((error) => {
