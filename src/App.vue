@@ -1,8 +1,5 @@
 <script setup>
-import HomeView from "@/views/HomeView.vue";
-import UserView from "@/views/UserView.vue";
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
-import SubscriptionView from "@/views/SubscriptionView.vue";
 </script>
 
 <template>
@@ -12,19 +9,23 @@ import SubscriptionView from "@/views/SubscriptionView.vue";
 
     <div class="topNav" role="navigation">
 
-      <fontAwsomeButton
-          icon="user"
-          className="floatButton settingsButton"
-          @click="page = 'user'"
-          v-show="page === 'home' || page === 'subscribe'"
-      />
+      <router-link to="/user">
+        <fontAwsomeButton
+            icon="user"
+            className="floatButton settingsButton"
+            @click="page = 'user'"
+            v-show="page === 'home' || page === 'subscribe'"
+        />
+      </router-link>
 
-      <fontAwsomeButton
-          icon="home"
-          className="floatButton settingsButton"
-          @click="page = 'home'"
-          v-show="page === 'user'"
-      />
+      <router-link to="/">
+        <fontAwsomeButton
+            icon="home"
+            className="floatButton settingsButton"
+            @click="page = 'home'"
+            v-show="page === 'user'"
+        />
+      </router-link>
 
       <fontAwsomeButton
           icon="up-right-and-down-left-from-center"
@@ -36,10 +37,7 @@ import SubscriptionView from "@/views/SubscriptionView.vue";
 
   </header>
 
-  <!-- MAIN PAGE -->
-  <HomeView v-show="page === 'home'" @showSubscribe="page = 'subscribe'" @showLogin="page = 'user'" :page="page" />
-  <UserView v-show="page === 'user'" @showSubscription="page = 'subscribe'" />
-  <SubscriptionView v-show="page === 'subscribe'" @showHome="page = 'home'" />
+  <router-view></router-view>
 
 </template>
 <script>

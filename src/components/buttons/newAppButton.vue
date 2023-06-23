@@ -1,35 +1,29 @@
-<template>
-  <div class="d-inline-flex position-relative p-2 newAppModalButton" @click="showModal = true">
-    <div class="newAppIcon rounded-9 userAppStyle">
-      <font-awesome-icon icon="plus" class="newAppIconPlus" aria-hidden="true" />
-    </div>
-  </div>
-
-  <Teleport to="body">
-    <newAppModal :show="showModal" @close="showModal = false" @showUpgradePage="emitShowUpgrade" />
-  </Teleport>
-</template>
-
-<script>
+<script setup>
 import newAppModal from "@/components/modals/newAppModal.vue";
 
+import {ref} from "vue";
 
-export default {
-  components: {
-    newAppModal
-  },
-  data() {
-    return {
-      showModal: false
-    }
-  },
-  methods: {
-    emitShowUpgrade() {
-      this.$emit('showAppUpgrade');
-    }
-  }
-}
+let showModal = ref(false);
 </script>
+
+<template>
+  <v-dialog
+      v-model="showModal"
+      width="auto"
+      max-width="600"
+  >
+
+    <template v-slot:activator="{ props }">
+      <div class="d-inline-flex position-relative p-2 newAppModalButton" @click="showModal = true" v-bind="props">
+        <div class="newAppIcon rounded-9 userAppStyle">
+          <font-awesome-icon icon="plus" class="newAppIconPlus" aria-hidden="true" />
+        </div>
+      </div>
+    </template>
+
+    <newAppModal @close="showModal = false" />
+  </v-dialog>
+</template>
 
 <style scoped>
   .newAppIconPlus {
