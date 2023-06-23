@@ -41,7 +41,7 @@ export default {
     await this.$store.dispatch(GET_APPID)
     if (this.apps.registered === '1' && (this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.page === 'home') {
       this.$emit('showSubscribe');
-    } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.apps.visits >= 5  && this.page === 'home') {
+    } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.page === 'home') {
       this.showModal = true;
     } else {
       this.showModal = false;
@@ -50,7 +50,7 @@ export default {
   updated() {
     if (this.apps.registered === '1' && (this.apps.subscription === '0' || this.apps.subscription === 'undefined')  && this.page === 'home') {
       this.$emit('showSubscribe');
-    } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.apps.visits >= 5 && this.page === 'home') {
+    } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.page === 'home') {
       this.showModal = true;
     } else {
       this.showModal = false;
