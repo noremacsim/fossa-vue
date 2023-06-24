@@ -63,7 +63,7 @@ export default {
     },
     clickToUpload() {
       const toast = useToast()
-      if (this.apps.subscription === '0' || this.apps.subscription === '1' || this.apps.subscription === 'undefined') {
+      if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
         toast.error("Subscribe to get access to this feature", {
           timeout: 2000,
           showCancelButton: true,

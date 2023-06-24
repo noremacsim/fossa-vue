@@ -28,7 +28,7 @@ export default {
     },
     showCustomForm() {
       const toast = useToast()
-      if (this.apps.subscription === '0') {
+      if (this.apps.subscription === '0' || this.apps.subscription === 'undefined') {
         toast.error("Subscribe to get access to this feature", {
           timeout: 2000,
         });
