@@ -37,16 +37,18 @@ export default {
     }
   },
   async mounted() {
-    if (this.apps.registered === '1') {
-      this.part = 'profile';
-    } else {
-      this.part = '';
-    }
+    this.part = 'profile';
+    // if (this.apps.registered === '1') {
+    //   this.part = 'profile';
+    // } else {
+    //   this.part = '';
+    // }
   },
   updated() {
-    if (this.apps.registered === '1') {
-      this.part = 'profile';
-    }
+    this.part = 'profile';
+    // if (this.apps.registered === '1') {
+    //   this.part = 'profile';
+    // }
   },
   computed: {
     ...mapState(["appid", "apps", "subscription"]),

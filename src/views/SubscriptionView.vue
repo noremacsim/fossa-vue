@@ -132,46 +132,47 @@ export default {
           <ul class="list-unstyled mt-3 mb-4">
             <li>Get Site Access</li>
             <li>Save and Share across devices</li>
+            <li>Upload Profile Picture</li>
+            <li>Add Custom Apps</li>
             <li>Premium Support contact</li>
             <li>Enhanced Experience</li>
           </ul>
           <div id="paypal-button-container-P-9JU57379J2256173EMSFNB7A"></div>
         </div>
       </div>
-      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '2'">
-        <div class="card-header" style="background: #ffee94;">
-          <h4 class="my-0 font-weight-normal">Gold Supporter</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">£5</h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Get Site Access</li>
-            <li>Save and Share across devices</li>
-            <li>Upload Profile Picture</li>
-            <li>Add Your own Custom app and links</li>
-            <li>Change Shape, Color and style of App Icons *</li>
-            <li>Upload a custom Background *</li>
-            <li>Premium Support Contact</li>
-            <li>Enhanced Experience</li>
-          </ul>
-          <div id="paypal-button-container-P-1S0500021D1781410MSJQOEQ"></div>
-        </div>
-      </div>
-      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '3'">
-        <div class="card-header" style="background: #d2fff7;">
-          <h4 class="my-0 font-weight-normal">Diamond Supporter</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">£29</h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Everything in Access & Gold</li>
-            <li>Mentioned on our Project page as Diamond supporter</li>
-            <li>Priority Support and Feature Requests</li>
-          </ul>
-          <div id="paypal-button-container-P-0SS45486C4036632MMSJQXXI"></div>
-        </div>
-      </div>
-      <span>Items marked with * are coming soon to be release within 14 days</span>
+<!--      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '2'">-->
+<!--        <div class="card-header" style="background: #ffee94;">-->
+<!--          <h4 class="my-0 font-weight-normal">Gold Supporter</h4>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <h1 class="card-title pricing-card-title">£5</h1>-->
+<!--          <ul class="list-unstyled mt-3 mb-4">-->
+<!--            <li>Get Site Access</li>-->
+<!--            <li>Save and Share across devices</li>-->
+<!--            <li>Upload Profile Picture</li>-->
+<!--            <li>Add Your own Custom app and links</li>-->
+<!--            <li>Change Shape, Color and style of App Icons *</li>-->
+<!--            <li>Upload a custom Background *</li>-->
+<!--            <li>Premium Support Contact</li>-->
+<!--            <li>Enhanced Experience</li>-->
+<!--          </ul>-->
+<!--          <div id="paypal-button-container-P-1S0500021D1781410MSJQOEQ"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="card mb-4 box-shadow" v-show="apps.subscription !== '3'">-->
+<!--        <div class="card-header" style="background: #d2fff7;">-->
+<!--          <h4 class="my-0 font-weight-normal">Diamond Supporter</h4>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <h1 class="card-title pricing-card-title">£29</h1>-->
+<!--          <ul class="list-unstyled mt-3 mb-4">-->
+<!--            <li>Everything in Access & Gold</li>-->
+<!--            <li>Mentioned on our Project page as Diamond supporter</li>-->
+<!--            <li>Priority Support and Feature Requests</li>-->
+<!--          </ul>-->
+<!--          <div id="paypal-button-container-P-0SS45486C4036632MMSJQXXI"></div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </template>

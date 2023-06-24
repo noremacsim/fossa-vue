@@ -40,18 +40,18 @@ export default {
   async mounted() {
     await this.$store.dispatch(GET_APPID)
     if (this.apps.registered === '1' && (this.apps.subscription === '0' || this.apps.subscription === 'undefined') && this.page === 'home') {
-      this.$emit('showSubscribe');
+      //this.$emit('showSubscribe');
     } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.page === 'home') {
-      this.showModal = true;
+      // this.showModal = true;
     } else {
       this.showModal = false;
     }
   },
   updated() {
     if (this.apps.registered === '1' && (this.apps.subscription === '0' || this.apps.subscription === 'undefined')  && this.page === 'home') {
-      this.$emit('showSubscribe');
+      //this.$emit('showSubscribe');
     } else if ((this.apps.registered === '0' || this.apps.registered === 'undefined') && this.page === 'home') {
-      this.showModal = true;
+      // this.showModal = true;
     } else {
       this.showModal = false;
     }

@@ -28,8 +28,8 @@ export default {
     },
     showCustomForm() {
       const toast = useToast()
-      if (this.apps.subscription === '0' || this.apps.subscription === '1' || this.apps.subscription === 'undefined') {
-        toast.error("This requires a Gold or Diamond Subscription", {
+      if (this.apps.subscription === '0') {
+        toast.error("Subscribe to get access to this feature", {
           timeout: 2000,
         });
         this.showUpgrade = true;
