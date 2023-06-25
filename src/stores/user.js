@@ -6,6 +6,7 @@ import { useStorage } from '@vueuse/core'
 import appsService from "@/common/apps.service";
 import {useToast} from "vue-toastification";
 import cookieService from "@/common/cookie.service";
+import apiService from "@/common/api.service";
 
 export const useUserStore = defineStore('user', () => {
     const user = ref(useStorage('user', []));
@@ -131,9 +132,42 @@ export const useUserStore = defineStore('user', () => {
                 });
                 const delay = ms => new Promise(res => setTimeout(res, ms));
                 delay(2000);
-                location.reload();
+                window.location.replace('/');
             })
     }
 
-    return { user, userLoading, initUser, removeUserApp, addUserApp, importUserFromAppID, logoutUser}
+    async function saveUserDetails() {
+        let payload = {
+            name: this.user.name,
+            email: this.user.email,
+            bio: this.user.bio
+        }
+        await appidService.saveUserDetails(this.user.uniqueID, payload).then((data) => {
+            if (data.data.status !== true) {
+                toast.error("Failed to update user");
+                return false;
+            } else {
+                toast.success("Profile Updated Successfully");
+                return true;
+            }
+        });
+    }
+
+    async function uploadUserImage(image) {
+        appidService.uploadUserImage(this.user.uniqueID, image)
+            .then((data) => {
+                if (data.data.status === true) {
+                    toast.success("New Image Uploaded Successfully", {
+                        timeout: 2000
+                    });
+                } else {
+                    toast.error(data?.data?.message ?? 'Unkown Error');
+                }
+            })
+            .catch(data => {
+                toast.error(data?.data?.message ?? 'Unkown Error');
+            });
+    }
+
+    return { user, userLoading, initUser, removeUserApp, addUserApp, importUserFromAppID, logoutUser, saveUserDetails, uploadUserImage}
 });

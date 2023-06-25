@@ -59,6 +59,14 @@ const appidService = {
         });
     },
 
+    saveUserDetails(appID, payload) {
+        return new Promise((resolve) => {
+            apiService.post(`/user/update?id=${appID}&name=${payload.name}&email=${payload.email}&bio=${payload.bio}`).then((data) => {
+                resolve(data);
+            });
+        });
+    },
+
     createAppID() {
         return new Promise((resolve) => {
             apiService.get("user/create").then( async response => {

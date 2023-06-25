@@ -1,0 +1,162 @@
+<script setup>
+import { useUserStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
+import {defineEmits, ref} from 'vue'
+const { user } = storeToRefs(useUserStore());
+const { saveUserDetails, logoutUser, uploadUserImage} = useUserStore();
+const showImport = ref(false);
+const emit = defineEmits(['showSettings'])
+
+const loadingLogout = ref(false);
+const loadingSave = ref(false)
+const uploadButton = ref(null);
+function loggingOutUser() {
+  loadingLogout.value = true
+  logoutUser();
+}
+async function savingUserDetails() {
+  loadingSave.value = true;
+  await saveUserDetails().then(() => {
+    loadingSave.value = false;
+  })
+}
+
+async function imageUploaded() {
+  let file = document.querySelector('input[type=file]')['files'][0];
+  let reader = new FileReader();
+  reader.onload = function () {
+    let base64String = reader.result;
+    this.userImage = base64String;
+    document.getElementById("userProfileImage").src = base64String;
+    uploadUserImage(base64String);
+  }
+  reader.readAsDataURL(file);
+}
+
+function clickToUpload() {
+  uploadButton.value.click();
+}
+
+</script>
+
+<template>
+  <div class="userimgContainer">
+    <img id="userProfileImage" :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 100px; height: 100px; border: 3px solid white;" alt="Avatar" />
+    <font-awesome-icon :icon="'camera'" :class="'uploadIcon'" @click="clickToUpload"/>
+    <input type="file" name="" id="fileId" @change="imageUploaded" ref="uploadButton" style="display: none;">
+  </div>
+
+  <div class="form-group mb-2">
+
+    <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
+      <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
+        <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
+          <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;" readonly=""></div>
+      </div>
+    </div>
+  </div>
+
+  <v-container>
+    <v-expansion-panels variant="accordion">
+      <v-expansion-panel
+          title="Profile Settings"
+      >
+        <v-expansion-panel-text>
+          <v-text-field
+              label="Name"
+              v-model="user.name"
+              variant="outlined"
+          ></v-text-field>
+
+          <v-text-field
+              v-model="user.email"
+              label="Email"
+              variant="outlined"
+          ></v-text-field>
+
+          <v-textarea
+              label="Bio"
+              v-model="user.bio"
+              variant="outlined"
+              rows="2"
+          ></v-textarea>
+          <v-btn
+              color="success"
+              class="mt-4"
+              :loading="loadingSave"
+              block
+              @click="savingUserDetails"
+          >
+            Save
+          </v-btn>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+      <v-expansion-panel
+          title="App List Settings"
+          text="Coming Soon"
+      >
+      </v-expansion-panel>
+
+    </v-expansion-panels>
+
+    <v-btn
+        color="success"
+        class="mt-4"
+        style="color: white;"
+        @click="emit('showSettings')"
+        block
+    >
+      Import Profile
+    </v-btn>
+
+    <v-btn
+        color="danger"
+        class="mt-4"
+        style="color: white;"
+        @click="loggingOutUser"
+        :loading="loadingLogout"
+        block
+    >
+      Logout
+    </v-btn>
+
+  </v-container>
+</template>
+
+<style scoped>
+.header {
+  margin: auto;
+  display: block;
+  width: fit-content;
+  text-align: center;
+  color: black;
+}
+
+.profileImage {
+  width: 150px;
+  height: 150px;
+  border: 3px solid white;
+}
+
+.headerProfile {
+  margin-top: 10px;
+}
+
+.userimgContainer {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+
+.uploadIcon {
+  position: absolute;
+  top: 4px;
+  right: -10px;
+  background: #3bcab6;
+  font-size: 18px;
+  padding: 7px;
+  border-radius: 50%;
+  color: white;
+  border: 5px solid white;
+}
+</style>

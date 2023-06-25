@@ -10,7 +10,7 @@
     show: Boolean,
   })
 
-  const showImport = ref(false);
+  const showImport = ref(true);
   const showLogin = ref(false);
   const code = ref('');
 
@@ -27,7 +27,7 @@
       <div class="modal-container">
 
         <div class="modalHeader">
-          <h5 class="modal-title">Settings</h5>
+          <h5 class="modal-title">Import Profile</h5>
           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" @click="emit('close')"></button>
         </div>
 
@@ -49,8 +49,7 @@
 
               <div style="display: flex;flex-wrap: wrap;align-items: center;justify-content: center;padding-top:15px">
                 <button @click="showImport = true" v-show="!showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">import</button>
-                <button @click="showImport = false" id="cancelImport" type="button" v-show="showImport" class="btn btn-warning btn-rounded" style="margin-right: 12px; display: none;">cancel</button>
-                <button @click="importCode" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">Save</button>
+                <button @click="importCode" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="color:white;margin-right: 12px;">Save & import</button>
                 <button id="LoginCode" type="button" @click="logoutUser" v-show="!showImport" class="btn btn-danger btn-rounded">New Code</button>
 
               </div>

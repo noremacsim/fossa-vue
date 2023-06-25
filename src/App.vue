@@ -12,6 +12,24 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
 
       <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
 
+      <router-link to="/user">
+        <fontAwsomeButton
+            icon="user"
+            className="floatButton settingsButton"
+            @click="page = 'user'"
+            v-show="page === 'home' || page === 'subscribe'"
+        />
+      </router-link>
+
+      <router-link to="/">
+        <fontAwsomeButton
+            icon="home"
+            className="floatButton settingsButton"
+            @click="page = 'home'"
+            v-show="page === 'user'"
+        />
+      </router-link>
+
       <fontAwsomeButton
           icon="up-right-and-down-left-from-center"
           className="floatButton fullscreenButton"
