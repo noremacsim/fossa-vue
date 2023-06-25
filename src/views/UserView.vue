@@ -56,7 +56,7 @@ function clickToUpload() {
     </div>
   </div>
 
-  <v-container>
+  <v-container style="max-width: 900px !important;">
     <v-expansion-panels variant="accordion">
       <v-expansion-panel
           title="Profile Settings"
