@@ -3,9 +3,10 @@
   import { storeToRefs } from "pinia";
   import {onMounted, ref} from "vue";
   import NewAppButton from "@/components/buttons/newAppButton.vue";
-  import { REMOVE_APP } from "@/stores/action.type";
 
   const { user } = storeToRefs(useUserStore());
+  const { removeUserApp } = useUserStore();
+
   let showDelete = ref(false);
 
   onMounted(() => {
@@ -21,9 +22,6 @@
   }
   function showAppDeletes() {
     showDelete.value = true;
-  }
-  function deleteApp(appID) {
-    this.$store.dispatch(REMOVE_APP, appID)
   }
   function navigate(link) {
     if (showDelete.value === false) {
@@ -55,7 +53,7 @@
             v-show="showDelete"
             class="deleteApp"
             v-bind:data-id="app.id"
-            v-touch="() => deleteApp(user.apps[index].id)"
+            v-touch="() => removeUserApp(user.apps[index].id)"
             :tabindex="`1${index}`"
             role="button"
             src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"

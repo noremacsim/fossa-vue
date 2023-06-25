@@ -1,6 +1,6 @@
 {
   "name": "fossa",
-  "version": "1.5",
+  "version": "2",
   "private": true,
   "scripts": {
     "build": "vite build",

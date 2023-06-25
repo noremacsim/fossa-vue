@@ -1,11 +1,11 @@
 <script setup>
   import {allApps} from "@/common/allApps";
-  import {useToast} from "vue-toastification";
-  import {CREATE_APP} from "@/stores/action.type";
   import {ref} from "vue";
-  import {storeToRefs} from "pinia";
   import {useUserStore} from "@/stores/user";
-  const { user } = storeToRefs(useUserStore());
+  const { addUserApp } = useUserStore();
+  import { defineEmits } from 'vue'
+  const emit = defineEmits(['close'])
+
 
   defineProps({
     show: Boolean,
@@ -17,24 +17,12 @@
   let showCustom = ref(false);
   let showUpgrade = ref(false);
 
-  function showUpgradePage() {
-    this.$emit('close');
-    this.$emit('showUpgradePage')
-  }
   function showCustomForm() {
-    const toast = useToast()
-    if (user.value.subscription === '0' || user.value.subscription === '1' || user.value.subscription === 'undefined') {
-      toast.error("This requires a Gold or Diamond Subscription", {
-        timeout: 2000,
-      });
-      showUpgrade.value = true;
-    } else {
-      showCustom.value = true;
-    }
+    showCustom.value = true;
   }
   function addNewApp(name, url, image) {
-    this.$store.dispatch(CREATE_APP, {name, url, image})
-    this.$emit('close');
+    addUserApp({name, url, image})
+    emit('close');
   }
   function saveCustom() {
     let data = {
@@ -42,8 +30,8 @@
       url: appUrl.value,
       image: appImage.value
     }
-    this.$store.dispatch(CREATE_APP, data)
-    this.$emit('close');
+    addUserApp(data)
+    emit('close');
   }
 
 </script>
@@ -87,7 +75,6 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" @click="showUpgradePage" v-if="showUpgrade" style="background: gold;color: black;border: gold;">Click here to Upgrade Now for custom Apps</button>
       <button class="btn btn-primary" @click="showCustomForm" v-if="!showCustom && !showUpgrade">Add Custom App/URL</button>
 
     </div>

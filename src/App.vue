@@ -1,5 +1,6 @@
 <script setup>
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
+import SettingsButton from "@/components/buttons/settingsButton.vue";
 </script>
 
 <template>
@@ -9,23 +10,7 @@ import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
 
     <div class="topNav" role="navigation">
 
-      <router-link to="/user">
-        <fontAwsomeButton
-            icon="user"
-            className="floatButton settingsButton"
-            @click="page = 'user'"
-            v-show="page === 'home' || page === 'subscribe'"
-        />
-      </router-link>
-
-      <router-link to="/">
-        <fontAwsomeButton
-            icon="home"
-            className="floatButton settingsButton"
-            @click="page = 'home'"
-            v-show="page === 'user'"
-        />
-      </router-link>
+      <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
 
       <fontAwsomeButton
           icon="up-right-and-down-left-from-center"
@@ -37,7 +22,7 @@ import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
 
   </header>
 
-  <router-view></router-view>
+  <router-view @showSettings="showModal = true" ></router-view>
 
 </template>
 <script>
@@ -50,6 +35,7 @@ export default {
   data() {
     return {
       page: 'home',
+      showModal: false,
     }
   },
 }

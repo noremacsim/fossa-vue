@@ -6,6 +6,9 @@ const userservice = {
     getUser(appID) {
         return new Promise((resolve) => {
             apiService.get(`/user/get?name=${appID}`).then((data) => {
+                if (data.data.status === false) {
+                    resolve(data.data);
+                }
                 resolve(data.data.data);
             });
         });
