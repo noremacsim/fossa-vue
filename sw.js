@@ -79,13 +79,13 @@ define(['./workbox-148cb7e5'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "index.html",
-    "revision": "5ae94edc14534e63f404015037ebd1d3"
+    "revision": "140d7a933e2aec911d1e3cd5e645360e"
   }, {
-    "url": "index64129.css",
+    "url": "index95607.css",
     "revision": "aceaccd85fb6d5cfd359ea102fbf1cc1"
   }, {
-    "url": "index64129.js",
-    "revision": "8a707c5b98dc20018e0bb7693fb0e49f"
+    "url": "index95607.js",
+    "revision": "9586365be980d4dbc097d790062c06b5"
   }, {
     "url": "registerSW.js",
     "revision": "1872c500de691dce40960bb85481de07"
