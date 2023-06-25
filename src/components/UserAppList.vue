@@ -1,12 +1,48 @@
-<template>
+<script setup>
+  import { useUserStore } from "@/stores/user";
+  import { storeToRefs } from "pinia";
+  import {onMounted, ref} from "vue";
+  import NewAppButton from "@/components/buttons/newAppButton.vue";
 
+  const { user } = storeToRefs(useUserStore());
+  const { removeUserApp } = useUserStore();
+
+  let showDelete = ref(false);
+
+  onMounted(() => {
+    document.querySelector('body').addEventListener('click', function(e) {
+      if (!e.target.classList.contains('deleteApp') && !e.target.classList.contains('appsImage')) {
+        showDelete.value = false
+      }
+    })
+  });
+
+  function showingUpgrade() {
+    this.$emit('showUpgrade')
+  }
+  function showAppDeletes() {
+    showDelete.value = true;
+  }
+  function navigate(link) {
+    if (showDelete.value === false) {
+      if (!link.match(/^[a-zA-Z]+:\/\//))
+      {
+        link = 'https://' + link;
+      }
+
+      window.location = link;
+    }
+  }
+
+</script>
+<template>
   <div id="userHTML" class="loaded userHTML">
     <div
         v-touch:hold="showAppDeletes"
-        v-for="(app, index) in apps"
+        v-for="(app, index) in user.apps"
         :value="app.value"
         :key="app.value"
-        v-touch="() => navigate(apps[index].url)"
+        v-touch="() => navigate(user.apps[index].url)"
         :tabindex="index"
         role="button"
         class="d-inline-flex position-relative p-2 appLink"
@@ -17,7 +53,7 @@
             v-show="showDelete"
             class="deleteApp"
             v-bind:data-id="app.id"
-            v-touch="() => deleteApp(apps[index].id)"
+            v-touch="() => removeUserApp(user.apps[index].id)"
             :tabindex="`1${index}`"
             role="button"
             src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
@@ -37,61 +73,11 @@
     </div>
 
     <transition name="slide-fade">
-      <new-app-button v-if="!apps.loading" @showAppUpgrade="showingUpgrade" />
+      <new-app-button @showAppUpgrade="showingUpgrade" />
     </transition>
 
   </div>
 </template>
-<script>
-
-import {REMOVE_APP} from "@/stores/action.type";
-import {mapGetters} from "vuex";
-import NewAppButton from "@/components/buttons/newAppButton.vue";
-
-export default {
-  data() {
-    return {
-      showDelete: false
-    }
-  },
-  components: {
-    NewAppButton,
-  },
-  mounted() {
-    let vue = this;
-    document.querySelector('body').addEventListener('click', function(e) {
-      if (!e.target.classList.contains('deleteApp') && !e.target.classList.contains('appsImage')) {
-        vue.showDelete = false
-      }
-    })
-  },
-  computed: {
-    ...mapGetters(["apps"]),
-  },
-  methods: {
-    showingUpgrade() {
-      this.$emit('showUpgrade')
-    },
-    showAppDeletes() {
-      this.showDelete = true;
-    },
-    deleteApp(appID) {
-      this.$store.dispatch(REMOVE_APP, appID)
-    },
-    navigate(link) {
-      if (this.showDelete === false) {
-        if (!link.match(/^[a-zA-Z]+:\/\//))
-        {
-          link = 'https://' + link;
-        }
-
-        window.location = link;
-      }
-    }
-  }
-}
-
-</script>
 
 <style scoped>
 

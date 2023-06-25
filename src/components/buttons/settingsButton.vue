@@ -1,5 +1,5 @@
 <template>
-  <font-awesome-icon icon="user" :class="className" @click="showModal = true" />
+  <font-awesome-icon icon="gear" :class="className" @click="showModal = true" />
   <Teleport to="body">
     <settingsModal :show="showModal" @close="showModal = false" />
   </Teleport>
@@ -10,15 +10,11 @@ import settingsModal from "@/components/modals/settingsModal.vue";
 
 export default {
   props: {
-    className: String
+    className: String,
+    showModal: Boolean
   },
   components: {
     settingsModal
-  },
-  data() {
-    return {
-      showModal: false
-    }
   },
 }
 </script>

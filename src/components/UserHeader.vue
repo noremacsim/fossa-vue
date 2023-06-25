@@ -1,19 +1,14 @@
+<script setup>
+import { useUserStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
+const { user } = storeToRefs(useUserStore());
+</script>
 <template>
   <div class="header" role="banner">
-    <img  :src="apps.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 150px; height: 150px; border: 3px solid white;" alt="Avatar" />
+    <img  :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 150px; height: 150px; border: 3px solid white;" alt="Avatar" />
     <h5 class="loaded mb-2 headerProfile" style="margin-top: 10px;"><strong>Welcome to Fossa</strong></h5>
   </div>
 </template>
-
-<script>
-import {mapState} from "vuex";
-
-export default {
-  computed: {
-    ...mapState(['appid', 'apps'])
-  },
-}
-</script>
 
 <style scoped>
 

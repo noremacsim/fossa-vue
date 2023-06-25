@@ -4,7 +4,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import store from './stores/main'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -18,18 +17,28 @@ import Vue3TouchEvents from "vue3-touch-events";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import LoadScript from 'vue-plugin-load-script';
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+    components,
+    directives,
+})
+
 
 library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload);
 axios.defaults.baseURL = API_URL;
 
-const app = createApp(App)
-
-app.use(createPinia())
+const app = createApp(App);
+const pinia = createPinia();
+app.use(pinia);
 app.use(router)
-app.use(store);
 app.use(VueAxios, axios);
 app.use(Vue3TouchEvents);
 app.use(LoadScript);
+app.use(vuetify);
 
 const options = {
     maxToasts: 3,
