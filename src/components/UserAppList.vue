@@ -21,7 +21,7 @@
     this.$emit('showUpgrade')
   }
   function showAppDeletes() {
-    if (user.lockapps === false || user.lockapps === '0') {
+    if (user.value.lockapps === false || user.value.lockapps === '0') {
       showDelete.value = true;
     }
   }
