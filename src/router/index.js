@@ -15,6 +15,11 @@ const router = createRouter({
       path: '/user',
       name: 'user',
       component: UserView
+    },
+    {
+      path: '/code/:code',
+      name: 'import code',
+      component: HomeView
     }
   ]
 })

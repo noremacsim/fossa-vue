@@ -22,18 +22,32 @@ import UserAppList from "@/components/UserAppList.vue";
 import UserHeader from "@/components/UserHeader.vue";
 import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
 import UserAppListSkeleton from "@/components/skeleton/UserAppListSkeleton.vue";
+import { useRoute } from 'vue-router'
+
 
 import {defineEmits} from 'vue'
 const emit = defineEmits(['showSettings'])
 
 const { userLoading } = storeToRefs(useUserStore());
-const { initUser } = useUserStore();
+const { initUser, importUserFromAppID } = useUserStore();
 
-initUser().then(success => {
-  if (success === false) {
-    emit('showSettings');
-  }
-})
+const route = useRoute()
+
+if (route.params?.code) {
+  importUserFromAppID(route.params.code).then(() => {
+    initUser().then(success => {
+      if (success === false) {
+        emit('showSettings');
+      }
+    })
+  });
+} else {
+  initUser().then(success => {
+    if (success === false) {
+      emit('showSettings');
+    }
+  })
+}
 
 </script>
 

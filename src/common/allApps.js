@@ -3,84 +3,84 @@ export const allApps = [
         "Plex",
         "https://app.plex.tv/desktop/#!/",
         true,
-        "img/logos/image_9337.png",
+        "/img/logos/image_9337.png",
         "stream"
     ],
     [
         "Youtube",
         "https://youtube.com",
         false,
-        "img/logos/image_8297.png",
+        "/img/logos/image_8297.png",
         "stream"
     ],
     [
         "BBC Iplayer",
         "https://www.bbc.co.uk/iplayer",
         true,
-        "img/logos/image_5551.jpg",
+        "/img/logos/image_5551.jpg",
         "stream"
     ],
     [
         "Disney Plus",
         "https://www.disneyplus.com/en-gb",
         true,
-        "img/logos/image_4822.png",
+        "/img/logos/image_4822.png",
         "stream"
     ],
     [
         "STV Player",
         "https://player.stv.tv/",
         true,
-        "img/logos/image_2101.png",
+        "/img/logos/image_2101.png",
         "stream"
     ],
     [
         "DishAnywhere",
         "dishanywhere.com",
         true,
-        "img/logos/image_4570.jpg",
+        "/img/logos/image_4570.jpg",
         "stream"
     ],
     [
         "Paramount+",
         "https://www.paramountplus.com/gb/",
         true,
-        "img/logos/image_7135.png",
+        "/img/logos/image_7135.png",
         "stream"
     ],
     [
         "Prime Video",
         "https://primevideo.com",
         true,
-        "img/logos/image_1863.png",
+        "/img/logos/image_1863.png",
         "stream"
     ],
     [
         "My 5",
         "https://www.my5.tv/",
         true,
-        "img/logos/image_6626.jpg",
+        "/img/logos/image_6626.jpg",
         "stream"
     ],
     [
         "Channel 4",
         "https://www.channel4.com/",
         true,
-        "img/logos/image_2658.jpg",
+        "/img/logos/image_2658.jpg",
         "stream"
     ],
     [
         "ITV Hub",
         "https://www.itv.com/hub/itv/",
         true,
-        "img/logos/image_7474.png",
+        "/img/logos/image_7474.png",
         "stream"
     ],
     [
         "Apple TV",
         "https://tv.apple.com/",
         true,
-        "img/logos/image_9565.png",
+        "/img/logos/image_9565.png",
         "stream"
     ],
     [
@@ -94,98 +94,98 @@ export const allApps = [
         "Audible",
         "https://www.audible.co.uk/",
         true,
-        "img/logos/image_1663.png",
+        "/img/logos/image_1663.png",
         "stream"
     ],
     [
         "Spotify",
         "https://open.spotify.com/",
         true,
-        "img/logos/image_7502.png",
+        "/img/logos/image_7502.png",
         "stream"
     ],
     [
         "siriusxm",
         "https://www.siriusxm.com/",
         true,
-        "img/logos/image_7360.png",
+        "/img/logos/image_7360.png",
         "stream"
     ],
     [
         "Directv",
         "https://www.directv.com/",
         true,
-        "img/logos/image_3348.jpg",
+        "/img/logos/image_3348.jpg",
         "stream"
     ],
     [
         "Amazon Music",
         "https://music.amazon.co.uk/",
         true,
-        "img/logos/image_7903.png",
+        "/img/logos/image_7903.png",
         "stream"
     ],
     [
         "Youtube Music",
         "https://music.youtube.com/",
         true,
-        "img/logos/image_9350.png",
+        "/img/logos/image_9350.png",
         "stream"
     ],
     [
         "Youtube TV",
         "https://tv.youtube.com/welcome/",
         true,
-        "img/logos/image_6010.png",
+        "/img/logos/image_6010.png",
         "stream"
     ],
     [
         "SoundCloud",
         "https://soundcloud.com/",
         true,
-        "img/logos/image_7660.png",
+        "/img/logos/image_7660.png",
         "stream"
     ],
     [
         "Apple Music",
         "https://music.apple.com/",
         true,
-        "img/logos/image_2019.png",
+        "/img/logos/image_2019.png",
         "stream"
     ],
     [
         "Pluto Tv",
         "https://pluto.tv/",
         true,
-        "img/logos/image_9407.png",
+        "/img/logos/image_9407.png",
         "stream"
     ],
     [
         "F1 Tv",
         "https://f1tv.formula1.com/",
         true,
-        "img/logos/image_1700.png",
+        "/img/logos/image_1700.png",
         "stream"
     ],
     [
         "HBO Max",
         "https://www.hbomax.com/",
         true,
-        "img/logos/image_3723.jpg",
+        "/img/logos/image_3723.jpg",
         "stream"
     ],
     [
         "Astiga",
         "https://play.asti.ga/",
         true,
-        "img/logos/image_7960.png",
+        "/img/logos/image_7960.png",
         "stream"
     ],
     [
         "IQIYI",
         "https://www.iq.com/",
         true,
-        "img/logos/image_8082.jpg",
+        "/img/logos/image_8082.jpg",
         "stream"
     ],
     [
@@ -199,119 +199,119 @@ export const allApps = [
         "PeacockTv",
         "https://www.peacocktv.com/",
         true,
-        "img/logos/image_4504.png",
+        "/img/logos/image_4504.png",
         "stream"
     ],
     [
         "TubiTv",
         "https://tubitv.com/",
         true,
-        "img/logos/image_5824.jpg",
+        "/img/logos/image_5824.jpg",
         "stream"
     ],
     [
         "FuboTv",
         "https://www.fubo.tv/welcome",
         true,
-        "img/logos/image_9954.jpg",
+        "/img/logos/image_9954.jpg",
         "stream"
     ],
     [
         "CrunchyRoll",
         "https://crunchyroll.com",
         true,
-        "img/logos/image_3067.jpg",
+        "/img/logos/image_3067.jpg",
         "stream"
     ],
     [
         "Xbox Cloud Gaming",
         "https://www.xbox.com/en-us/play",
         true,
-        "img/logos/image_1285.jpg",
+        "/img/logos/image_1285.jpg",
         "game"
     ],
     [
         "Luna",
         "https://luna.amazon.com/",
         true,
-        "img/logos/image_8229.png",
+        "/img/logos/image_8229.png",
         "game"
     ],
     [
         "",
         "https://cloud.boosteroid.com/",
         true,
-        "img/logos/image_6397.png",
+        "/img/logos/image_6397.png",
         "game"
     ],
     [
         "GForce Now",
         "https://play.geforcenow.com/mall/#/layout/games",
         true,
-        "img/logos/image_2489.png",
+        "/img/logos/image_2489.png",
         "game"
     ],
     [
         "Tetris",
         "https://www.lumpty.com/amusements/Games/Tetris/tetris.html",
         true,
-        "img/logos/image_2491.png",
+        "/img/logos/image_2491.png",
         true
     ],
     [
         "Thug-Racer",
         "https://monsterofcookie.itch.io/thug-racer",
         true,
-        "img/logos/image_7426.png",
+        "/img/logos/image_7426.png",
         true
     ],
     [
         "Om-Num Run",
         "https://play.famobi.com/om-nom-run/A1000-10",
         true,
-        "img/logos/image_4289.jpg",
+        "/img/logos/image_4289.jpg",
         true
     ],
     [
         "Bubble Tower",
         "https://play.famobi.com/bubble-tower-3d/A1000-10",
         true,
-        "img/logos/image_3810.jpg",
+        "/img/logos/image_3810.jpg",
         true
     ],
     [
         "Fruit Ninja",
         "https://play.famobi.com/fruit-ninja/A1000-10",
         true,
-        "img/logos/image_6850.jpg",
+        "/img/logos/image_6850.jpg",
         true
     ],
     [
         "Jetpack JoyRide",
         "https://play.famobi.com/jetpack-joyride/A1000-10",
         true,
-        "img/logos/image_357.jpg",
+        "/img/logos/image_357.jpg",
         true
     ],
     [
         "Mafia Poker",
         "https://play.famobi.com/mafia-poker/A1000-10",
         true,
-        "img/logos/image_9065.jpg",
+        "/img/logos/image_9065.jpg",
         true
     ],
     [
         "Golden Bloom",
         "https://play.famobi.com/garden-bloom/A1000-10",
         true,
-        "img/logos/image_2895.jpg",
+        "/img/logos/image_2895.jpg",
         true
     ],
     [
         "Gold Mine",
         "https://play.famobi.com/gold-mine/A1000-10",
         true,
-        "img/logos/image_6961.jpg",
+        "/img/logos/image_6961.jpg",
         true
     ],
     [
@@ -325,42 +325,42 @@ export const allApps = [
         "SlitherIo",
         "https://slither.io/",
         true,
-        "img/logos/image_280.jpg",
+        "/img/logos/image_280.jpg",
         "game"
     ],
     [
         "Hole-io",
         "https://hole-io.com/",
         true,
-        "img/logos/image_722.png",
+        "/img/logos/image_722.png",
         "game"
     ],
     [
         "Table-Tenis",
         "https://play.famobi.com/table-tennis-world-tour/A1000-10",
         true,
-        "img/logos/image_3006.jpg",
+        "/img/logos/image_3006.jpg",
         "game"
     ],
     [
         "Color-Tunnel",
         "https://play.famobi.com/color-tunnel/A1000-10",
         true,
-        "img/logos/image_7449.jpg",
+        "/img/logos/image_7449.jpg",
         "game"
     ],
     [
         "Tap My Water",
         "https://play.famobi.com/tap-my-water/A1000-10",
         true,
-        "img/logos/image_8132.jpg",
+        "/img/logos/image_8132.jpg",
         "game"
     ],
     [
         "Subway Surfers",
         "https://play.gamemonetize.co/dx0i6elvlqg3qfzemfo9vhf93xxsufi8/",
         true,
-        "img/logos/image_5910.png",
+        "/img/logos/image_5910.png",
         "game"
     ],
     [
@@ -374,42 +374,42 @@ export const allApps = [
         "Facebook",
         "https://facebook.com",
         false,
-        "img/logos/image_2293.png",
+        "/img/logos/image_2293.png",
         "browse"
     ],
     [
         "Messenger",
         "https://www.messenger.com/",
         false,
-        "img/logos/image_392.jpg",
+        "/img/logos/image_392.jpg",
         "browse"
     ],
     [
         "Waze",
         "https://teslawaze.azurewebsites.net/",
         false,
-        "img/logos/image_4933.jpg",
+        "/img/logos/image_4933.jpg",
         "browse"
     ],
     [
         "Reddit",
         "https://reddit.com",
         false,
-        "img/logos/image_440.png",
+        "/img/logos/image_440.png",
         "browse"
     ],
     [
         "Google Keep",
         "https://keep.google.com/",
         true,
-        "img/logos/image_9321.png",
+        "/img/logos/image_9321.png",
         "browse"
     ],
     [
         "Remote Desktop",
         "https://remotedesktop.google.com/access",
         true,
-        "img/logos/image_2391.png",
+        "/img/logos/image_2391.png",
         "game"
     ],
     [
@@ -423,14 +423,14 @@ export const allApps = [
         "MetOffice Weather",
         "https://www.metoffice.gov.uk/weather/maps-and-charts/rainfall-radar-forecast-map#?model=ukmo-ukv&layer=rainfall-rate&bbox=[[42.8115217450979,-37.74902343750001],[63.74363097533547,29.750976562500004]]",
         true,
-        "img/logos/image_597.jpg",
+        "/img/logos/image_597.jpg",
         "browse"
     ],
     [
         "CodeAnywhere",
         "https://codeanywhere.com/",
         true,
-        "img/logos/image_2822.jpg",
+        "/img/logos/image_2822.jpg",
         true
     ],
     [
@@ -451,70 +451,70 @@ export const allApps = [
         "Instagram",
         "https://www.instagram.com/",
         true,
-        "img/logos/image_6536.png",
+        "/img/logos/image_6536.png",
         "browse"
     ],
     [
         "Google Maps",
         "https://www.google.com/maps",
         true,
-        "img/logos/image_4328.png",
+        "/img/logos/image_4328.png",
         "browse"
     ],
     [
         "Whatsapp",
         "https://web.whatsapp.com/",
         true,
-        "img/logos/image_5792.png",
+        "/img/logos/image_5792.png",
         "browse"
     ],
     [
         "SnapChat",
         "https://web.snapchat.com/",
         true,
-        "img/logos/image_7469.png",
+        "/img/logos/image_7469.png",
         "browse"
     ],
     [
         "TikTok",
         "https://www.tiktok.com/",
         true,
-        "img/logos/image_9779.png",
+        "/img/logos/image_9779.png",
         "browse"
     ],
     [
         "Fast",
         "https://fast.com/",
         false,
-        "img/logos/image_6792.png",
+        "/img/logos/image_6792.png",
         "browse"
     ],
     [
         "Google Drive",
         "https://drive.google.com/",
         true,
-        "img/logos/image_8133.png",
+        "/img/logos/image_8133.png",
         "browse"
     ],
     [
         "Google Docs",
         "https://docs.google.com/document/",
         true,
-        "img/logos/image_6950.jpg",
+        "/img/logos/image_6950.jpg",
         "browse"
     ],
     [
         "Google Sheets",
         "https://docs.google.com/spreadsheets/",
         true,
-        "img/logos/image_518.png",
+        "/img/logos/image_518.png",
         "browse"
     ],
     [
         "Gmail",
         "https://mail.google.com/mail/",
         true,
-        "img/logos/image_1575.jpg",
+        "/img/logos/image_1575.jpg",
         "browse"
     ],
     [
@@ -528,35 +528,35 @@ export const allApps = [
         "Sky News",
         "https://news.sky.com/",
         true,
-        "img/logos/image_4575.png",
+        "/img/logos/image_4575.png",
         "browse"
     ],
     [
         "BBC News",
         "https://www.bbc.co.uk/news",
         true,
-        "img/logos/image_4260.jpg",
+        "/img/logos/image_4260.jpg",
         "browse"
     ],
     [
         "Termuis",
         "https://termius.com/",
         true,
-        "img/logos/image_6596.png",
+        "/img/logos/image_6596.png",
         "browse"
     ],
     [
         "Google Meet",
         "https://meet.google.com/",
         false,
-        "img/logos/image_328.jpg",
+        "/img/logos/image_328.jpg",
         "browse"
     ],
     [
         "Teams",
         "https://teams.microsoft.com/",
         false,
-        "img/logos/image_6883.png",
+        "/img/logos/image_6883.png",
         "browse"
     ]
 ];

@@ -60,7 +60,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function importUserFromAppID(appID) {
-        userService.getUser(appID)
+        await userService.getUser(appID)
             .then((data) => {
                 if (data.status === false) {
                     toast.error("Failed to Import, Check Code");
