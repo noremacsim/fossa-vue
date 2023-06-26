@@ -42,7 +42,7 @@ function clickToUpload() {
 <template>
   <div class="userimgContainer">
     <img id="userProfileImage" :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 100px; height: 100px; border: 3px solid white;" alt="Avatar" />
-    <font-awesome-icon :icon="'camera'" :class="'uploadIcon'" @click="clickToUpload"/>
+    <font-awesome-icon :icon="'camera'" :class="'uploadIcon'" @click="clickToUpload" style="cursor: pointer;"/>
     <input type="file" name="" id="fileId" @change="imageUploaded" ref="uploadButton" style="display: none;">
   </div>
 
