@@ -21,7 +21,9 @@
     this.$emit('showUpgrade')
   }
   function showAppDeletes() {
-    showDelete.value = true;
+    if (user.lockapps === false || user.lockapps === '0') {
+      showDelete.value = true;
+    }
   }
   function navigate(link) {
     if (showDelete.value === false) {
@@ -73,7 +75,7 @@
     </div>
 
     <transition name="slide-fade">
-      <new-app-button @showAppUpgrade="showingUpgrade" />
+      <new-app-button v-if="user.lockapps === false || user.lockapps === '0'" @showAppUpgrade="showingUpgrade" />
     </transition>
 
   </div>

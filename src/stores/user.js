@@ -140,7 +140,8 @@ export const useUserStore = defineStore('user', () => {
         let payload = {
             name: this.user.name,
             email: this.user.email,
-            bio: this.user.bio
+            bio: this.user.bio,
+            lockapps: this.user.lockapps
         }
         await appidService.saveUserDetails(this.user.uniqueID, payload).then((data) => {
             if (data.data.status !== true) {

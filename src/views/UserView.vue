@@ -97,6 +97,23 @@ function clickToUpload() {
       >
       </v-expansion-panel>
 
+      <v-expansion-panel
+          readonly="true"
+      >
+        <v-expansion-panel-title>
+          <v-switch
+              v-model="user.lockapps"
+              color="green"
+              :loading="loadingSave"
+              @change="savingUserDetails"
+              hide-details
+              inset
+              :label="`Lock Apps Layout`"
+          ></v-switch>
+
+        </v-expansion-panel-title>
+      </v-expansion-panel>
+
     </v-expansion-panels>
 
     <v-btn
