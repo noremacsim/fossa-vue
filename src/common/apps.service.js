@@ -17,6 +17,14 @@ const appsService = {
                 resolve(data);
             });
         });
+    },
+
+    updateIndex(userID, appIndex) {
+        return new Promise((resolve) => {
+            apiService.post(`app/updateIndex?id=${userID}`, JSON.stringify(appIndex)).then((data) => {
+                resolve(data);
+            });
+        });
     }
 
 }

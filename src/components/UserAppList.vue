@@ -3,16 +3,27 @@
   import { storeToRefs } from "pinia";
   import {onMounted, ref} from "vue";
   import NewAppButton from "@/components/buttons/newAppButton.vue";
+  import draggable from 'vuedraggable'
 
   const { user } = storeToRefs(useUserStore());
-  const { removeUserApp } = useUserStore();
+  const { removeUserApp, updateAppIndex } = useUserStore();
+  const drag = ref(false);
 
   let showDelete = ref(false);
 
   onMounted(() => {
     document.querySelector('body').addEventListener('click', function(e) {
-      if (!e.target.classList.contains('deleteApp') && !e.target.classList.contains('appsImage')) {
-        showDelete.value = false
+      if (
+          !e.target.classList.contains('deleteApp') &&
+          !e.target.classList.contains('appsImage') &&
+          !e.target.classList.contains('moveApp') &&
+          !e.target.classList.contains('moveAppIcon') &&
+          !e.target.classList.contains('appLink')
+      ) {
+        if (showDelete.value === true) {
+          showDelete.value = false
+          updateAppIndex();
+        }
       }
     })
   });
@@ -39,40 +50,61 @@
 </script>
 <template>
   <div id="userHTML" class="loaded userHTML">
-    <div
-        v-touch:hold="showAppDeletes"
-        v-for="(app, index) in user.apps"
-        :value="app.value"
-        :key="app.value"
-        v-touch="() => navigate(user.apps[index].url)"
-        :tabindex="index"
-        role="button"
-        class="d-inline-flex position-relative p-2 appLink"
-        :data-url="app.url"
+
+    <draggable
+        v-model="user.apps"
+        @start="drag=true"
+        @end="drag=false"
+        handle=".moveApp"
+        item-key="id"
     >
-
-        <img
-            v-show="showDelete"
-            class="deleteApp"
-            v-bind:data-id="app.id"
-            v-touch="() => removeUserApp(user.apps[index].id)"
-            :tabindex="`1${index}`"
+      <template #item="{element, index }">
+        <div
+            v-touch:hold="showAppDeletes"
+            :value="element.id"
+            :key="element.id"
+            v-touch="() => navigate(user.apps[index].url)"
+            :tabindex="index"
             role="button"
-            src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
+            class="d-inline-flex position-relative p-2 appLink"
+            :data-url="element.url"
         >
-
-        <transition name="slide-fade">
           <img
-              v-if="app.image"
-              loading="lazy"
-              class="rounded-9 shadow-4 appsImage userAppStyle"
-              :src="app.image"
-              v-bind:alt="app.name"
-              style="width: 100px; height: 100px;"
-          />
-        </transition>
+              v-show="showDelete"
+              class="deleteApp"
+              v-bind:data-id="element.id"
+              v-touch="() => removeUserApp(element.id)"
+              :tabindex="`1${index}`"
+              role="button"
+              src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
+          >
 
-    </div>
+          <div class="moveApp" v-show="showDelete">
+            <img
+                class="moveAppIcon rounded-9 shadow-4 appsImage userAppStyle"
+                v-bind:data-id="element.id"
+                :tabindex="`1${index}`"
+                role="button"
+                src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
+            >
+          </div>
+
+          <transition name="slide-fade">
+            <img
+                v-if="element.image"
+                loading="lazy"
+                class="rounded-9 shadow-4 appsImage userAppStyle"
+                :src="element.image"
+                v-bind:alt="element.name"
+                style="width: 100px; height: 100px;"
+            />
+          </transition>
+
+        </div>
+      </template>
+
+    </draggable>
+
 
     <transition name="slide-fade">
       <new-app-button v-if="user.lockapps === false || user.lockapps === '0'" @showAppUpgrade="showingUpgrade" />
@@ -115,6 +147,28 @@
   padding: 2px;
   border-radius: 10px;
   cursor: pointer;
+  z-index: 2;
+}
+
+.moveApp {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  background: #ffffff80;
+  border-radius: 20px;
+  cursor: pointer;
+  display: block;
+  z-index: 1;
+}
+
+.moveAppIcon {
+  width: 35px;
+  height: 35px;
+  margin: auto;
+  display: block;
+  top: 31px;
+  left: 32px;
+  position: absolute;
 }
 
 .deleteAppTitle {

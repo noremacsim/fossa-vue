@@ -154,6 +154,17 @@ export const useUserStore = defineStore('user', () => {
         });
     }
 
+    async function updateAppIndex() {
+        let appsIndex = this.user.apps.map(({id}) => ({id}));
+        await appsService.updateIndex(this.user.uniqueID, appsIndex).then((data) => {
+            if (data.data.status !== true) {
+                toast.error("Failed to update App List");
+            } else {
+                toast.success("Updated App List");
+            }
+        });
+    }
+
     async function uploadUserImage(image) {
         appidService.uploadUserImage(this.user.uniqueID, image)
             .then((data) => {
@@ -170,5 +181,16 @@ export const useUserStore = defineStore('user', () => {
             });
     }
 
-    return { user, userLoading, initUser, removeUserApp, addUserApp, importUserFromAppID, logoutUser, saveUserDetails, uploadUserImage}
+    return {
+        user,
+        userLoading,
+        initUser,
+        removeUserApp,
+        addUserApp,
+        importUserFromAppID,
+        logoutUser,
+        saveUserDetails,
+        uploadUserImage,
+        updateAppIndex
+    }
 });
