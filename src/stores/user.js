@@ -140,7 +140,8 @@ export const useUserStore = defineStore('user', () => {
             name: this.user.name,
             email: this.user.email,
             bio: this.user.bio,
-            lockapps: this.user.lockapps
+            lockapps: this.user.lockapps,
+            backgroundImage: this.user.backgroundImage
         }
         await appidService.saveUserDetails(this.user.uniqueID, payload).then((data) => {
             if (data.data.status !== true) {

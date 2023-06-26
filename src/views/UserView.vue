@@ -91,10 +91,28 @@ function clickToUpload() {
           </v-btn>
         </v-expansion-panel-text>
       </v-expansion-panel>
+
       <v-expansion-panel
           title="App List Settings"
-          text="Coming Soon"
       >
+        <v-expansion-panel-text>
+          <v-text-field
+              label="Background Image URL"
+              v-model="user.backgroundImage"
+              variant="outlined"
+          ></v-text-field>
+
+          <v-btn
+              color="success"
+              class="mt-4"
+              :loading="loadingSave"
+              block
+              @click="savingUserDetails"
+          >
+            Save
+          </v-btn>
+
+        </v-expansion-panel-text>
       </v-expansion-panel>
 
       <v-expansion-panel

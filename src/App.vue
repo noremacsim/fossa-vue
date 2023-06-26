@@ -2,10 +2,25 @@
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
 import SettingsButton from "@/components/buttons/settingsButton.vue";
 import HomeFooter from "@/components/HomeFooter.vue";
+import {storeToRefs} from "pinia";
+import {useUserStore} from "@/stores/user";
+const { user } = storeToRefs(useUserStore());
+import { ref, watch } from 'vue'
+
+let background = ref('');
+
+watch(user, async () => {
+  if (user.value?.backgroundImage) {
+    background.value = `url(${user.value.backgroundImage})`;
+  } else {
+    background.value = ''
+  }
+})
+
 </script>
 
 <template>
-
+  <body>
   <!-- PAGE HEADER -->
   <header>
 
@@ -44,6 +59,7 @@ import HomeFooter from "@/components/HomeFooter.vue";
   <router-view @showSettings="showModal = true" ></router-view>
 
   <HomeFooter></HomeFooter>
+  </body>
 </template>
 <script>
 export default {
@@ -61,6 +77,13 @@ export default {
 }
 </script>
 <style scoped>
+
+body {
+  background-image: v-bind('background');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 header {
   line-height: 1.5;
