@@ -1,6 +1,7 @@
 <script setup>
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
 import SettingsButton from "@/components/buttons/settingsButton.vue";
+import HomeFooter from "@/components/HomeFooter.vue";
 </script>
 
 <template>
@@ -42,6 +43,7 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
 
   <router-view @showSettings="showModal = true" ></router-view>
 
+  <HomeFooter></HomeFooter>
 </template>
 <script>
 export default {
