@@ -119,7 +119,6 @@ export const useUserStore = defineStore('user', () => {
                 toast.error("Failed to add app");
             } else {
                 this.user.apps.push({id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
-                toast.success("Added App to Home screen");
             }
         });
     }
