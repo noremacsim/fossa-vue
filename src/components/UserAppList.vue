@@ -57,6 +57,7 @@
         @end="drag=false"
         handle=".moveApp"
         item-key="id"
+        class="appcontainers"
     >
       <template #item="{element, index }">
         <div
@@ -127,6 +128,10 @@
 .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+
+.appcontainers {
+  display: contents;
 }
 
 .userHTML {
