@@ -40,5 +40,6 @@ let showModal = ref(false);
     border: 1px solid #bdc1c7;
     border-radius: 15px;
     color: #c0c6cf;
+    background: #ffffff85;
   }
 </style>
