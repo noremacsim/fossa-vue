@@ -9,7 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera} from "@fortawesome/free-solid-svg-icons";
+import { faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera, faShare, faShareNodes} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import router from './router'
 import API_URL from "@/common/config";
@@ -28,7 +28,7 @@ const vuetify = createVuetify({
 })
 
 
-library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera);
+library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera, faShare, faShareNodes);
 axios.defaults.baseURL = API_URL;
 
 const app = createApp(App);

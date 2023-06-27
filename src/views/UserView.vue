@@ -37,6 +37,23 @@ function clickToUpload() {
   uploadButton.value.click();
 }
 
+function shareSite()
+{
+  if (navigator.share) {
+    navigator.share({
+      title: " Fossa - Empower Your Digital Experience with Powerful App & Link Management",
+      text: 'Seamlessly Create, Manage, and Access Apps and Services on Any Device here is my AppList',
+      url: `https://fossa-app.site?code=${user.value.uniqueID}`,
+    })
+        .then(() => {
+          console.log('done');
+        })
+        .catch((error) => console.log('Error sharing', error));
+  } else {
+    console.log('Share not supported on this browser, do it the old way.');
+  }
+}
+
 </script>
 
 <template>
@@ -51,7 +68,9 @@ function clickToUpload() {
     <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
       <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
         <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
-          <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;" readonly=""></div>
+          <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px 25px 0 0 !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;" readonly="">
+          <font-awesome-icon @click="shareSite" :icon="'share-nodes'" :class="'shareIcon'" />
+        </div>
       </div>
     </div>
   </div>
@@ -159,6 +178,23 @@ function clickToUpload() {
 </template>
 
 <style scoped>
+
+.shareIcon {
+  width: 198px;
+  padding: 6px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  background: rgb(84 211 171);
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 0 0 25px 25px;
+  letter-spacing: 3px;
+  color: white;
+  box-shadow: rgb(84, 180, 211) 0px 4px 9px -4px;
+}
+
 .header {
   margin: auto;
   display: block;
