@@ -31,10 +31,10 @@ const emit = defineEmits(['showSettings'])
 const { userLoading } = storeToRefs(useUserStore());
 const { initUser, importUserFromAppID } = useUserStore();
 
-const route = useRoute()
+const importedCode = location?.search?.split('code=')[1] ?? '';
 
-if (route.params?.code) {
-  importUserFromAppID(route.params.code).then(() => {
+if (importedCode && importedCode !== '') {
+  importUserFromAppID(importedCode).then(() => {
     initUser().then(success => {
       if (success === false) {
         emit('showSettings');
