@@ -137,9 +137,9 @@ export const useUserStore = defineStore('user', () => {
 
     async function saveUserDetails(showToast = true) {
         let payload = {
-            name: this.user.name,
-            email: this.user.email,
-            bio: this.user.bio,
+            name: this.user.name ?? '',
+            email: this.user.email ?? '',
+            bio: this.user.bio ?? '',
             lockapps: this.user.lockapps,
             backgroundImage: this.user.backgroundImage,
             tour: this.user.tour
