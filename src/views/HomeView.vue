@@ -22,8 +22,6 @@ import UserAppList from "@/components/UserAppList.vue";
 import UserHeader from "@/components/UserHeader.vue";
 import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
 import UserAppListSkeleton from "@/components/skeleton/UserAppListSkeleton.vue";
-import { useRoute } from 'vue-router'
-
 
 import {defineEmits} from 'vue'
 const emit = defineEmits(['showSettings'])

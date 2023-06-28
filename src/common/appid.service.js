@@ -61,7 +61,7 @@ const appidService = {
 
     saveUserDetails(appID, payload) {
         return new Promise((resolve) => {
-            apiService.post(`/user/update?id=${appID}&name=${payload.name}&email=${payload.email}&bio=${payload.bio}&lockapps=${payload.lockapps}&backgroundImage=${payload.backgroundImage}`).then((data) => {
+            apiService.post(`/user/update?id=${appID}&name=${payload.name}&email=${payload.email}&bio=${payload.bio}&lockapps=${payload.lockapps}&backgroundImage=${payload.backgroundImage}&tour=${payload.tour}`).then((data) => {
                 resolve(data);
             });
         });

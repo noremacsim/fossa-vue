@@ -21,6 +21,8 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import Vue3Tour from 'vue3-tour'
+import 'vue3-tour/dist/vue3-tour.css'
 
 const vuetify = createVuetify({
     components,
@@ -39,6 +41,7 @@ app.use(VueAxios, axios);
 app.use(Vue3TouchEvents);
 app.use(LoadScript);
 app.use(vuetify);
+app.use(Vue3Tour);
 
 const options = {
     maxToasts: 3,

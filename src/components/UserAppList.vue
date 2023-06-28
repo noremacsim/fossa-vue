@@ -1,9 +1,10 @@
 <script setup>
   import { useUserStore } from "@/stores/user";
   import { storeToRefs } from "pinia";
-  import {onMounted, ref} from "vue";
+  import { onMounted, ref} from "vue";
   import NewAppButton from "@/components/buttons/newAppButton.vue";
   import draggable from 'vuedraggable'
+  import HomePageTour from "@/components/tours/HomePageTour.vue";
 
   const { user } = storeToRefs(useUserStore());
   const { removeUserApp, updateAppIndex } = useUserStore();
@@ -110,6 +111,8 @@
     <transition name="slide-fade">
       <new-app-button v-if="user.lockapps === false || user.lockapps === '0'" @showAppUpgrade="showingUpgrade" />
     </transition>
+
+    <home-page-tour />
 
   </div>
 </template>

@@ -2,6 +2,7 @@
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
 import {defineEmits, ref} from 'vue'
+import UserProfileTour from "@/components/tours/UserProfileTour.vue";
 const { user } = storeToRefs(useUserStore());
 const { saveUserDetails, logoutUser, uploadUserImage} = useUserStore();
 const showImport = ref(false);
@@ -79,6 +80,7 @@ function shareSite()
     <v-expansion-panels variant="accordion">
       <v-expansion-panel
           title="Profile Settings"
+          class="profileCustom"
       >
         <v-expansion-panel-text>
           <v-text-field
@@ -113,6 +115,7 @@ function shareSite()
 
       <v-expansion-panel
           title="App List Settings"
+          class="customBackground"
       >
         <v-expansion-panel-text>
           <v-text-field
@@ -139,6 +142,7 @@ function shareSite()
       >
         <v-expansion-panel-title>
           <v-switch
+              class="lockingApps"
               v-model="user.lockapps"
               color="green"
               :loading="loadingSave"
@@ -175,6 +179,8 @@ function shareSite()
     </v-btn>
 
   </v-container>
+
+  <user-profile-tour />
 </template>
 
 <style scoped>

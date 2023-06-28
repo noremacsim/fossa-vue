@@ -135,20 +135,25 @@ export const useUserStore = defineStore('user', () => {
             })
     }
 
-    async function saveUserDetails() {
+    async function saveUserDetails(showToast = true) {
         let payload = {
             name: this.user.name,
             email: this.user.email,
             bio: this.user.bio,
             lockapps: this.user.lockapps,
-            backgroundImage: this.user.backgroundImage
+            backgroundImage: this.user.backgroundImage,
+            tour: this.user.tour
         }
         await appidService.saveUserDetails(this.user.uniqueID, payload).then((data) => {
             if (data.data.status !== true) {
-                toast.error("Failed to update user");
+                if (showToast) {
+                    toast.error("Failed to update user");
+                }
                 return false;
             } else {
-                toast.success("Profile Updated Successfully");
+                if (showToast) {
+                    toast.success("Profile Updated Successfully");
+                }
                 return true;
             }
         });
