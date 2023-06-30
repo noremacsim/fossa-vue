@@ -133,7 +133,7 @@ export const useUserStore = defineStore('user', () => {
                 toast.error("Failed to add folder");
             } else {
                 this.user.apps.push({id: data.data.data['id'], 'name': payload.name, 'url': '', 'image':'', 'type': 'folder'})
-                this.user.folders[data.data.data['id']] = {};
+                this.user.folders[data.data.data['id']] = [];
                 this.displayApps.push({id: data.data.data['id'], 'name': payload.name, 'url': '', 'image':'', 'type': 'folder'})
             }
         });

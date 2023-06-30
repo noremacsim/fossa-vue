@@ -60,6 +60,7 @@
     </div>
 
     <draggable
+        v-if="displayApps.length > 0"
         v-model="displayApps"
         @start="drag=true"
         @end="drag=false"
@@ -78,7 +79,9 @@
         >
           <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
             <span class="folderLabel">{{ element.name }}</span>
+            <div v-if="user.folders[element.id].length > 0">
               <img v-for="app in user.folders[element.id].slice(0, 9)" v-bind:key="app.id" loading="lazy" class="folderImage rounded-9 shadow-4 appsImage userAppStyle" :src="app.image" :alt="app.name">
+            </div>
           </div>
 
           <img
@@ -107,7 +110,7 @@
             v-touch:hold="showAppDeletes"
             :value="element.id"
             :key="element.id"
-            v-touch="() => navigate(user.apps[index].url)"
+            v-touch="() => navigate(displayApps[index].url)"
             :tabindex="index"
             role="button"
             class="d-inline-flex position-relative p-2 appLink"
