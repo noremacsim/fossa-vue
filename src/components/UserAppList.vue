@@ -13,6 +13,21 @@
   let showDelete = ref(false);
 
   onMounted(() => {
+
+    document.querySelector('img').addEventListener('click', function(e) {
+      e.preventDefault();
+    });
+
+    document.querySelector('img').addEventListener('Mousedown', function(e) {
+      e.preventDefault();
+    });
+
+    window.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    };
+
     document.querySelector('body').addEventListener('click', function(e) {
       if (
           !e.target.classList.contains('deleteApp') &&
@@ -80,7 +95,16 @@
           <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
             <span class="folderLabel">{{ element.name }}</span>
             <div v-if="user.folders[element.id].length > 0">
-              <img v-for="app in user.folders[element.id].slice(0, 9)" v-bind:key="app.id" loading="lazy" class="folderImage rounded-9 shadow-4 appsImage userAppStyle" :src="app.image" :alt="app.name">
+              <img
+                  v-for="app in user.folders[element.id].slice(0, 9)"
+                  v-bind:key="app.id"
+                  loading="lazy"
+                  class="folderImage rounded-9 shadow-4 appsImage userAppStyle"
+                  :src="app.image"
+                  :alt="app.name"
+                  role="button"
+                  type="button"
+              >
             </div>
           </div>
 
@@ -91,6 +115,7 @@
               v-touch="() => removeUserApp(element.id)"
               :tabindex="`1${index}`"
               role="button"
+              type="button"
               src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
           >
 
@@ -100,6 +125,7 @@
                 v-bind:data-id="element.id"
                 :tabindex="`1${index}`"
                 role="button"
+                type="button"
                 src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
             >
           </div>
@@ -113,6 +139,7 @@
             v-touch="() => navigate(displayApps[index].url)"
             :tabindex="index"
             role="button"
+            type="button"
             class="d-inline-flex position-relative p-2 appLink"
             :data-url="element.url"
         >
@@ -123,6 +150,7 @@
               v-touch="() => removeUserApp(element.id)"
               :tabindex="`1${index}`"
               role="button"
+              type="button"
               src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
           >
 
@@ -132,6 +160,7 @@
                 v-bind:data-id="element.id"
                 :tabindex="`1${index}`"
                 role="button"
+                type="button"
                 src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
             >
           </div>
@@ -144,6 +173,8 @@
                 :src="element.image"
                 v-bind:alt="element.name"
                 style="width: 100px; height: 100px;"
+                role="button"
+                type="button"
             />
           </transition>
 
