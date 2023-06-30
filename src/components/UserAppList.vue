@@ -136,7 +136,7 @@
             v-touch:hold="showAppDeletes"
             :value="element.id"
             :key="element.id"
-            v-touch="() => navigate(displayApps[index].url)"
+            v-touch="() => navigate(element.url)"
             :tabindex="index"
             role="button"
             type="button"
