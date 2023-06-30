@@ -2,9 +2,18 @@ import apiService from "@/common/api.service";
 
 const appsService = {
 
-    addApp(userid, title, link, image) {
+    addFolder(userid, title) {
         return new Promise((resolve) => {
-            let app = {'name': title, 'url': link, 'image': image};
+            let app = {'name': title};
+            apiService.post(`folder/new?id=${userid}`, JSON.stringify(app)).then((data) => {
+                resolve(data);
+            });
+        });
+    },
+
+    addApp(userid, title, link, image, folderID) {
+        return new Promise((resolve) => {
+            let app = {'name': title, 'url': link, 'image': image, 'folderID': folderID};
             apiService.post(`app/new?id=${userid}`, JSON.stringify(app)).then((data) => {
                 resolve(data);
             });

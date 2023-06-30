@@ -26,6 +26,7 @@ let showModal = ref(false);
 </template>
 
 <style scoped>
+
   .newAppIconPlus {
     position: absolute;
     top: 21%;

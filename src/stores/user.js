@@ -6,12 +6,24 @@ import { useStorage } from '@vueuse/core'
 import appsService from "@/common/apps.service";
 import {useToast} from "vue-toastification";
 import cookieService from "@/common/cookie.service";
-import apiService from "@/common/api.service";
 
 export const useUserStore = defineStore('user', () => {
     const user = ref(useStorage('user', []));
     const userLoading = ref(true);
-    const toast = useToast()
+    const toast = useToast();
+    const filter = ref(useStorage('filter', null));
+    const displayApps = ref(useStorage('displayApps', []));
+
+    async function filterApps(filterBy = null) {
+
+        if (filterBy === null || filterBy === '') {
+            this.displayApps = this.user.apps;
+        } else {
+            this.displayApps = this.user.folders[filterBy];
+        }
+
+        this.filter = filterBy;
+    }
 
     async function initUser() {
         if (this.user.length > 0) {
@@ -29,6 +41,11 @@ export const useUserStore = defineStore('user', () => {
             }
             userLoading.value = false;
             this.user = data;
+            if (this.filter != null) {
+                filterApps(this.filter)
+            } else {
+                this.displayApps = this.user.apps;
+            }
             return true;
         });
 
@@ -85,10 +102,16 @@ export const useUserStore = defineStore('user', () => {
     async function removeUserApp(appID) {
         if (this.user?.uniqueID) {
 
-            const indexOfRemovedApp = this.user.apps.findIndex(object => {
+            const indexOfRemovedApp = this.displayApps.findIndex(object => {
                 return object.id === appID;
             });
-            this.user.apps.splice(indexOfRemovedApp, 1);
+
+            if (this.filter) {
+                this.user.folders[this.filter].splice(indexOfRemovedApp, 1);
+            } else {
+                this.user.apps.splice(indexOfRemovedApp, 1);
+            }
+            this.displayApps.splice(indexOfRemovedApp, 1);
 
             await appsService.removeApp(this.user.uniqueID, appID).then((data) => {
                 if (data.data.status !== true) {
@@ -96,6 +119,25 @@ export const useUserStore = defineStore('user', () => {
                 }
             });
         }
+    }
+
+    async function addUserFolder(payload) {
+
+        if (payload.name === '') {
+            toast.error("Folder Name must be provided");
+            return;
+        }
+
+        await appsService.addFolder(this.user.uniqueID, payload.name).then((data) => {
+            if (data.data.status !== true) {
+                toast.error("Failed to add folder");
+            } else {
+                this.user.apps.push({id: data.data.data['id'], 'name': payload.name, 'url': '', 'image':'', 'type': 'folder'})
+                this.user.folders[data.data.data['id']] = {};
+                this.displayApps.push({id: data.data.data['id'], 'name': payload.name, 'url': '', 'image':'', 'type': 'folder'})
+            }
+        });
+
     }
 
     async function addUserApp(payload) {
@@ -114,11 +156,17 @@ export const useUserStore = defineStore('user', () => {
             return;
         }
 
-        await appsService.addApp(this.user.uniqueID, payload.name, payload.url, payload.image).then((data) => {
+        await appsService.addApp(this.user.uniqueID, payload.name, payload.url, payload.image, this.filter).then((data) => {
             if (data.data.status !== true) {
                 toast.error("Failed to add app");
             } else {
-                this.user.apps.push({id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
+
+                if (this.filter) {
+                    this.user.folders[this.filter].push({id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
+                } else {
+                    this.user.apps.push({id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
+                }
+                this.displayApps.push({id: data.data.data['id'], 'name': payload.name, 'url': payload.url, 'image':payload.image})
             }
         });
     }
@@ -160,7 +208,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function updateAppIndex() {
-        let appsIndex = this.user.apps.map(({id}) => ({id}));
+        let appsIndex = this.displayApps.map(({id}) => ({id}));
         await appsService.updateIndex(this.user.uniqueID, appsIndex).then((data) => {
             if (data.data.status !== true) {
                 toast.error("Failed to update App List");
@@ -189,13 +237,17 @@ export const useUserStore = defineStore('user', () => {
     return {
         user,
         userLoading,
+        displayApps,
+        filter,
         initUser,
         removeUserApp,
         addUserApp,
+        addUserFolder,
         importUserFromAppID,
         logoutUser,
         saveUserDetails,
         uploadUserImage,
-        updateAppIndex
+        updateAppIndex,
+        filterApps,
     }
 });

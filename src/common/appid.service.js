@@ -79,6 +79,8 @@ const appidService = {
     },
 
     async initStarterApps(appID) {
+        await appsService.addFolder(appID, 'Folder 1');
+        await appsService.addFolder(appID, 'Folder 2');
         for (const apps of starterApps) {
             await appsService.addApp(appID, apps[0], apps[1], apps[3]);
         }

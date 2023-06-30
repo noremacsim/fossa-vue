@@ -2,8 +2,10 @@
   import {allApps} from "@/common/allApps";
   import {ref} from "vue";
   import {useUserStore} from "@/stores/user";
-  const { addUserApp } = useUserStore();
+  const { addUserApp, addUserFolder } = useUserStore();
+  const { filter } = storeToRefs(useUserStore());
   import { defineEmits } from 'vue'
+  import {storeToRefs} from "pinia";
   const emit = defineEmits(['close'])
 
 
@@ -14,16 +16,22 @@
   let appName = ref('');
   let appUrl = ref('');
   let appImage = ref('');
-  let showCustom = ref(false);
-  let showUpgrade = ref(false);
+  let folderName = ref('');
 
-  function showCustomForm() {
-    showCustom.value = true;
-  }
+
   function addNewApp(name, url, image) {
     addUserApp({name, url, image})
     emit('close');
   }
+
+  function saveFolder() {
+    let data = {
+      name: folderName.value,
+    }
+    addUserFolder(data)
+    emit('close');
+  }
+
   function saveCustom() {
     let data = {
       name: appName.value,
@@ -50,32 +58,53 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-center flex-wrap mb-3" id="newAppList" v-if="!showCustom">
-        <div v-for="app of allApps" :value="app.value" :key="app.value" @click="addNewApp(app[0], app[1], app[3])" class="d-inline-flex position-relative p-2 addApp">
-          <img class="rounded-9 shadow-4 appsImage" v-bind:src="app[3]" alt="${element[0]}" style="width: 75px; height: 75px;" />
-        </div>
-      </div>
-
-      <div class="card" v-show="showCustom">
-        <div class="card-body">
-          <div class="form-group">
-            <label for="exampleInputEmail1">App Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Name" v-model="appName">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">App URL</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App URL" v-model="appUrl">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">App Image URL</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Image URL" v-model="appImage">
-          </div>
-          <button class="btn btn-success mt-3" style="width: 100%" @click="saveCustom">Save</button>
-          <button class="btn btn-danger mt-3" style="width: 100%"  @click="showCustom = false">Cancel</button>
-        </div>
-      </div>
-
-      <button class="btn btn-primary" @click="showCustomForm" v-if="!showCustom && !showUpgrade">Add Custom App/URL</button>
+      <v-expansion-panels variant="accordion">
+        <v-expansion-panel
+            title="Add New App"
+            expand-icon="fas fa-plus"
+        >
+          <v-expansion-panel-text>
+            <div class="d-flex justify-content-center flex-wrap mb-3" id="newAppList">
+              <div v-for="app of allApps" :value="app.value" :key="app.value" @click="addNewApp(app[0], app[1], app[3])" class="d-inline-flex position-relative p-2 addApp">
+                <img class="rounded-9 shadow-4 appsImage" v-bind:src="app[3]" alt="${element[0]}" style="width: 75px; height: 75px;" />
+              </div>
+            </div>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+        <v-expansion-panel
+            title="Add New Folder"
+            expand-icon="fas fa-plus"
+            v-if="!filter"
+        >
+          <v-expansion-panel-text>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Folder Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Folder Name" v-model="folderName">
+            </div>
+            <button class="btn btn-success mt-3" style="width: 100%" @click="saveFolder">Save</button>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+        <v-expansion-panel
+            title="Add Custom Link"
+            expand-icon="fas fa-plus"
+        >
+          <v-expansion-panel-text>
+            <div class="form-group">
+              <label for="exampleInputEmail1">App Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Name" v-model="appName">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">App URL</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App URL" v-model="appUrl">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">App Image URL</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Image URL" v-model="appImage">
+            </div>
+            <button class="btn btn-success mt-3" style="width: 100%" @click="saveCustom">Save</button>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
 
     </div>
   </v-card>

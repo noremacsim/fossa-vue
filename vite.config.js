@@ -7,9 +7,13 @@ const hash = Math.floor(Math.random() * 90000) + 10000;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  logLevel: 'silent',
+  logType: 'error',
   plugins: [
     vue(),
     VitePWA({
+      logLevel: 'silent',
+      logType: 'error',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', '/img/icon/apple-touch-icon.png'],
       devOptions: {

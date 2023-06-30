@@ -7,9 +7,10 @@ import App from './App.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from "@fortawesome/fontawesome-svg-core";
+import '@fortawesome/fontawesome-free/css/all.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera, faShare, faShareNodes} from "@fortawesome/free-solid-svg-icons";
+import { faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera, faShare, faShareNodes, faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import router from './router'
 import API_URL from "@/common/config";
@@ -21,16 +22,22 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { aliases, fa } from 'vuetify/iconsets/fa'
 import Vue3Tour from 'vue3-tour'
 import 'vue3-tour/dist/vue3-tour.css'
 
 const vuetify = createVuetify({
     components,
     directives,
+    defaultSet: 'fa',
+    aliases,
+    sets: {
+        fa,
+    },
 })
 
 
-library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera, faShare, faShareNodes);
+library.add(faCog, faUpRightAndDownLeftFromCenter, faPlus, faUser, faHome, faUpload, faCamera, faShare, faShareNodes, faArrowLeft);
 axios.defaults.baseURL = API_URL;
 
 const app = createApp(App);

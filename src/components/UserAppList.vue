@@ -6,8 +6,8 @@
   import draggable from 'vuedraggable'
   import HomePageTour from "@/components/tours/HomePageTour.vue";
 
-  const { user } = storeToRefs(useUserStore());
-  const { removeUserApp, updateAppIndex } = useUserStore();
+  const { user, displayApps, filter } = storeToRefs(useUserStore());
+  const { removeUserApp, updateAppIndex, filterApps } = useUserStore();
   const drag = ref(false);
 
   let showDelete = ref(false);
@@ -19,7 +19,8 @@
           !e.target.classList.contains('appsImage') &&
           !e.target.classList.contains('moveApp') &&
           !e.target.classList.contains('moveAppIcon') &&
-          !e.target.classList.contains('appLink')
+          !e.target.classList.contains('appLink') &&
+          !e.target.classList.contains('folderBox')
       ) {
         if (showDelete.value === true) {
           showDelete.value = false
@@ -52,8 +53,14 @@
 <template>
   <div id="userHTML" class="loaded userHTML">
 
+    <div class="d-inline-flex position-relative p-2 newAppModalButton" v-if="filter != null" @click="filterApps()">
+      <div class="backIcon rounded-9 userAppStyle">
+        <font-awesome-icon icon="arrow-left" class="backIconPlus" aria-hidden="true" />
+      </div>
+    </div>
+
     <draggable
-        v-model="user.apps"
+        v-model="displayApps"
         @start="drag=true"
         @end="drag=false"
         handle=".moveApp"
@@ -61,7 +68,42 @@
         class="appcontainers"
     >
       <template #item="{element, index }">
+
         <div
+            class="d-inline-flex position-relative p-2 newAppModalButton folderBox"
+            v-if="element.type === 'folder'"
+            v-bind="props"
+            v-touch:hold="showAppDeletes"
+            :tabindex="index"
+        >
+          <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
+            <span class="folderLabel">{{ element.name }}</span>
+              <img v-for="app in user.folders[element.id].slice(0, 9)" v-bind:key="app.id" loading="lazy" class="folderImage rounded-9 shadow-4 appsImage userAppStyle" :src="app.image" :alt="app.name">
+          </div>
+
+          <img
+              v-show="showDelete"
+              class="deleteApp"
+              v-bind:data-id="element.id"
+              v-touch="() => removeUserApp(element.id)"
+              :tabindex="`1${index}`"
+              role="button"
+              src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
+          >
+
+          <div class="moveApp" v-show="showDelete">
+            <img
+                class="moveAppIcon rounded-9 shadow-4 appsImage userAppStyle"
+                v-bind:data-id="element.id"
+                :tabindex="`1${index}`"
+                role="button"
+                src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
+            >
+          </div>
+        </div>
+
+        <div
+            v-else-if="element.type !== 'folder'"
             v-touch:hold="showAppDeletes"
             :value="element.id"
             :key="element.id"
@@ -118,6 +160,53 @@
 </template>
 
 <style scoped>
+
+.folderLabel {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  background: #000000a6;
+  color: white;
+  bottom: 0;
+  border-radius: 0 0 15px 15px;
+}
+
+.folderContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  height: 100px;
+  width: 100px;
+  border: 1px solid #bdc1c7;
+  border-radius: 15px;
+  color: #c0c6cf;
+  background: #ffffff85;
+}
+
+.folderImage {
+  width: 25px !important;
+  height: 25px !important;
+  margin: 2px !important;
+}
+
+.backIconPlus {
+  position: absolute;
+  top: 21%;
+  left: 25%;
+  font-size: 66px;
+  font-weight: 100;
+}
+
+.backIcon {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #bdc1c7;
+  border-radius: 15px;
+  color: #c0c6cf;
+  background: #ffffff85;
+  cursor: pointer;
+}
 
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
