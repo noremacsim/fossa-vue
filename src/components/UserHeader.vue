@@ -34,7 +34,7 @@ const { user } = storeToRefs(useUserStore());
 .headerProfile {
   margin-top: 10px;
   color: black;
-  text-shadow: 0.07em 0 white, 0 0.07em white, -0.07em 0 white, 0 -0.07em white;
+  text-shadow: 0.05em 0 white, 0 0.05em white, -0.05em 0 white, 0 -0.05em white, -0.05em -0.05em white, -0.05em 0.05em white, 0.05em -0.05em white, 0.05em 0.05em white;
 }
 
 </style>
