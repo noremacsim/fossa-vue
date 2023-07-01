@@ -17,6 +17,7 @@
   let appUrl = ref('');
   let appImage = ref('');
   let folderName = ref('');
+  const newAppIcon = ref('');
 
 
   function addNewApp(name, url, image) {
@@ -33,13 +34,25 @@
   }
 
   function saveCustom() {
+    let imageApp = ''
+
+    if (appImage.value === '') {
+      imageApp = newAppIcon.value;
+    } else {
+      imageApp = appImage.value;
+    }
+
     let data = {
       name: appName.value,
       url: appUrl.value,
-      image: appImage.value
+      image: imageApp
     }
     addUserApp(data)
     emit('close');
+  }
+
+  function GeneratIcon() {
+    newAppIcon.value = `https://www.google.com/s2/favicons?sz=128&domain_url=${appUrl.value}`
   }
 
 </script>
@@ -95,11 +108,12 @@
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1">App URL</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App URL" v-model="appUrl">
+              <input type="text" @change="GeneratIcon" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App URL" v-model="appUrl">
             </div>
+            <img :src="newAppIcon" style="display: block;margin: auto;"/>
             <div class="form-group">
-              <label for="exampleInputEmail1">App Image URL</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Image URL" v-model="appImage">
+              <label for="exampleInputEmail1">Custom Image URL (Optional)</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Image URL" v-model="appImage">
             </div>
             <button class="btn btn-success mt-3" style="width: 100%" @click="saveCustom">Save</button>
           </v-expansion-panel-text>
