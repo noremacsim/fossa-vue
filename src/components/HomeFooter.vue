@@ -11,6 +11,8 @@
   display: block;
   width: 100%;
   margin-bottom: 5px;
+  color: black;
+  text-shadow: 0.07em 0 white, 0 0.07em white, -0.07em 0 white, 0 -0.07em white;
 }
 
 a {
