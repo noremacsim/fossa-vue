@@ -166,7 +166,7 @@ export const useUserStore = defineStore('user', () => {
         }
 
         if (payload.image === '') {
-            toast.error("App Image must be provided");
+            toast.error("This Page has No Icon, Cannot create bookmark");
             return;
         }
 

@@ -16,6 +16,11 @@ watch(user, async () => {
   } else {
     background.value = ''
   }
+
+  if (user.value.length === 0 && showUserApps.value === true) {
+    showUserApps.value = false;
+  }
+
 })
 
 function bookMarkTab() {
@@ -54,6 +59,11 @@ function getFossaID() {
   chrome.tabs.create({ url: 'https://fossa-app.site?chrome=true' });
 }
 
+function editPage() {
+  let link = 'https://fossa-app.site?code=' + user.value.uniqueID;
+  chrome.tabs.create({ url: link });
+}
+
 </script>
 
 <template>
@@ -65,8 +75,11 @@ function getFossaID() {
 
       <v-container>
         <v-row justify="center" align="center">
-          <v-col cols="auto">
-            <v-btn block size="x-large" @click="bookMarkTab" append-icon="fas fa-bookmark">Bookmark Current Tab</v-btn>
+          <v-col cols="6">
+            <v-btn block size="x-large" @click="bookMarkTab" append-icon="fas fa-bookmark">Bookmark Page</v-btn>
+          </v-col>
+          <v-col cols="6">
+            <v-btn block size="x-large" @click="editPage" append-icon="fas fa-user">Personilization</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -96,7 +109,7 @@ function getFossaID() {
         </div>
       </div>
       <span style="margin-top: 10px">Please Import your fossa ID to sync your app lists. If you don't have one yet click the button below to get one</span>
-      <v-btn block style="background:#6ac56a;">Get A Fossa ID</v-btn>
+      <v-btn block style="background:#6ac56a;" @click="getFossaID">Get A Fossa ID</v-btn>
     </div>
   </div>
 
@@ -105,11 +118,6 @@ function getFossaID() {
 </template>
 <script>
 export default {
-  methods: {
-    goFullscreen() {
-      window.location = 'https://youtube.com/redirect?q=https://fossa-app.site';
-    }
-  },
   data() {
     return {
       page: 'home',
