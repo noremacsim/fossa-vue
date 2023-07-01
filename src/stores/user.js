@@ -64,6 +64,18 @@ export const useUserStore = defineStore('user', () => {
         });
     }
 
+    async function checkIfUserSetup() {
+        return new Promise(resolve => {
+            appidService.checkIfHasAppID()
+                .then((data) => {
+                    resolve(data);
+                })
+                .catch(() => {
+                    resolve(false);
+                });
+        });
+    }
+
     async function getUserFromAppID(appID) {
         return new Promise(resolve => {
             userService.getUser(appID)
@@ -77,26 +89,28 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function importUserFromAppID(appID) {
-        await userService.getUser(appID)
-            .then((data) => {
-                if (data.status === false) {
-                    toast.error("Failed to Import, Check Code");
-                    return false;
-                }
+        return new Promise(resolve => {
+             userService.getUser(appID)
+                .then((data) => {
+                    if (data.status === false) {
+                        toast.error("Failed to Import, Check Code");
+                        resolve(false);
+                    }
 
-                userLoading.value = false;
-                this.user = data;
-                cookieService.setCookie('appId', appID, 365).then(() => {
-                    toast.success("Imported Successfully", {
-                        timeout: 2000
+                    userLoading.value = false;
+                    this.user = data;
+                    cookieService.setCookie('appId', appID, 365).then(() => {
+                        toast.success("Imported Successfully", {
+                            timeout: 2000
+                        });
                     });
+                    resolve(true);
+                })
+                .catch(() => {
+                    toast.error("Failed to Import, Check Code");
+                    resolve(false);
                 });
-                return true;
-            })
-            .catch(() => {
-                toast.error("Failed to Import, Check Code");
-                return false;
-            });
+        });
     }
 
     async function removeUserApp(appID) {
@@ -240,9 +254,8 @@ export const useUserStore = defineStore('user', () => {
         displayApps,
         filter,
         initUser,
-        removeUserApp,
+        checkIfUserSetup,
         addUserApp,
-        addUserFolder,
         importUserFromAppID,
         logoutUser,
         saveUserDetails,

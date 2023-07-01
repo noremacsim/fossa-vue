@@ -27,6 +27,23 @@ const appidService = {
 
     },
 
+    checkIfHasAppID() {
+        return new Promise((resolve) => {
+            if ("appID" in localStorage) {
+                const appID = localStorage.getItem("appID");
+                cookieService.setCookie('appId', appID, 365).then(() => {
+                    resolve(appID)
+                });
+            } else if (cookieService.getCookie('appId') !== '') {
+                const appID = cookieService.getCookie('appId');
+                localStorage.setItem("appId", appID);
+                resolve(appID);
+            } else {
+               resolve(false);
+            }
+        });
+    },
+
     resetAppID() {
         return new Promise((resolve) => {
             this.createAppID().then(data => {

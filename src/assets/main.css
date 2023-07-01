@@ -127,3 +127,8 @@
     margin-top: 10px;
     box-shadow: #3b71ca40 0px 6px 12px -2px, #3b71ca4d 0px 3px 7px -3px !important;
 }
+
+body {
+    width: 600px;
+    height: 600px;
+}

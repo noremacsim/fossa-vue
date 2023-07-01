@@ -1,13 +1,14 @@
 <script setup>
-import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
-import SettingsButton from "@/components/buttons/settingsButton.vue";
 import HomeFooter from "@/components/HomeFooter.vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 const { user } = storeToRefs(useUserStore());
+const { addUserApp, checkIfUserSetup, importUserFromAppID } = useUserStore();
 import { ref, watch } from 'vue'
-
+import HomeView from "@/views/HomeView.vue";
 let background = ref('');
+const showUserApps = ref(false);
+const code = ref('');
 
 watch(user, async () => {
   if (user.value?.backgroundImage) {
@@ -17,48 +18,89 @@ watch(user, async () => {
   }
 })
 
+function bookMarkTab() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    // since only one tab should be active and in the current window at once
+    // the return variable should only have one entry
+    let activeTab = tabs[0];
+
+    const appdata = {
+      url: activeTab.url ?? '',
+      name: activeTab.title ?? null,
+      image: activeTab.favIconUrl ?? null
+    }
+
+    addUserApp(appdata);
+  });
+}
+
+checkIfUserSetup().then(data => {
+  if (data === false) {
+    console.log('User is not setup let show the import screen');
+  } else {
+    showUserApps.value = true;
+  }
+})
+
+function importCode() {
+  importUserFromAppID(code.value).then(data => {
+    if (data) {
+      showUserApps.value = true;
+    }
+  })
+}
+
+function getFossaID() {
+  chrome.tabs.create({ url: 'https://fossa-app.site?chrome=true' });
+}
+
 </script>
 
 <template>
   <body>
   <!-- PAGE HEADER -->
-  <header>
+  <header v-show="showUserApps">
 
-    <div class="topNav" role="navigation">
+    <div class="topNav" role="navigation" >
 
-      <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
-
-      <router-link to="/user">
-        <fontAwsomeButton
-            icon="user"
-            className="floatButton settingsButton"
-            @click="page = 'user'"
-            v-show="page === 'home' || page === 'subscribe'"
-        />
-      </router-link>
-
-      <router-link to="/">
-        <fontAwsomeButton
-            icon="home"
-            className="floatButton settingsButton"
-            @click="page = 'home'"
-            v-show="page === 'user'"
-        />
-      </router-link>
-
-      <fontAwsomeButton
-          icon="up-right-and-down-left-from-center"
-          className="floatButton fullscreenButton"
-          @click="goFullscreen"
-      />
+      <v-container>
+        <v-row justify="center" align="center">
+          <v-col cols="auto">
+            <v-btn block size="x-large" @click="bookMarkTab" append-icon="fas fa-bookmark">Bookmark Current Tab</v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
 
     </div>
 
   </header>
 
-  <router-view @showSettings="showModal = true" ></router-view>
+  <HomeView v-if="showUserApps"></HomeView>
+  <HomeFooter v-if="showUserApps"></HomeFooter>
 
-  <HomeFooter></HomeFooter>
+  <div class="card" v-if="!showUserApps">
+    <div class="card-body" style="background: #f2f2f2">
+      <h5 style="color: black;font-weight: bold;text-align: center;">Your Fossa ID</h5>
+
+      <div class="form-group mb-2">
+
+        <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
+          <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
+            <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
+              <input  v-model="code" type="text" class="form-control rounded appId" placeholder="Fossa Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: white;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: black;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;">
+            </div>
+          </div>
+        </div>
+        <div style="display: flex;flex-wrap: wrap;align-items: center;justify-content: center;padding-top:15px">
+          <v-btn block @click="importCode" size="x-large" id="importCode" type="button" class="btn btn-primary btn-rounded" style="background:#0d6efd;color:white;margin-bottom:10px;">Save & import</v-btn>
+        </div>
+      </div>
+      <span style="margin-top: 10px">Please Import your fossa ID to sync your app lists. If you don't have one yet click the button below to get one</span>
+      <v-btn block style="background:#6ac56a;">Get A Fossa ID</v-btn>
+    </div>
+  </div>
+
+
   </body>
 </template>
 <script>
@@ -71,7 +113,6 @@ export default {
   data() {
     return {
       page: 'home',
-      showModal: false,
     }
   },
 }

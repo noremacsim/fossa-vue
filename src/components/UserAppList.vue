@@ -2,12 +2,10 @@
   import { useUserStore } from "@/stores/user";
   import { storeToRefs } from "pinia";
   import { onMounted, ref} from "vue";
-  import NewAppButton from "@/components/buttons/newAppButton.vue";
   import draggable from 'vuedraggable'
-  import HomePageTour from "@/components/tours/HomePageTour.vue";
 
   const { user, displayApps, filter } = storeToRefs(useUserStore());
-  const { removeUserApp, updateAppIndex, filterApps } = useUserStore();
+  const { updateAppIndex, filterApps } = useUserStore();
   const drag = ref(false);
 
   let showDelete = ref(false);
@@ -45,23 +43,8 @@
     })
   });
 
-  function showingUpgrade() {
-    this.$emit('showUpgrade')
-  }
-  function showAppDeletes() {
-    if (user.value.lockapps === false || user.value.lockapps === '0') {
-      showDelete.value = true;
-    }
-  }
   function navigate(link) {
-    if (showDelete.value === false) {
-      if (!link.match(/^[a-zA-Z]+:\/\//))
-      {
-        link = 'https://' + link;
-      }
-
-      window.location = link;
-    }
+      chrome.tabs.create({ url: link });
   }
 
 </script>
@@ -89,7 +72,6 @@
             class="d-inline-flex position-relative p-2 newAppModalButton folderBox"
             v-if="element.type === 'folder'"
             v-bind="props"
-            v-touch:hold="showAppDeletes"
             :tabindex="index"
         >
           <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
@@ -107,33 +89,10 @@
               >
             </div>
           </div>
-
-          <img
-              v-show="showDelete"
-              class="deleteApp"
-              v-bind:data-id="element.id"
-              v-touch="() => removeUserApp(element.id)"
-              :tabindex="`1${index}`"
-              role="button"
-              type="button"
-              src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
-          >
-
-          <div class="moveApp" v-show="showDelete">
-            <img
-                class="moveAppIcon rounded-9 shadow-4 appsImage userAppStyle"
-                v-bind:data-id="element.id"
-                :tabindex="`1${index}`"
-                role="button"
-                type="button"
-                src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
-            >
-          </div>
         </div>
 
         <div
             v-else-if="element.type !== 'folder'"
-            v-touch:hold="showAppDeletes"
             :value="element.id"
             :key="element.id"
             v-touch="() => navigate(element.url)"
@@ -143,28 +102,6 @@
             class="d-inline-flex position-relative p-2 appLink"
             :data-url="element.url"
         >
-          <img
-              v-show="showDelete"
-              class="deleteApp"
-              v-bind:data-id="element.id"
-              v-touch="() => removeUserApp(element.id)"
-              :tabindex="`1${index}`"
-              role="button"
-              type="button"
-              src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
-          >
-
-          <div class="moveApp" v-show="showDelete">
-            <img
-                class="moveAppIcon rounded-9 shadow-4 appsImage userAppStyle"
-                v-bind:data-id="element.id"
-                :tabindex="`1${index}`"
-                role="button"
-                type="button"
-                src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
-            >
-          </div>
-
           <transition name="slide-fade">
             <img
                 v-if="element.image"
@@ -183,17 +120,18 @@
 
     </draggable>
 
-
-    <transition name="slide-fade">
-      <new-app-button v-if="user.lockapps === false || user.lockapps === '0'" @showAppUpgrade="showingUpgrade" />
-    </transition>
-
-    <home-page-tour />
-
   </div>
+
+  <input value="Edit Page" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;" readonly="">
+
 </template>
 
 <style scoped>
+
+.appId {
+  position: fixed;
+  bottom: 12px;
+}
 
 .folderLabel {
   position: absolute;
