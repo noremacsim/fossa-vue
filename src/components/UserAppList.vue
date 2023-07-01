@@ -59,8 +59,7 @@
       {
         link = 'https://' + link;
       }
-
-      window.location = link;
+      window.open(link, '_blank').focus();
     }
   }
 
