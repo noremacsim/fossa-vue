@@ -55,6 +55,89 @@ function shareSite()
   }
 }
 
+function exportBookmarks() {
+    // Gather the bookmarks data from your app's storage
+    const bookmarks = user.value.apps;
+
+    // Generate the Netscape Bookmark Format
+    const exportData = generateNetscapeBookmarkFormat(bookmarks);
+
+    // Create a Blob object with the export data
+    const blob = new Blob([exportData], { type: 'text/html' });
+
+    // Generate a unique filename for the export file
+    const fileName = `FossaBookamrks-${user.value.uniqueID}.html`;
+
+    // Create a temporary URL for the Blob object
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary link element
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+
+    // Programmatically click the link to trigger the download
+    link.click();
+
+    // Clean up the temporary URL and link
+    URL.revokeObjectURL(url);
+    link.remove();
+
+}
+
+function generateNetscapeBookmarkFormat(bookmarks) {
+  let content = '';
+
+  bookmarks.forEach(bookmark => {
+    if (bookmark.type !== 'folder') {
+      const { name, url, image } = bookmark;
+      const bookmarkEntry = `
+        <DT>
+          <A HREF="${url}" ICON="${image}">${name}</A>
+        </DT>
+      `;
+      content += bookmarkEntry;
+    } else if (bookmark.type === 'folder') {
+      const { id, name } = bookmark;
+      const links = user.value.folders[`${id}`]
+
+      let folderContent = '';
+
+      links.forEach(link => {
+        const { name, url, image } = link;
+        const linkEntry = `
+          <DT>
+            <A HREF="${url}" ICON="${image}">${name}</A>
+          </DT>
+        `;
+        folderContent += linkEntry;
+      });
+
+      const folderEntry = `
+        <DT>
+          <H3>${name}</H3>
+          <DL>
+            ${folderContent}
+          </DL>
+        </DT>
+      `;
+      content += folderEntry;
+    }
+  });
+
+  const netscapeBookmarkFormat = `
+    <!DOCTYPE 'NETSCAPE-Bookmark-file-1'>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+    <TITLE>Fossa Bookmarks</TITLE>
+    <H1>Bookmarks</H1>
+    <DL><p>
+    ${content}
+    </DL><p>
+  `;
+
+  return netscapeBookmarkFormat;
+}
+
 </script>
 
 <template>
@@ -165,6 +248,16 @@ function shareSite()
         block
     >
       Import Profile
+    </v-btn>
+
+    <v-btn
+        color="primary"
+        class="mt-4"
+        style="color: white;"
+        @click="exportBookmarks"
+        block
+    >
+      Export Bookmarks
     </v-btn>
 
     <v-btn
