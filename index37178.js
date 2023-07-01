@@ -824,14 +824,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         `;A+=L});const x=`
         <DT>
           <H3>${E}</H3>
-          <DL>
+          <DL><p>
             ${A}
-          </DL>
+          </DL><p>
         </DT>
       `;h+=x}}),`
-    <!DOCTYPE 'NETSCAPE-Bookmark-file-1'>
+    <!DOCTYPE NETSCAPE-Bookmark-file-1>
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-    <TITLE>Fossa Bookmarks</TITLE>
+    <TITLE>Bookmarks</TITLE>
     <H1>Bookmarks</H1>
     <DL><p>
     ${h}
