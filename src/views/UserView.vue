@@ -116,9 +116,9 @@ function generateNetscapeBookmarkFormat(bookmarks) {
       const folderEntry = `
         <DT>
           <H3>${name}</H3>
-          <DL>
+          <DL><p>
             ${folderContent}
-          </DL>
+          </DL><p>
         </DT>
       `;
       content += folderEntry;
@@ -126,9 +126,9 @@ function generateNetscapeBookmarkFormat(bookmarks) {
   });
 
   const netscapeBookmarkFormat = `
-    <!DOCTYPE 'NETSCAPE-Bookmark-file-1'>
+    <!DOCTYPE NETSCAPE-Bookmark-file-1>
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-    <TITLE>Fossa Bookmarks</TITLE>
+    <TITLE>Bookmarks</TITLE>
     <H1>Bookmarks</H1>
     <DL><p>
     ${content}
