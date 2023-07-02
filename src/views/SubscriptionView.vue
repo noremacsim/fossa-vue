@@ -8,7 +8,6 @@ import {useUserStore} from "@/stores/user";
 import router from "@/router";
 const { user } = storeToRefs(useUserStore());
 
-console.log(user.value);
 const created = ref(false);
 
 onMounted(() => {
