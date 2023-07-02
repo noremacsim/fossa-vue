@@ -18,7 +18,7 @@ watch(user, async () => {
   }
 });
 
-if (user.value.visits % 4 === 0) {
+if (user.value.visits % 4 === 0 && (user.value.subscription === '0' || user.value.subscription === null)) {
   router.push('/subscribe');
 }
 
