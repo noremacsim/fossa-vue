@@ -2,9 +2,8 @@
   "manifest_version": 3,
   "name": "Fossa - Empower Your Digital Experience",
   "description": "Fossa: Discover, organize, and enjoy apps, games, movies, and more. Effortlessly manage and share for seamless entertainment",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "permissions": [
-    "activeTab",
     "tabs",
     "storage"
   ],
@@ -14,6 +13,11 @@
       "16": "img/icons/favicon-16x16.png",
       "48": "img/icons/android-launchericon-48-48.png",
       "128": "img/icons/128.png"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@fossa-app.site"
     }
   }
 }

@@ -5,7 +5,6 @@ import userService from "@/common/user.service";
 import { useStorage } from '@vueuse/core'
 import appsService from "@/common/apps.service";
 import {useToast} from "vue-toastification";
-import cookieService from "@/common/cookie.service";
 
 export const useUserStore = defineStore('user', () => {
     const user = ref(useStorage('user', []));
@@ -54,13 +53,15 @@ export const useUserStore = defineStore('user', () => {
 
     async function getCurrentAppID() {
         return new Promise(resolve => {
-            appidService.getAppID()
-                .then((data) => {
-                    resolve(data);
-                })
-                .catch(data => {
-                    console.log(data);
-                });
+            chrome.storage.local.get('appId', function(result) {
+                if (result.appId && result.appId !== '' && result.appId !== undefined) {
+                    resolve(result.appId);
+                } else {
+                    this.createAppID().then(data => {
+                        resolve(data);
+                    });
+                }
+            });
         });
     }
 
@@ -99,12 +100,12 @@ export const useUserStore = defineStore('user', () => {
 
                     userLoading.value = false;
                     this.user = data;
-                    cookieService.setCookie('appId', appID, 365).then(() => {
+                    chrome.storage.local.set({ appId: appID }, function() {
                         toast.success("Imported Successfully", {
                             timeout: 2000
                         });
+                        resolve(appID);
                     });
-                    resolve(true);
                 })
                 .catch(() => {
                     toast.error("Failed to Import, Check Code");

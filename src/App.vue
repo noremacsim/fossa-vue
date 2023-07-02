@@ -89,7 +89,7 @@ function editPage() {
   </header>
 
   <HomeView v-if="showUserApps"></HomeView>
-  <HomeFooter v-if="showUserApps"></HomeFooter>
+  <HomeFooter v-if="showUserApps" @logout="showUserApps=false;"></HomeFooter>
 
   <div class="card" v-if="!showUserApps">
     <div class="card-body" style="background: #f2f2f2">

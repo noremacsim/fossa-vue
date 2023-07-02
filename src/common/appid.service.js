@@ -1,4 +1,3 @@
-import cookieService from "@/common/cookie.service";
 import apiService from "@/common/api.service";
 import {starterApps} from "@/common/starterApps";
 import appsService from "@/common/apps.service";
@@ -9,38 +8,27 @@ const appidService = {
     getAppID() {
 
         return new Promise((resolve) => {
-            if ("appID" in localStorage) {
-                const appID = localStorage.getItem("appID");
-                cookieService.setCookie('appId', appID, 365).then(() => {
-                    resolve(appID)
-                });
-            } else if (cookieService.getCookie('appId') !== '') {
-                const appID = cookieService.getCookie('appId');
-                localStorage.setItem("appId", appID);
-                resolve(appID);
-            } else {
-                this.createAppID().then(data => {
-                    resolve(data);
-                });
-            }
+            chrome.storage.local.get('appId', function(result) {
+                if (result.appId && result.appId !== '' && result.appId !== undefined) {
+                    resolve(result.appId);
+                } else {
+                    this.createAppID().then(data => {
+                        resolve(data);
+                    });
+                }
+            });
         });
-
     },
 
     checkIfHasAppID() {
         return new Promise((resolve) => {
-            if ("appID" in localStorage) {
-                const appID = localStorage.getItem("appID");
-                cookieService.setCookie('appId', appID, 365).then(() => {
-                    resolve(appID)
-                });
-            } else if (cookieService.getCookie('appId') !== '') {
-                const appID = cookieService.getCookie('appId');
-                localStorage.setItem("appId", appID);
-                resolve(appID);
-            } else {
-               resolve(false);
-            }
+            chrome.storage.local.get('appId', function(result) {
+                if (result.appId && result.appId !== '' && result.appId !== undefined) {
+                    resolve(result.appId);
+                } else {
+                    resolve(false);
+                }
+            });
         });
     },
 
@@ -87,8 +75,7 @@ const appidService = {
     createAppID() {
         return new Promise((resolve) => {
             apiService.get("user/create").then( async response => {
-                localStorage.setItem("appId", response.data.data.uniqueID);
-                await cookieService.setCookie('appId', response.data.data.uniqueID, 365);
+                chrome.storage.local.set({ appId: response.data.data.uniqueID });
                 await this.initStarterApps(response.data.data.uniqueID);
                 resolve(response.data.data.uniqueID);
             });
