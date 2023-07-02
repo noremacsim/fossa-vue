@@ -23,7 +23,7 @@
             </div>
           </div>
           <div style="margin-top:10px;text-align: center;width: 100%;">
-            <span>Copy and paste this into your chrome extension to load your profile</span>
+            <span>Copy and paste this into your extension to load your profile</span>
           </div>
         </div>
       </div>
