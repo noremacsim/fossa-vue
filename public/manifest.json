@@ -4,7 +4,6 @@
   "description": "Fossa: Discover, organize, and enjoy apps, games, movies, and more. Effortlessly manage and share for seamless entertainment",
   "version": "0.0.1",
   "permissions": [
-    "activeTab",
     "tabs",
     "storage"
   ],
