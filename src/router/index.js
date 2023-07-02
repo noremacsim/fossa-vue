@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import UserView from '../views/UserView.vue'
+import SubscriptionView from '../views/SubscriptionView.vue'
 
 
 const router = createRouter({
@@ -15,6 +16,11 @@ const router = createRouter({
       path: '/user',
       name: 'user',
       component: UserView
+    },
+    {
+      path: '/subscribe',
+      name: 'subscription',
+      component: SubscriptionView
     },
     {
       path: '/code/:code',

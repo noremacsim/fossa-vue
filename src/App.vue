@@ -6,6 +6,7 @@ import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 const { user } = storeToRefs(useUserStore());
 import { ref, watch } from 'vue'
+import router from "@/router";
 
 let background = ref('');
 
@@ -15,7 +16,11 @@ watch(user, async () => {
   } else {
     background.value = ''
   }
-})
+});
+
+if (user.value.visits % 4 === 0) {
+  router.push('/subscribe');
+}
 
 </script>
 
