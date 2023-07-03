@@ -4,7 +4,12 @@
 
     <div class="appContainer" role="main">
       <UserAppList v-if="!loading"/>
-      <UserAppListSkeleton v-if="loading" />
+      <div class="d-flex align-center justify-center fill-height" v-if="loading">
+        <v-progress-circular
+            color="grey-lighten-4"
+            indeterminate
+        ></v-progress-circular>
+      </div>
     </div>
 
   </main>

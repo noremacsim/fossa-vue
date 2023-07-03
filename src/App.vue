@@ -76,10 +76,20 @@ function editPage() {
       <v-container>
         <v-row justify="center" align="center">
           <v-col cols="6">
-            <v-btn block size="x-large" @click="bookMarkTab" append-icon="fas fa-bookmark">Bookmark Page</v-btn>
+            <v-btn block size="x-large" @click="bookMarkTab" append-icon="fas fa-bookmark">
+              <template v-slot:append>
+                <v-icon color="success"></v-icon>
+              </template>
+              Bookmark Page
+            </v-btn>
           </v-col>
           <v-col cols="6">
-            <v-btn block size="x-large" @click="editPage" append-icon="fas fa-user">Personilization</v-btn>
+            <v-btn block size="x-large" @click="editPage" append-icon="fas fa-user">
+              <template v-slot:append>
+                <v-icon color="primary"></v-icon>
+              </template>
+              Profile
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -112,7 +122,6 @@ function editPage() {
       <v-btn block style="background:#6ac56a;" @click="getFossaID">Get A Fossa ID</v-btn>
     </div>
   </div>
-
 
   </body>
 </template>
