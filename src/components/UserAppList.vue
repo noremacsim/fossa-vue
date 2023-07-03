@@ -165,18 +165,28 @@
           </div>
 
           <transition name="slide-fade">
-            <img
+
+            <v-img
                 v-if="element.image"
-                loading="lazy"
                 class="rounded-9 shadow-4 appsImage userAppStyle"
+                lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                 :src="element.image"
-                v-bind:alt="element.name"
-                style="width: 100px; height: 100px;"
+                :alt="element.name"
+                height="100"
+                width="100"
                 role="button"
                 type="button"
-            />
+            >
+              <template v-slot:placeholder>
+                <div class="d-flex align-center justify-center fill-height">
+                  <v-progress-circular
+                      color="grey-lighten-4"
+                      indeterminate
+                  ></v-progress-circular>
+                </div>
+              </template>
+            </v-img>
           </transition>
-
         </div>
       </template>
 

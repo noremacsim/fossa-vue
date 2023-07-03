@@ -72,21 +72,24 @@
       </div>
 
       <v-expansion-panels variant="accordion">
+
         <v-expansion-panel
-            title="Add New App"
-            expand-icon="fas fa-plus"
+            title="Add New Link"
+            expand-icon="fas fa-link"
         >
           <v-expansion-panel-text>
-            <div class="d-flex justify-content-center flex-wrap mb-3" id="newAppList">
-              <div v-for="app of allApps" :value="app.value" :key="app.value" @click="addNewApp(app[0], app[1], app[3])" class="d-inline-flex position-relative p-2 addApp">
-                <img class="rounded-9 shadow-4 appsImage" v-bind:src="app[3]" alt="${element[0]}" style="width: 75px; height: 75px;" />
-              </div>
-            </div>
+            <v-text-field v-model="appName" label="Website Name" variant="outlined"></v-text-field>
+            <v-text-field @change="GeneratIcon" v-model="appUrl" label="Website URL" variant="outlined"></v-text-field>
+            <img :src="newAppIcon" style="display: block;margin: auto;"/>
+            <v-text-field v-model="appImage" label="Custom Image URL (Optional)" variant="outlined"></v-text-field>
+
+            <button class="btn btn-success mt-3" style="width: 100%" @click="saveCustom">Save</button>
           </v-expansion-panel-text>
         </v-expansion-panel>
+
         <v-expansion-panel
             title="Add New Folder"
-            expand-icon="fas fa-plus"
+            expand-icon="fas fa-folder"
             v-if="!filter"
         >
           <v-expansion-panel-text>
@@ -97,27 +100,38 @@
             <button class="btn btn-success mt-3" style="width: 100%" @click="saveFolder">Save</button>
           </v-expansion-panel-text>
         </v-expansion-panel>
+
         <v-expansion-panel
-            title="Add Custom Link"
+            title="Add New App"
             expand-icon="fas fa-plus"
         >
           <v-expansion-panel-text>
-            <div class="form-group">
-              <label for="exampleInputEmail1">App Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Name" v-model="appName">
+
+            <div class="d-flex justify-content-center flex-wrap mb-3" id="newAppList">
+              <div v-for="app of allApps" :value="app.value" :key="app.value" @click="addNewApp(app[0], app[1], app[3])" class="d-inline-flex position-relative p-2 addApp">
+                <v-img
+                    class="rounded-9 shadow-4 appsImage"
+                    lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                    :src="app[3]"
+                    :alt="app[0]"
+                    height="75"
+                    width="75"
+                >
+                  <template v-slot:placeholder>
+                    <div class="d-flex align-center justify-center fill-height">
+                      <v-progress-circular
+                          color="grey-lighten-4"
+                          indeterminate
+                      ></v-progress-circular>
+                    </div>
+                  </template>
+                </v-img>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">App URL</label>
-              <input type="text" @change="GeneratIcon" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App URL" v-model="appUrl">
-            </div>
-            <img :src="newAppIcon" style="display: block;margin: auto;"/>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Custom Image URL (Optional)</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter App Image URL" v-model="appImage">
-            </div>
-            <button class="btn btn-success mt-3" style="width: 100%" @click="saveCustom">Save</button>
+
           </v-expansion-panel-text>
         </v-expansion-panel>
+
       </v-expansion-panels>
 
     </div>
