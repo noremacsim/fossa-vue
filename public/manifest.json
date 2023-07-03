@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Fossa - Empower Your Digital Experience",
   "description": "Fossa: Discover, organize, and enjoy apps, games, movies, and more. Effortlessly manage and share for seamless entertainment",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "permissions": [
     "tabs",
     "storage"
