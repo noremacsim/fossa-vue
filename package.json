@@ -22,6 +22,7 @@
     "pinia": "^2.0.36",
     "register-service-worker": "^1.7.2",
     "v-lazy-image": "^2.1.1",
+    "vite-plugin-zip-pack": "^1.0.6",
     "vue": "^3.3.2",
     "vue-axios": "^3.5.2",
     "vue-cookies": "^1.8.3",

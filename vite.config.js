@@ -1,9 +1,11 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import zipPack from "vite-plugin-zip-pack";
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 const hash = Math.floor(Math.random() * 90000) + 10000;
+import path from 'path';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -67,6 +69,12 @@ export default defineConfig({
           }
         ]
       }
+    }),
+    zipPack({
+      inDir: path.resolve(__dirname, 'dist/'),
+      outDir: path.resolve(__dirname),
+      outFileName: 'fossa_chrome_extension.zip',
+      pathPrefix: ``
     })
   ],
   build: {
