@@ -20,7 +20,6 @@
 
 import { useUserStore } from "@/stores/user";
 import UserAppList from "@/components/UserAppList.vue";
-import UserAppListSkeleton from "@/components/skeleton/UserAppListSkeleton.vue";
 import {ref} from "vue";
 const { initUser } = useUserStore();
 
