@@ -9,7 +9,6 @@ let showModal = ref(false);
 <template>
   <v-dialog
       v-model="showModal"
-      width="auto"
       max-width="600"
   >
 

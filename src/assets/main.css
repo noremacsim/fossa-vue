@@ -51,9 +51,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1rem;
-    border-bottom: 2px solid #f5f5f5;
-    border-top-left-radius: calc(0.5rem - 1px);
-    border-top-right-radius: calc(0.5rem - 1px);
+}
+
+.modalTitle {
+    text-align: center;
+    width: 100%;
 }
 
 .modal-title {
@@ -127,4 +129,33 @@
     margin-bottom: 10px;
     margin-top: 10px;
     box-shadow: #3b71ca40 0px 6px 12px -2px, #3b71ca4d 0px 3px 7px -3px !important;
+}
+
+.v-expansion-panel {
+    margin: 5px;
+    border-radius: 10px !important;
+    border: 1px solid #80808042 !important;
+    position: unset !important;
+}
+
+.v-expansion-panel__shadow {
+    box-shadow: none !important
+}
+
+.v-expansion-panel-title {
+    padding:15px !important;
+}
+
+.titleSub {
+    display: grid;
+    font-weight: bold;
+    line-height: 20px;
+}
+.v-expansion-panel::after {
+    border-top-style: none !important;
+    border-top-width: 0 !important;
+}
+
+.v-card {
+    border-radius: 10px !important;
 }
