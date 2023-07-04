@@ -76,7 +76,7 @@
         >
           <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
             <span class="folderLabel">{{ element.name }}</span>
-            <div v-if="user.folders[element.id].length > 0">
+            <div v-if="user.folders[element.id].length > 0" style="display: flex;justify-content: center;flex-wrap: wrap;">
               <img
                   v-for="app in user.folders[element.id].slice(0, 9)"
                   v-bind:key="app.id"
@@ -89,6 +89,7 @@
               >
             </div>
           </div>
+          <span class="appTitle">{{ element.name }}</span>
         </div>
 
         <div
@@ -109,8 +110,8 @@
                 lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
                 :src="element.image"
                 :alt="element.name"
-                height="100"
-                width="100"
+                height="85"
+                width="85"
                 role="button"
                 type="button"
             >
@@ -124,6 +125,7 @@
               </template>
             </v-img>
           </transition>
+          <span class="appTitle">{{ element.name }}</span>
 
         </div>
       </template>
@@ -136,12 +138,20 @@
 
 <style scoped>
 
-.appId {
-  position: fixed;
-  bottom: 12px;
+.appTitle {
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 85px;
+  bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
 }
 
 .folderLabel {
+  word-break: break-word;
   position: absolute;
   width: 100%;
   text-align: center;
@@ -156,31 +166,32 @@
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-  height: 100px;
-  width: 100px;
+  height: 85px;
+  width: 85px;
   border: 1px solid #bdc1c7;
   border-radius: 15px;
   color: #c0c6cf;
   background: #ffffff85;
+  margin-bottom: 10px;
 }
 
 .folderImage {
-  width: 25px !important;
-  height: 25px !important;
+  width: 20px !important;
+  height: 20px !important;
   margin: 2px !important;
 }
 
 .backIconPlus {
   position: absolute;
-  top: 21%;
+  top: 19%;
   left: 25%;
-  font-size: 66px;
+  font-size: 57px;
   font-weight: 100;
 }
 
 .backIcon {
-  height: 100px;
-  width: 100px;
+  height: 85px;
+  width: 85px;
   border: 1px solid #bdc1c7;
   border-radius: 15px;
   color: #c0c6cf;
@@ -216,10 +227,10 @@
 
 .deleteApp {
   position: absolute;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   right: 0px;
-  top: 0;
+  top: 0px;
   background: white;
   padding: 2px;
   border-radius: 10px;
@@ -229,8 +240,8 @@
 
 .moveApp {
   position: absolute;
-  height: 100px;
-  width: 100px;
+  height: 85px;
+  width: 85px;
   background: #ffffff80;
   border-radius: 20px;
   cursor: pointer;
@@ -239,12 +250,12 @@
 }
 
 .moveAppIcon {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   margin: auto;
   display: block;
-  top: 31px;
-  left: 32px;
+  top: 30px;
+  left: 28px;
   position: absolute;
 }
 
