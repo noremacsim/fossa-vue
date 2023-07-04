@@ -12,12 +12,16 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
+      workbox: {
+        cleanupOutdatedCaches: true,
+        sourcemap: true
+      },
       logLevel: 'silent',
       logType: 'error',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', '/img/icon/apple-touch-icon.png'],
       devOptions: {
-        enabled: true
+        enabled: false
       },
       manifest: {
         dir : "ltr",
