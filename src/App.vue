@@ -80,7 +80,7 @@ function editPage() {
               <template v-slot:append>
                 <v-icon color="success"></v-icon>
               </template>
-              Bookmark Page
+              Bookmark
             </v-btn>
           </v-col>
           <v-col cols="6">

@@ -27,20 +27,20 @@ let showModal = ref(false);
 
 <style scoped>
 
-  .newAppIconPlus {
-    position: absolute;
-    top: 21%;
-    left: 25%;
-    font-size: 66px;
-    font-weight: 100;
-  }
+.newAppIconPlus {
+  position: absolute;
+  top: 19%;
+  left: 25%;
+  font-size: 57px;
+  font-weight: 100;
+}
 
-  .newAppIcon {
-    height: 100px;
-    width: 100px;
-    border: 1px solid #bdc1c7;
-    border-radius: 15px;
-    color: #c0c6cf;
-    background: #ffffff85;
-  }
+.newAppIcon {
+  height: 85px;
+  width: 85px;
+  border: 1px solid #bdc1c7;
+  border-radius: 15px;
+  color: #c0c6cf;
+  background: #ffffff85;
+}
 </style>
