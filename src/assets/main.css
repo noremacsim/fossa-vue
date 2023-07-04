@@ -3,6 +3,7 @@
 .appsImage {
     border-radius: 1.5rem;
     cursor: pointer;
+    margin-bottom: 12px;
 }
 
 .newAppIcon {

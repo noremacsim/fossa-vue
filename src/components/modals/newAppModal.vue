@@ -126,6 +126,7 @@
                     </div>
                   </template>
                 </v-img>
+                <span class="appTitle">{{ app[0] }}</span>
               </div>
             </div>
 
@@ -140,6 +141,19 @@
 
 
 <style scoped>
+
+.appTitle {
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 75px;
+  bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
 #newAppList {
   max-height: 50vh;
   overflow-x: hidden;
