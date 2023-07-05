@@ -20,6 +20,14 @@ const appsService = {
         });
     },
 
+    updateApp(userID, appData) {
+        return new Promise((resolve) => {
+            apiService.post(`/app/update?id=${userID}`, JSON.stringify(appData)).then((data) => {
+                resolve(data);
+            });
+        });
+    },
+
     removeApp(userID, appID) {
         return new Promise((resolve) => {
             apiService.post(`/app/delete?uid=${userID}&id=${appID}`).then((data) => {

@@ -5,10 +5,19 @@
   import NewAppButton from "@/components/buttons/newAppButton.vue";
   import draggable from 'vuedraggable'
   import HomePageTour from "@/components/tours/HomePageTour.vue";
+  import EditLinkModel from "@/components/modals/editLinkModel.vue";
+  import EditFolderModal from "@/components/modals/editFolderModal.vue";
 
   const { user, displayApps, filter } = storeToRefs(useUserStore());
-  const { removeUserApp, updateAppIndex, filterApps } = useUserStore();
+  const { updateAppIndex, filterApps, updateUserApp, updateUserFolder } = useUserStore();
   const drag = ref(false);
+
+  const editLinkModal = ref(false);
+  const editFolderModal = ref(false);
+  const editAppName = ref('');
+  const editAppUrl = ref('');
+  const editAppImage = ref('');
+  const editID = ref(null);
 
   let showDelete = ref(false);
 
@@ -35,7 +44,10 @@
           !e.target.classList.contains('moveApp') &&
           !e.target.classList.contains('moveAppIcon') &&
           !e.target.classList.contains('appLink') &&
-          !e.target.classList.contains('folderBox')
+          !e.target.classList.contains('folderBox') &&
+          !e.target.classList.contains('editApp') &&
+          !e.target.classList.contains('no-edit-hide') &&
+          !e.target.classList.contains('v-field__input')
       ) {
         if (showDelete.value === true) {
           showDelete.value = false
@@ -63,6 +75,46 @@
     }
   }
 
+  function showAppEdit(name, url, image, id) {
+    editAppUrl.value = url;
+    editAppImage.value = image;
+    editID.value = id;
+    editAppName.value = name;
+    editLinkModal.value = true;
+  }
+
+  function showfolderEdit(name, url, image, id) {
+    editAppUrl.value = url;
+    editAppImage.value = image;
+    editID.value = id;
+    editAppName.value = name;
+    editFolderModal.value = true;
+  }
+
+  function saveEdit() {
+    let data = {
+      name: editAppName.value,
+      url: editAppUrl.value,
+      image: editAppImage.value,
+      id: editID.value
+    }
+
+    updateUserApp(data)
+    editLinkModal.value = false
+  }
+
+  function saveEditfolder() {
+    let data = {
+      name: editAppName.value,
+      url: editAppUrl.value,
+      image: editAppImage.value,
+      id: editID.value
+    }
+
+    updateUserFolder(data)
+    editFolderModal.value = false
+  }
+
 </script>
 <template>
   <div id="userHTML" class="loaded userHTML">
@@ -73,8 +125,31 @@
       </div>
     </div>
 
+    <EditLinkModel
+        :showModal="editLinkModal"
+        :appName="editAppName"
+        :appUrl="editAppUrl"
+        :appImage="editAppImage"
+        :id="editID"
+        @update:appName="editAppName = $event"
+        @update:appImage="editAppImage = $event"
+        @close="editLinkModal = false"
+        @save="saveEdit"
+    >
+    </EditLinkModel>
+
+    <EditFolderModal
+        :showModal="editFolderModal"
+        :appName="editAppName"
+        :id="editID"
+        @update:appName="editAppName = $event"
+        @close="editFolderModal = false"
+        @save="saveEditfolder"
+    ></EditFolderModal>
+
+
     <draggable
-        v-if="displayApps.length > 0"
+        v-if="displayApps?.length > 0"
         v-model="displayApps"
         @start="drag=true"
         @end="drag=false"
@@ -93,7 +168,7 @@
             style="margin-bottom: 12px;"
         >
           <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
-            <div v-if="user.folders[element.id].length > 0" style="display: flex;justify-content: center;flex-wrap: wrap;">
+            <div v-if="user.folders[element.id]?.length > 0" style="display: flex;justify-content: center;flex-wrap: wrap;">
               <img
                   v-for="app in user.folders[element.id].slice(0, 9)"
                   v-bind:key="app.id"
@@ -108,16 +183,16 @@
           </div>
           <span class="appTitle">{{ element.name }}</span>
 
-          <img
+          <font-awesome-icon
               v-show="showDelete"
-              class="deleteApp"
+              class="editApp no-edit-hide"
               v-bind:data-id="element.id"
-              v-touch="() => removeUserApp(element.id)"
+              v-touch="() => showfolderEdit(element.name, element.url, element.image, element.id)"
               :tabindex="`1${index}`"
               role="button"
               type="button"
-              src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
-          >
+              icon="pencil"
+          ></font-awesome-icon>
 
           <div class="moveApp" v-show="showDelete">
             <img
@@ -144,16 +219,16 @@
             :data-url="element.url"
             style="margin-bottom: 12px;"
         >
-          <img
+          <font-awesome-icon
               v-show="showDelete"
-              class="deleteApp"
+              class="editApp no-edit-hide"
               v-bind:data-id="element.id"
-              v-touch="() => removeUserApp(element.id)"
+              v-touch="() => showAppEdit(element.name, element.url, element.image, element.id)"
               :tabindex="`1${index}`"
               role="button"
               type="button"
-              src="https://www.transparentpng.com/thumb/red-cross/dU1a5L-flag-x-mark-clip-art-computer-icons.png"
-          >
+              icon="pencil"
+          ></font-awesome-icon>
 
           <div class="moveApp" v-show="showDelete">
             <img
@@ -292,6 +367,21 @@
   justify-content: center;
   flex-wrap: wrap;
   max-width: 900px;
+}
+
+.editApp {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 2;
+  color: rgb(84 211 171);
+  border: 1px solid #80808082;
 }
 
 .deleteApp {

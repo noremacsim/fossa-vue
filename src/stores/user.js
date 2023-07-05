@@ -171,6 +171,73 @@ export const useUserStore = defineStore('user', () => {
         });
     }
 
+    async function updateUserApp(payload) {
+
+        if (payload.name === '') {
+            toast.error("App Name must be provided");
+            return;
+        }
+
+        if (payload.image === '') {
+            toast.error("App Image must be provided");
+            return;
+        }
+
+        const matchID = (app) => app.id == payload.id;
+        const appIndex = this.displayApps.findIndex(matchID);
+        const userAppsIndex = this.user.apps.findIndex(matchID);
+
+        let updatedApp = {
+            id: payload.id,
+            'name': payload.name,
+            'url': payload.url,
+            'image': payload.image
+        };
+
+        await appsService.updateApp(this.user.uniqueID, updatedApp).then((data) => {
+            if (data.data.status !== true) {
+                toast.error("Failed to update app");
+            } else {
+                if (this.filter) {
+                    const folderAppsIndex = this.user.folders[this.filter].findIndex(matchID);
+                    this.user.folders[this.filter][folderAppsIndex] = updatedApp;
+                } else {
+                    this.user.apps[userAppsIndex] = updatedApp;
+                }
+                this.displayApps[appIndex] = updatedApp
+            }
+        });
+    }
+
+    async function updateUserFolder(payload) {
+
+        if (payload.name === '') {
+            toast.error("Folder Name must be provided");
+            return;
+        }
+
+        const matchID = (app) => app.id == payload.id;
+        const appIndex = this.displayApps.findIndex(matchID);
+        const userAppsIndex = this.user.apps.findIndex(matchID);
+
+        let updatedFolder = {
+            id: payload.id,
+            'name': payload.name,
+            'url': '',
+            'image':'',
+            'type': 'folder'
+        }
+
+        await appsService.updateApp(this.user.uniqueID, updatedFolder).then((data) => {
+            if (data.data.status !== true) {
+                toast.error("Failed to update folder");
+            } else {
+                this.user.apps[userAppsIndex] = updatedFolder;
+                this.displayApps[appIndex] = updatedFolder
+            }
+        });
+    }
+
     async function logoutUser() {
         appidService.resetAppID()
             .then(() => {
@@ -212,8 +279,6 @@ export const useUserStore = defineStore('user', () => {
         await appsService.updateIndex(this.user.uniqueID, appsIndex).then((data) => {
             if (data.data.status !== true) {
                 toast.error("Failed to update App List");
-            } else {
-                toast.success("Updated App List");
             }
         });
     }
@@ -249,5 +314,7 @@ export const useUserStore = defineStore('user', () => {
         uploadUserImage,
         updateAppIndex,
         filterApps,
+        updateUserApp,
+        updateUserFolder
     }
 });
