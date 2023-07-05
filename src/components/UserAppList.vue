@@ -155,6 +155,7 @@
         @end="drag=false"
         handle=".moveApp"
         item-key="id"
+        animation="300"
         class="appcontainers"
     >
       <template #item="{element, index }">
