@@ -24,7 +24,6 @@ const appidService = {
 
             this.checkAppIDExists(appID).then(data => {
                 if (data.data.status === false) {
-                    console.log('Status is false');
                     this.createAppID().then(data => {
                         resolve(data);
                     });
