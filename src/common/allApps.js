@@ -392,6 +392,13 @@ export const allApps = [
         "browse"
     ],
     [
+        "NOAA's radar",
+        "https://radar.weather.gov/",
+        false,
+        "https://www.noaa.gov/themes/custom/noaa/images/noaa_digital_logo.svg",
+        "browse"
+    ],
+    [
         "Reddit",
         "https://reddit.com",
         false,
