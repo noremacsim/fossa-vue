@@ -6,7 +6,10 @@ import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 const { user } = storeToRefs(useUserStore());
 import { ref, watch } from 'vue'
+import { registerSW } from 'virtual:pwa-register'
+
 let background = ref('');
+registerSW({ immediate: true })
 
 watch(user, async () => {
   if (user.value?.backgroundImage) {
