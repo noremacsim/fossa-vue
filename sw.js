@@ -67,10 +67,13 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-148cb7e5'], (function (workbox) { 'use strict';
+define(['./workbox-6e567876'], (function (workbox) { 'use strict';
 
-  self.skipWaiting();
-  workbox.clientsClaim();
+  self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+      self.skipWaiting();
+    }
+  });
 
   /**
    * The precacheAndRoute() method efficiently caches and responds to
@@ -79,16 +82,13 @@ define(['./workbox-148cb7e5'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "index.html",
-    "revision": "33fc102061594cf29761a2f6214dd260"
+    "revision": "48f39d000ebcaca71ef2bd24fff3d8ec"
   }, {
-    "url": "index12190.css",
-    "revision": "8e720e6412bbbda751041d157b3f0146"
+    "url": "index14877.css",
+    "revision": "2f02ea72b198fa1e5003626060bf74b4"
   }, {
-    "url": "index12190.js",
-    "revision": "90a7aa3d3fdd026eeb7ef91849f5a199"
-  }, {
-    "url": "registerSW.js",
-    "revision": "1872c500de691dce40960bb85481de07"
+    "url": "index14877.js",
+    "revision": "459fb8d33ede44f07ff5da53302ce04a"
   }, {
     "url": "favicon.ico",
     "revision": "0946d57aecbded317027cab6e37b9ade"
