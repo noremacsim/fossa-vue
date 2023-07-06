@@ -6,11 +6,27 @@ import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 const { user } = storeToRefs(useUserStore());
 import { ref, watch } from 'vue'
+
 import { registerSW } from 'virtual:pwa-register'
 
-let background = ref('');
-registerSW({ immediate: true })
+const intervalMS = 1 * 60 * 1000;
 
+registerSW({
+  immediate: true,
+  onRegistered(r) {
+    r &&
+    setInterval(async () => {
+      try {
+        const response = await fetch('/dev-sw.js?dev-sw', { cache: 'no-store', 'cache-control': 'no-cache' });
+        response && response.status === 200 && await r.update();
+      } catch (e) {
+        console.log('cannot ping/update sw.js', e);
+      }
+    }, intervalMS);
+  },
+})
+
+let background = ref('');
 watch(user, async () => {
   if (user.value?.backgroundImage) {
     background.value = `url(${user.value.backgroundImage})`;
