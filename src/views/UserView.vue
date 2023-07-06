@@ -138,6 +138,14 @@ function generateNetscapeBookmarkFormat(bookmarks) {
   return netscapeBookmarkFormat;
 }
 
+function navigate(link) {
+  if (!link.match(/^[a-zA-Z]+:\/\//))
+  {
+    link = 'https://' + link;
+  }
+  window.open(link, '_blank').focus();
+}
+
 </script>
 
 <template>
@@ -270,7 +278,12 @@ function generateNetscapeBookmarkFormat(bookmarks) {
     >
       Logout
     </v-btn>
-
+    <div class="storeIconContainer">
+      <div style="display: block;margin: auto;width: fit-content;">
+        <img @click="navigate('https://chrome.google.com/webstore/detail/fossa-empower-your-digita/bkcmdadlilehjjnelgmecflkaijniipl')" class="storeIcons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Google_Chrome_Web_Store_icon_2022.svg/2356px-Google_Chrome_Web_Store_icon_2022.svg.png" height="28">
+        <img @click="navigate('https://addons.mozilla.org/en-GB/firefox/addon/fossa-empower-bookmarks/')" class="storeIcons" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Firefox_brand_logo%2C_2019.svg/2048px-Firefox_brand_logo%2C_2019.svg.png" height="28">
+      </div>
+    </div>
   </v-container>
 
   <user-profile-tour />
@@ -328,5 +341,17 @@ function generateNetscapeBookmarkFormat(bookmarks) {
   border-radius: 50%;
   color: white;
   border: 5px solid white;
+}
+
+.storeIconContainer {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.storeIcons {
+  height: 42px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
 }
 </style>

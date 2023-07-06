@@ -7,20 +7,20 @@ const { saveUserDetails } = useUserStore();
 
 const tourSteps = [
   {
+    target: '.appLink',
+    content: 'Touch and hold on a tile to re-arrange your apps or edit them'
+  },
+  {
+    target: '.newAppIconPlus',
+    content: `Click here to add more apps, or add your own`
+  },
+  {
     target: '.fullscreenButton',
     content: 'Use this button to enter a theatre mode in Cars and Tv',
   },
   {
     target: '.settingsButton',
     content: 'To personalise your homepage click here to show user settings available'
-  },
-  {
-    target: '.appLink',
-    content: 'Touch and hold to re-arrange your apps or remove them'
-  },
-  {
-    target: '.newAppIconPlus',  // We're using document.querySelector() under the hood
-    content: `Click here to add more apps, or add your own`
   },
 ];
 

@@ -9,22 +9,38 @@ const appidService = {
     getAppID() {
 
         return new Promise((resolve) => {
+            let appID = null;
             if ("appID" in localStorage) {
-                const appID = localStorage.getItem("appID");
-                cookieService.setCookie('appId', appID, 365).then(() => {
-                    resolve(appID)
-                });
+                appID = localStorage.getItem("appID");
+                cookieService.setCookie('appId', appID, 365);
             } else if (cookieService.getCookie('appId') !== '') {
-                const appID = cookieService.getCookie('appId');
+                appID = cookieService.getCookie('appId');
                 localStorage.setItem("appId", appID);
-                resolve(appID);
             } else {
                 this.createAppID().then(data => {
                     resolve(data);
                 });
             }
-        });
 
+            this.checkAppIDExists(appID).then(data => {
+                if (data.data.status === false) {
+                    console.log('Status is false');
+                    this.createAppID().then(data => {
+                        resolve(data);
+                    });
+                } else {
+                    resolve(appID);
+                }
+            });
+        });
+    },
+
+    checkAppIDExists(appID) {
+        return new Promise((resolve) => {
+            apiService.get(`/user/check?id=${appID}`).then((data) => {
+                resolve(data);
+            });
+        });
     },
 
     resetAppID() {
