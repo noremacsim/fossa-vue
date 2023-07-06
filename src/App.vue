@@ -17,7 +17,7 @@ registerSW({
     r &&
     setInterval(async () => {
       try {
-        const response = await fetch('/dev-sw.js?dev-sw', { cache: 'no-store', 'cache-control': 'no-cache' });
+        const response = await fetch('/sw.js', { cache: 'no-store', 'cache-control': 'no-cache' });
         response && response.status === 200 && await r.update();
         console.log('update');
       } catch (e) {
