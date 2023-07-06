@@ -18,7 +18,7 @@ export default defineConfig({
       },
       logLevel: 'silent',
       logType: 'error',
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['favicon.ico', '/img/icon/apple-touch-icon.png'],
       devOptions: {
         enabled: false
