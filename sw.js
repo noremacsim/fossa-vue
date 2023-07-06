@@ -67,10 +67,13 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-148cb7e5'], (function (workbox) { 'use strict';
+define(['./workbox-6e567876'], (function (workbox) { 'use strict';
 
-  self.skipWaiting();
-  workbox.clientsClaim();
+  self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+      self.skipWaiting();
+    }
+  });
 
   /**
    * The precacheAndRoute() method efficiently caches and responds to
@@ -79,13 +82,13 @@ define(['./workbox-148cb7e5'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "index.html",
-    "revision": "5b4b9920c70ec8d56f78d49241e2a098"
+    "revision": "7f577de605390509ce1fb3c750afeedd"
   }, {
-    "url": "index56194.css",
-    "revision": "4c9b7ff8f6dff40e0eb164b90d21758a"
+    "url": "index51747.css",
+    "revision": "37182051a6a6bc591e76e2c4ea074134"
   }, {
-    "url": "index56194.js",
-    "revision": "3e7eb3ca58b5f28056116bb81e163e98"
+    "url": "index51747.js",
+    "revision": "2fe6a015f68faffa0df0a93998fc462d"
   }, {
     "url": "favicon.ico",
     "revision": "0946d57aecbded317027cab6e37b9ade"
