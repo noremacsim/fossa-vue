@@ -19,6 +19,7 @@ registerSW({
       try {
         const response = await fetch('/dev-sw.js?dev-sw', { cache: 'no-store', 'cache-control': 'no-cache' });
         response && response.status === 200 && await r.update();
+        console.log('update');
       } catch (e) {
         console.log('cannot ping/update sw.js', e);
       }
