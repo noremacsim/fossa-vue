@@ -8,23 +8,8 @@ const { user } = storeToRefs(useUserStore());
 import { ref, watch } from 'vue'
 
 import { registerSW } from 'virtual:pwa-register'
-
-const intervalMS = 1 * 60 * 1000;
-
 registerSW({
   immediate: true,
-  onRegistered(r) {
-    r &&
-    setInterval(async () => {
-      try {
-        const response = await fetch('/sw.js', { cache: 'no-store', 'cache-control': 'no-cache' });
-        response && response.status === 200 && await r.update();
-        console.log('update');
-      } catch (e) {
-        console.log('cannot ping/update sw.js', e);
-      }
-    }, intervalMS);
-  },
 })
 
 let background = ref('');
