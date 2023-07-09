@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "site.fossa.app",
+    "sha256_cert_fingerprints": [
+      "0F:8E:10:4A:B3:39:F7:9B:8C:BA:CA:24:E5:CF:9B:C5:26:A4:61:EB:81:A1:28:40:B1:AD:A9:43:1F:6D:50:04"
+    ]
+  }
+}]
