@@ -202,7 +202,7 @@
                 :tabindex="`1${index}`"
                 role="button"
                 type="button"
-                src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
+                src="https://cdn-icons-png.flaticon.com/512/3/3723.png"
             >
           </div>
         </div>
@@ -238,7 +238,7 @@
                 :tabindex="`1${index}`"
                 role="button"
                 type="button"
-                src="https://img.uxwing.com/wp-content/themes/uxwing/download/arrow-direction/move-arrows-icon.png"
+                src="https://cdn-icons-png.flaticon.com/512/3/3723.png"
             >
           </div>
 
