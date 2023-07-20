@@ -6,6 +6,7 @@ import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 const { user } = storeToRefs(useUserStore());
 import { ref, watch } from 'vue'
+import router from "@/router";
 
 import { registerSW } from 'virtual:pwa-register'
 registerSW({
@@ -13,6 +14,8 @@ registerSW({
 })
 
 let background = ref('');
+let subscribeView = ref(false);
+
 watch(user, async () => {
   if (user.value?.backgroundImage) {
     background.value = `url(${user.value.backgroundImage})`;
@@ -21,6 +24,15 @@ watch(user, async () => {
   }
 });
 
+if (user.value.visits >= 4 && (user.value.subscription === '0' || user.value.subscription === null)) {
+  subscribeView.value = true;
+  router.push('/subscribe');
+}
+
+function showMain() {
+  router.push('/');
+}
+
 </script>
 
 <template>
@@ -28,7 +40,7 @@ watch(user, async () => {
   <!-- PAGE HEADER -->
   <header>
 
-    <div class="topNav" role="navigation">
+    <div class="topNav" role="navigation" v-if="!subscribeView">
 
       <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
 
@@ -60,7 +72,7 @@ watch(user, async () => {
 
   </header>
 
-  <router-view @showSettings="showModal = true" ></router-view>
+  <router-view @showSettings="showModal = true" @showHome="showMain"></router-view>
 
   <HomeFooter></HomeFooter>
   </body>

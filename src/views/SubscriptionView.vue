@@ -2,11 +2,14 @@
 import apiService from "@/common/api.service";
 import { loadScript } from "@paypal/paypal-js";
 import {useToast} from "vue-toastification";
-import {onMounted, ref} from "vue";
+import {defineEmits, onMounted, ref} from "vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 import router from "@/router";
 const { user } = storeToRefs(useUserStore());
+
+const emit = defineEmits(['showHome'])
+
 
 const created = ref(false);
 
@@ -38,8 +41,7 @@ onMounted(() => {
               },
               onApprove: function (data, actions) {
                 apiService.post(`/user/subscribe?user=${user.uniqueID}&level=1`);
-                app.$emit('close');
-                app.$emit('showHome');
+                emit('showHome');
                 toast.success("Subscribed Successfully. Please Refresh Page", {
                   timeout: 2000,
                 });
@@ -58,11 +60,6 @@ onMounted(() => {
   }
 
 });
-
-function noSubContinue() {
-  router.push('/');
-}
-
 </script>
 
 
@@ -71,28 +68,23 @@ function noSubContinue() {
     <div class="card-deck mb-3 text-center">
       <div class="card mb-4 box-shadow" v-show="user.subscription !== '1'">
         <div class="card-header" style="background:#0000ff63;">
-          <h4 class="my-0 font-weight-normal">Supporter</h4>
+          <h4 class="my-0 font-weight-normal">Support This Site</h4>
         </div>
         <div class="card-body">
-          <h1 class="card-title pricing-card-title">£1</h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Get Site Access</li>
-            <li>Save and Share across devices</li>
-            <li>Upload Profile Picture</li>
-            <li>Add Custom Apps</li>
-            <li>Add folders and categories</li>
-            <li>Add custom Background</li>
-            <li>Premium Support contact</li>
-            <li>Enhanced Experience</li>
+          <h1 class="card-title pricing-card-title">Only £1</h1>
+          <ul class="list-unstyled mt-3 mb-4" style="text-align: initial;">
+            <li><b>Sustain Our Site:</b> Your subscription ensures we can maintain and improve the website for everyone to enjoy.</li>
+            <li><b>Enhanced Experience:</b> We'll invest in optimizing user experience and introducing exciting new features.</li>
+            <li><b>Keep it Running:</b> You help fund the site for hosting and keep the site up and running.</li>
           </ul>
           <div id="paypal-button-container-P-9JU57379J2256173EMSFNB7A"></div>
         </div>
       </div>
-      <div class="card mb-4 box-shadow">
-        <div class="card-header" style="background: #ffee94;cursor: pointer;" @click="noSubContinue">
-          <h4 class="my-0 font-weight-normal" >Continue Without Subscription</h4>
-        </div>
-      </div>
+<!--      <div class="card mb-4 box-shadow">-->
+<!--        <div class="card-header" style="background: #ffee94;cursor: pointer;" @click="noSubContinue">-->
+<!--          <h4 class="my-0 font-weight-normal" >Continue Without Subscription</h4>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
