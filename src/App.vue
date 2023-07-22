@@ -24,7 +24,7 @@ watch(user, async () => {
   }
 });
 
-if (user.value.visits >= 4 && (user.value.subscription === '0' || user.value.subscription === null)) {
+if (user.value.visits >= 2 && (user.value.subscription === '0' || user.value.subscription === null)) {
   subscribeView.value = true;
   router.push('/subscribe');
 }
@@ -40,9 +40,9 @@ function showMain() {
   <!-- PAGE HEADER -->
   <header>
 
-    <div class="topNav" role="navigation" v-if="!subscribeView">
+    <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
 
-      <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
+    <div class="topNav" role="navigation" v-if="!subscribeView">
 
       <router-link to="/user">
         <fontAwsomeButton

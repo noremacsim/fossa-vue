@@ -5,10 +5,9 @@ import {useToast} from "vue-toastification";
 import {defineEmits, onMounted, ref} from "vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
-import router from "@/router";
 const { user } = storeToRefs(useUserStore());
 
-const emit = defineEmits(['showHome'])
+const emit = defineEmits(['showHome', 'showSettings'])
 
 
 const created = ref(false);
@@ -58,7 +57,6 @@ onMounted(() => {
         });
     created.value = true;
   }
-
 });
 </script>
 
@@ -78,13 +76,16 @@ onMounted(() => {
             <li><b>Keep it Running:</b> You help fund the site for hosting and keep the site up and running.</li>
           </ul>
           <div id="paypal-button-container-P-9JU57379J2256173EMSFNB7A"></div>
+          <p>*If Paypal doesn't load please subscribe from a mobile or pc then import your account*</p>
+
         </div>
       </div>
-<!--      <div class="card mb-4 box-shadow">-->
-<!--        <div class="card-header" style="background: #ffee94;cursor: pointer;" @click="noSubContinue">-->
-<!--          <h4 class="my-0 font-weight-normal" >Continue Without Subscription</h4>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="card mb-4 box-shadow">
+        <div class="card-header" style="background: rgb(148 255 156);cursor: pointer;" @click="emit('showSettings')">
+          <h4 class="my-0 font-weight-normal" >Import Fossa Code</h4>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
