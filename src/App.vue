@@ -24,7 +24,7 @@ watch(user, async () => {
   }
 });
 
-if (user.value.visits >= 2 && (user.value.subscription === '0' || user.value.subscription === null)) {
+if (user.value.visits >= 4 && (user.value.subscription === '0' || user.value.subscription === null)) {
   subscribeView.value = true;
   router.push('/subscribe');
 }
