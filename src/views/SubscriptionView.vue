@@ -39,7 +39,7 @@ onMounted(() => {
                 });
               },
               onApprove: function (data, actions) {
-                apiService.post(`/user/subscribe?user=${user.uniqueID}&level=1`);
+                apiService.post(`/user/subscribe?user=${user.value.uniqueID}&level=1`);
                 emit('showHome');
                 toast.success("Subscribed Successfully. Please Refresh Page", {
                   timeout: 2000,
