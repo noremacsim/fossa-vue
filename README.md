@@ -32,7 +32,7 @@ Fossa has been extensively tested on the Model Y and has shown no compatibility 
 Fossa is an independent product and is not affiliated with the Tesla brand or any other brands displayed within the application. When navigating to each service, you will be redirected to their official applications served securely over HTTPS. Fossa does not store any user information. The application itself is served securely through SSL on HTTPS, ensuring all traffic is encrypted. Please note that Google Analytics is only used to gather user count information.
 
 ## Sponsors
-Support the development of Fossa by becoming a sponsor. Visit [Sponsor Fossa]([https://patreon.com/SimFlix](https://www.paypal.com/donate/?hosted_button_id=RAFQ4WLY2NX62) to contribute.
+Support the development of Fossa by becoming a sponsor. Visit [Sponsor Fossa](https://www.paypal.com/donate/?hosted_button_id=RAFQ4WLY2NX62) to contribute.
 
 ## License
 Fossa is released under the BSD 3-Clause License.
