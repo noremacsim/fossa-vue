@@ -3,7 +3,15 @@
 ## About
 Fossa is a static web application that provides users with the ability to manage, share, and use various apps and services directly through their browser or TV, without any limitations. With Fossa, Tesla drivers can easily access multiple media services, and by utilizing the full-screen button, they can enjoy a theater mode experience, enabling all apps to work in full-screen within their Tesla vehicles. Additionally, Fossa offers convenient access to applications on TVs with limited browsers. Moreover, users can personalize their experience by adding their own apps and sharing their App List ID with friends.
 
-## Features
+## Upcoming Features Next Release
+
+- **Recomendations and Discovribility**: add recomendations and discovery section, this will be best on the users prefrences and usage if enabled
+- **Advance Folder Management**: Lock, share and import folders
+- **Advance Search Filters**: search by keywords and or terms
+- **Personilised Dashboards**: Personolise the look and feel of the dashboard
+- **Social Sharing and collabration**: Set Folders and Links to Private, Public or access only
+
+## Current Features
 Fossa offers the following features:
 
 - **No Login or Registration**: Enjoy a hassle-free experience without the need for login or registration. Start using the app immediately.
