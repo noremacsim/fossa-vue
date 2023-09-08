@@ -1,5 +1,7 @@
 # [Fossa](noremacsim.github.io)
 
+Join the Reddit Community: https://www.reddit.com/r/FossaApp/
+
 ## About
 Fossa is a static web application that provides users with the ability to manage, share, and use various apps and services directly through their browser or TV, without any limitations. With Fossa, Tesla drivers can easily access multiple media services, and by utilizing the full-screen button, they can enjoy a theater mode experience, enabling all apps to work in full-screen within their Tesla vehicles. Additionally, Fossa offers convenient access to applications on TVs with limited browsers. Moreover, users can personalize their experience by adding their own apps and sharing their App List ID with friends.
 
