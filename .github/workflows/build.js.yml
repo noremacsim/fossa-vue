@@ -17,13 +17,13 @@ jobs:
     - name: Create Firebase config file
       run: |
         echo "const firebaseConfig = {" > src/firebaseConfig.js
-        echo "  apiKey: '$FIREBASE_API_KEY'," >> src/firebaseConfig.js
-        echo "  authDomain: '$FIREBASE_AUTH_DOMAIN'," >> src/firebaseConfig.js
-        echo "  projectId: '$FIREBASE_PROJECT_ID'," >> src/firebaseConfig.js
-        echo "  storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/firebaseConfig.js
-        echo "  messagingSenderId: '$FIREBASE_MESSAGING_SENDER_ID'," >> src/firebaseConfig.js
-        echo "  appId: '$FIREBASE_APP_ID'," >> src/firebaseConfig.js
-        echo "  measurementId: '$FIREBASE_MEASUREMENT_ID'," >> src/firebaseConfig.js
+        echo "  apiKey: '${{ secrets.FIREBASE_API_KEY }}'," >> src/firebaseConfig.js
+        echo "  authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}'," >> src/firebaseConfig.js
+        echo "  projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'," >> src/firebaseConfig.js
+        echo "  storageBucket: '${{ secrets.FIREBASE_STORAGE_BUCKET }}'," >> src/firebaseConfig.js
+        echo "  messagingSenderId: '${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}'," >> src/firebaseConfig.js
+        echo "  appId: '${{ secrets.FIREBASE_APP_ID }}'," >> src/firebaseConfig.js
+        echo "  measurementId: '${{ secrets.FIREBASE_MEASUREMENT_ID }}'," >> src/firebaseConfig.js
         echo "};" >> src/firebaseConfig.js
         echo "export default firebaseConfig;" >> src/firebaseConfig.js
     - name: Display updated Firebase config
