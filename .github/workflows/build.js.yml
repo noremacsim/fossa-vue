@@ -35,7 +35,7 @@ jobs:
         FIREBASE_APP_ID: ${{secrets.FIREBASE_APP_ID}}
         FIREBASE_MEASUREMENT_ID: ${{secrets.FIREBASE_MEASUREMENT_ID}}
     - name: Display updated Firebase config
-      run: cat src/firebaseConfig.js
+      run: cat src/config/firebaseConfig.js
     - name: npm install and build
       run: |
         npm install
