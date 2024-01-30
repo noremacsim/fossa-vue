@@ -16,16 +16,16 @@ jobs:
         node-version: 18.x
     - name: Create Firebase config file
       run: |
-        echo "const firebaseConfig = {" > src/config/firebaseConfig.js
-        echo "  apiKey: '$FIREBASE_API_KEY'," >> src/config/firebaseConfig.js
-        echo "  authDomain: '$FIREBASE_AUTH_DOMAIN'," >> src/config/firebaseConfig.js
-        echo "  projectId: '$FIREBASE_PROJECT_ID'," >> src/config/firebaseConfig.js
-        echo "  storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/config/firebaseConfig.js
-        echo "  messagingSenderId: '$FIREBASE_MESSAGING_SENDER_ID'," >> src/config/firebaseConfig.js
-        echo "  appId: '$FIREBASE_APP_ID'," >> src/config/firebaseConfig.js
-        echo "  measurementId: '$FIREBASE_MEASUREMENT_ID'," >> src/config/firebaseConfig.js
-        echo "};" >> src/config/firebaseConfig.js
-        echo "export default firebaseConfig;" >> src/config/firebaseConfig.js
+        echo "const firebaseConfig = {" > src/config/firebase.js
+        echo "  apiKey: '$FIREBASE_API_KEY'," >> src/config/firebase.js
+        echo "  authDomain: '$FIREBASE_AUTH_DOMAIN'," >> src/config/firebase.js
+        echo "  projectId: '$FIREBASE_PROJECT_ID'," >> src/config/firebase.js
+        echo "  storageBucket: '$FIREBASE_STORAGE_BUCKET'," >> src/config/firebase.js
+        echo "  messagingSenderId: '$FIREBASE_MESSAGING_SENDER_ID'," >> src/config/firebase.js
+        echo "  appId: '$FIREBASE_APP_ID'," >> src/config/firebase.js
+        echo "  measurementId: '$FIREBASE_MEASUREMENT_ID'," >> src/config/firebase.js
+        echo "};" >> src/config/firebase.js
+        echo "export default firebaseConfig;" >> src/config/firebase.js
       env:
         FIREBASE_API_KEY: ${{secrets.FIREBASE_API_KEY}}
         FIREBASE_AUTH_DOMAIN: ${{secrets.FIREBASE_AUTH_DOMAIN}}
@@ -35,7 +35,7 @@ jobs:
         FIREBASE_APP_ID: ${{secrets.FIREBASE_APP_ID}}
         FIREBASE_MEASUREMENT_ID: ${{secrets.FIREBASE_MEASUREMENT_ID}}
     - name: Display updated Firebase config
-      run: cat src/config/firebaseConfig.js
+      run: cat src/config/firebase.js
     - name: npm install and build
       run: |
         npm install
