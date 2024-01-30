@@ -1,24 +1,12 @@
 <script setup>
   import { useUserStore } from "@/stores/user";
-  import { storeToRefs } from "pinia";
-  const { user } = storeToRefs(useUserStore());
-  const { importUserFromAppID, logoutUser} = useUserStore();
-  import {defineEmits, ref} from 'vue'
+  const { signInUser } = useUserStore();
+  import {defineEmits} from 'vue'
   const emit = defineEmits(['close'])
 
   defineProps({
     show: Boolean,
   })
-
-  const showImport = ref(true);
-  const showLogin = ref(false);
-  const code = ref('');
-
-  function importCode() {
-    if( importUserFromAppID(code.value) ) {
-      showImport.value = false;
-    }
-  }
 </script>
 
 <template>
@@ -27,31 +15,18 @@
       <div class="modal-container">
 
         <div class="modalHeader">
-          <h5 class="modal-title">Import Profile</h5>
+          <h5 class="modal-title align-center text-center">Login</h5>
           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" @click="emit('close')"></button>
         </div>
 
         <div class="modal-body">
-          <div class="card" v-show="!showLogin">
+          <div class="card">
             <div class="card-body" style="background: #f2f2f2">
-              <h5 style="color: black;font-weight: bold;text-align: center;">Your Fossa ID</h5>
-
-              <div class="form-group mb-2">
-
-                <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
-                  <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
-                    <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
-                      <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;" readonly=""></div>
-                      <input v-show="showImport" v-model="code" type="text" class="form-control rounded appId" placeholder="Fossa Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: white;border: none;font-size: 22px;font-weight: bold;border-radius: 25px !important;letter-spacing: 3px;color: black;box-shadow: 0 4px 9px -4px #54b4d3;margin-top: 16px;">
-                  </div>
-                </div>
-              </div>
-
+              <span style="color: black;text-align: center;" class="text-center">To use more features and save your lists please login using one of the below methods</span>
               <div style="display: flex;flex-wrap: wrap;align-items: center;justify-content: center;padding-top:15px">
-                <button @click="showImport = true" v-show="!showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="margin-right: 12px;">import</button>
-                <button @click="importCode" v-show="showImport" id="importCode" type="button" class="btn btn-primary btn-rounded" style="color:white;margin-right: 12px;">Save & import</button>
-                <button id="LoginCode" type="button" @click="logoutUser" v-show="!showImport" class="btn btn-danger btn-rounded">New Code</button>
-
+                <button class="login-with-google-btn" @click="signInUser">
+                  Sign in with Google
+                </button>
               </div>
             </div>
           </div>
@@ -60,3 +35,38 @@
     </div>
   </Transition>
 </template>
+
+<style>
+.login-with-google-btn {
+  width: 250px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  padding: 10px 16px 12px 42px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+}
+.login-with-google-btn:hover {
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+.login-with-google-btn:active {
+  background-color: #eeeeee;
+}
+.login-with-google-btn:focus {
+  outline: none;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 3px #c8dafc;
+}
+.login-with-google-btn:disabled {
+  filter: grayscale(100%);
+  background-color: #ebebeb;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+</style>

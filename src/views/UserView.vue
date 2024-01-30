@@ -150,7 +150,8 @@ function navigate(link) {
 
 <template>
   <div class="userimgContainer">
-    <img id="userProfileImage" :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 100px; height: 100px; border: 3px solid white;" alt="Avatar" />
+    <img v-if="!user.profileImage" id="userProfileImage" src="/img/icons/512.png" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 100px; height: 100px; border: 3px solid white;" alt="Avatar" />
+    <img v-if="user.profileImage" id="userProfileImage" :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 100px; height: 100px; border: 3px solid white;" alt="Avatar" />
     <font-awesome-icon :icon="'camera'" :class="'uploadIcon'" @click="clickToUpload" style="cursor: pointer;"/>
     <input type="file" name="" id="fileId" @change="imageUploaded" ref="uploadButton" style="display: none;">
   </div>
@@ -160,7 +161,7 @@ function navigate(link) {
     <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
       <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
         <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
-          <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px 25px 0 0 !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;" readonly="">
+<!--          <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px 25px 0 0 !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;" readonly="">-->
           <font-awesome-icon @click="shareSite" :icon="'share-nodes'" :class="'shareIcon'" />
         </div>
       </div>
@@ -176,7 +177,7 @@ function navigate(link) {
         <v-expansion-panel-text>
           <v-text-field
               label="Name"
-              v-model="user.name"
+              v-model="user.displayName"
               variant="outlined"
           ></v-text-field>
 
@@ -186,12 +187,12 @@ function navigate(link) {
               variant="outlined"
           ></v-text-field>
 
-          <v-textarea
-              label="Bio"
-              v-model="user.bio"
-              variant="outlined"
-              rows="2"
-          ></v-textarea>
+<!--          <v-textarea-->
+<!--              label="Bio"-->
+<!--              v-model="user.bio"-->
+<!--              variant="outlined"-->
+<!--              rows="2"-->
+<!--          ></v-textarea>-->
           <v-btn
               color="success"
               class="mt-4"
@@ -301,7 +302,7 @@ function navigate(link) {
   border: none;
   font-size: 22px;
   font-weight: bold;
-  border-radius: 0 0 25px 25px;
+  border-radius: 25px 25px 25px 25px;
   letter-spacing: 3px;
   color: white;
   box-shadow: rgb(84, 180, 211) 0px 4px 9px -4px;

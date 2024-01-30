@@ -6,9 +6,13 @@ const { user } = storeToRefs(useUserStore());
 </script>
 <template>
   <div class="header" role="banner">
-    <img  :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 125px; height: 125px; border: 3px solid white;" alt="Avatar" />
-    <h5 class="loaded mb-2 headerProfile" style="margin-top: 10px;" v-if="user.name"><strong>Welcome {{ user.name }}</strong></h5>
-    <h5 class="loaded mb-2 headerProfile" style="margin-top: 10px;" v-if="!user.name"><strong>Welcome to Fossa</strong></h5>
+
+    <img v-if="!user.profileImage" src="/img/icons/512.png" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 125px; height: 125px; border: 3px solid white;" alt="Avatar" />
+    <img v-if="user.profileImage" :src="user.profileImage" class="loaded rounded-circle mb-3 profileImage headerProfile userProfileImageSrc" style="width: 125px; height: 125px; border: 3px solid white;" alt="Avatar" />
+
+    <h5 class="loaded mb-2 headerProfile" style="margin-top: 10px;" v-if="user.displayName"><strong>Welcome {{ user.displayName }}</strong></h5>
+    <h5 class="loaded mb-2 headerProfile" style="margin-top: 10px;" v-if="!user.displayName"><strong>Welcome to Fossa</strong></h5>
+
     <p v-if="!user.bio" style="margin-bottom: 25px"></p>
     <p v-if="user.bio">{{ user.bio }}</p>
 

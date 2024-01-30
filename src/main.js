@@ -21,6 +21,11 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import Vue3Tour from 'vue3-tour'
 import 'vue3-tour/dist/vue3-tour.css'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import firebaseConfig from '@/config/firebase';
+
 
 // Icons
 import { aliases, fa } from 'vuetify/iconsets/fa-svg'
@@ -58,6 +63,10 @@ library.add(
     faLink
 );
 
+const fireApp = initializeApp(firebaseConfig);
+getAuth(fireApp);
+getFirestore(fireApp);
+
 const vuetify = createVuetify({
     components,
     directives,
@@ -72,8 +81,6 @@ const vuetify = createVuetify({
         },
     }
 });
-
-
 
 axios.defaults.baseURL = API_URL;
 

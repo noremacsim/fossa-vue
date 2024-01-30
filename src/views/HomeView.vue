@@ -64,11 +64,11 @@ if (chromeExtension && chromeExtension != '') {
     })
   });
 } else {
-  initUser().then(success => {
-    if (success === false) {
-      emit('showSettings');
-    }
-  })
+  // initUser().then(success => {
+  //   if (success === false) {
+  //     emit('showSettings');
+  //   }
+  // })
 }
 
 </script>

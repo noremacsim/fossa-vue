@@ -2,7 +2,7 @@
   import {allApps} from "@/common/allApps";
   import {ref} from "vue";
   import {useUserStore} from "@/stores/user";
-  const { addUserApp, addUserFolder } = useUserStore();
+  const { addApp, addUserFolder } = useUserStore();
   const { filter } = storeToRefs(useUserStore());
   import { defineEmits } from 'vue'
   import {storeToRefs} from "pinia";
@@ -21,7 +21,7 @@
 
 
   function addNewApp(name, url, image) {
-    addUserApp({name, url, image})
+    addApp(name, url, image)
     emit('close');
   }
 
@@ -41,13 +41,7 @@
     } else {
       imageApp = appImage.value;
     }
-
-    let data = {
-      name: appName.value,
-      url: appUrl.value,
-      image: imageApp
-    }
-    addUserApp(data)
+    addApp(appName.value, appUrl.value, imageApp)
     emit('close');
   }
 
@@ -69,74 +63,6 @@
       <v-expansion-panels
           style="padding: 10px;"
       >
-
-        <v-expansion-panel
-            expand-icon="fas fa-link"
-            style="border-bottom-left-radius: 10px !important;border-bottom-right-radius: 10px !important;border-top-left-radius: 10px !important;border-top-right-radius: 10px !important;"
-        >
-          <v-expansion-panel-title>
-            <font-awesome-icon
-                icon="link"
-                style="background: #ffd93c;margin-right: 10px;font-size: 22px;padding: 15px 12.5px 15px 12.5px;border-radius: 10px;"
-            ></font-awesome-icon>
-            <div class="titleSub">
-              Add New URL
-              <span style="color: grey;font-size: 13px;">Enter Custom URL</span>
-            </div>
-          </v-expansion-panel-title>
-          <v-expansion-panel-text>
-            <v-text-field
-                label="Website Name"
-                prepend-icon="fas fa-globe"
-                variant="underlined"
-                v-model="appName"
-                hint="Google"
-            ></v-text-field>
-            <v-text-field
-                label="Website URL"
-                prepend-icon="fas fa-link"
-                variant="underlined"
-                v-model="appUrl"
-                @change="GeneratIcon"
-                hint="www.google.com"
-            ></v-text-field>
-            <img :src="newAppIcon" style="display: block;margin: auto;"/>
-            <v-text-field
-                label="Custom Image URL (Optional)"
-                prepend-icon="fas fa-image"
-                variant="underlined"
-                v-model="appImage"
-            ></v-text-field>
-            <v-btn block color="light-green-lighten-1" rounded="lg" @click="saveCustom">Save</v-btn>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-
-        <v-expansion-panel
-            expand-icon="fas fa-folder"
-            v-if="!filter"
-            style="border-bottom-left-radius: 10px !important;border-bottom-right-radius: 10px !important;border-top-left-radius: 10px !important;border-top-right-radius: 10px !important;"
-        >
-          <v-expansion-panel-title>
-            <font-awesome-icon
-                icon="folder"
-                style="background: #29dc8b;margin-right: 10px;font-size: 22px;padding: 15px;border-radius: 10px;"
-            ></font-awesome-icon>
-            <div class="titleSub">
-              Create New Folder
-              <span style="color: grey;font-size: 13px;">Catgorise Items into folders</span>
-            </div>
-          </v-expansion-panel-title>
-          <v-expansion-panel-text>
-            <v-text-field
-                label="Folder name"
-                hint="Productivity"
-                prepend-icon="fas fa-folder"
-                variant="underlined"
-                v-model="folderName"
-            ></v-text-field>
-            <v-btn block color="light-green-lighten-1" rounded="lg" @click="saveFolder">Save</v-btn>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
 
         <v-expansion-panel
             expand-icon="fas fa-plus"
@@ -179,6 +105,74 @@
 
           </v-expansion-panel-text>
         </v-expansion-panel>
+
+        <v-expansion-panel
+            expand-icon="fas fa-link"
+            style="border-bottom-left-radius: 10px !important;border-bottom-right-radius: 10px !important;border-top-left-radius: 10px !important;border-top-right-radius: 10px !important;"
+        >
+          <v-expansion-panel-title>
+            <font-awesome-icon
+                icon="link"
+                style="background: #ffd93c;margin-right: 10px;font-size: 22px;padding: 15px 12.5px 15px 12.5px;border-radius: 10px;"
+            ></font-awesome-icon>
+            <div class="titleSub">
+              Add New URL
+              <span style="color: grey;font-size: 13px;">Enter Custom URL</span>
+            </div>
+          </v-expansion-panel-title>
+          <v-expansion-panel-text>
+            <v-text-field
+                label="Website Name"
+                prepend-icon="fas fa-globe"
+                variant="underlined"
+                v-model="appName"
+                hint="Google"
+            ></v-text-field>
+            <v-text-field
+                label="Website URL"
+                prepend-icon="fas fa-link"
+                variant="underlined"
+                v-model="appUrl"
+                @change="GeneratIcon"
+                hint="www.google.com"
+            ></v-text-field>
+            <img :src="newAppIcon" style="display: block;margin: auto;"/>
+            <v-text-field
+                label="Custom Image URL (Optional)"
+                prepend-icon="fas fa-image"
+                variant="underlined"
+                v-model="appImage"
+            ></v-text-field>
+            <v-btn block color="light-green-lighten-1" rounded="lg" @click="saveCustom">Save</v-btn>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+
+<!--        <v-expansion-panel-->
+<!--            expand-icon="fas fa-folder"-->
+<!--            v-if="!filter"-->
+<!--            style="border-bottom-left-radius: 10px !important;border-bottom-right-radius: 10px !important;border-top-left-radius: 10px !important;border-top-right-radius: 10px !important;"-->
+<!--        >-->
+<!--          <v-expansion-panel-title>-->
+<!--            <font-awesome-icon-->
+<!--                icon="folder"-->
+<!--                style="background: #29dc8b;margin-right: 10px;font-size: 22px;padding: 15px;border-radius: 10px;"-->
+<!--            ></font-awesome-icon>-->
+<!--            <div class="titleSub">-->
+<!--              Create New Folder-->
+<!--              <span style="color: grey;font-size: 13px;">Catgorise Items into folders</span>-->
+<!--            </div>-->
+<!--          </v-expansion-panel-title>-->
+<!--          <v-expansion-panel-text>-->
+<!--            <v-text-field-->
+<!--                label="Folder name"-->
+<!--                hint="Productivity"-->
+<!--                prepend-icon="fas fa-folder"-->
+<!--                variant="underlined"-->
+<!--                v-model="folderName"-->
+<!--            ></v-text-field>-->
+<!--            <v-btn block color="light-green-lighten-1" rounded="lg" @click="saveFolder">Save</v-btn>-->
+<!--          </v-expansion-panel-text>-->
+<!--        </v-expansion-panel>-->
 
       </v-expansion-panels>
 

@@ -8,7 +8,7 @@
   import EditLinkModel from "@/components/modals/editLinkModel.vue";
   import EditFolderModal from "@/components/modals/editFolderModal.vue";
 
-  const { user, displayApps, filter } = storeToRefs(useUserStore());
+  const { user, displayApps, filter, loggedIn } = storeToRefs(useUserStore());
   const { updateAppIndex, filterApps, updateUserApp, updateUserFolder } = useUserStore();
   const drag = ref(false);
 
@@ -61,7 +61,7 @@
     this.$emit('showUpgrade')
   }
   function showAppDeletes() {
-    if (user.value.lockapps === false || user.value.lockapps === '0') {
+    if (user.value.lockapps !== true && loggedIn.value) {
       showDelete.value = true;
     }
   }
@@ -159,7 +159,6 @@
         class="appcontainers"
     >
       <template #item="{element, index }">
-
         <div
             class="d-inline-flex position-relative p-2 newAppModalButton folderBox"
             v-if="element.type === 'folder'"
@@ -273,7 +272,7 @@
 
 
     <transition name="slide-fade">
-      <new-app-button v-if="user.lockapps === false || user.lockapps === '0'" @showAppUpgrade="showingUpgrade" />
+      <new-app-button v-if="user.lockapps !== true && loggedIn" @showAppUpgrade="showingUpgrade" />
     </transition>
 
     <home-page-tour />

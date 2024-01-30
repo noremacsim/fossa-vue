@@ -4,7 +4,7 @@ import SettingsButton from "@/components/buttons/settingsButton.vue";
 import HomeFooter from "@/components/HomeFooter.vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
-const { user } = storeToRefs(useUserStore());
+const { user, loggedIn } = storeToRefs(useUserStore());
 import { ref, watch } from 'vue'
 import router from "@/router";
 
@@ -24,15 +24,9 @@ watch(user, async () => {
   }
 });
 
-if (user.value.visits >= 4000000000000000 && (user.value.subscription === '0' || user.value.subscription === null)) {
-  subscribeView.value = true;
-  router.push('/subscribe');
-}
-
 function showMain() {
   router.push('/');
 }
-
 </script>
 
 <template>
@@ -44,7 +38,7 @@ function showMain() {
 
     <div class="topNav" role="navigation" v-if="!subscribeView">
 
-      <router-link to="/user">
+      <router-link to="/user" v-if="loggedIn">
         <fontAwsomeButton
             icon="user"
             className="floatButton settingsButton"
@@ -52,6 +46,13 @@ function showMain() {
             v-show="page === 'home' || page === 'subscribe'"
         />
       </router-link>
+
+      <fontAwsomeButton
+          v-if="!loggedIn"
+          icon="user"
+          className="floatButton settingsButton"
+          @click="showModal = true"
+      />
 
       <router-link to="/">
         <fontAwsomeButton
