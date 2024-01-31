@@ -109,8 +109,8 @@ export const useUserStore = defineStore('user', () => {
             user.value.apps = apps;
         }
 
+        await updateUserState();
         await syncUserToFireBase();
-        await updateUserState()
     }
 
     async function addUserFolder(title) {
@@ -132,8 +132,8 @@ export const useUserStore = defineStore('user', () => {
         user.value['apps'].push(appData);
         user.value['folders'][id] = [];
 
-        await syncUserToFireBase();
         await updateUserState();
+        await syncUserToFireBase();
     }
 
     async function updateUserApp(payload) {
@@ -160,8 +160,8 @@ export const useUserStore = defineStore('user', () => {
 
         user.value['apps'][userAppsIndex] = updatedApp;
 
-        await syncUserToFireBase();
         await updateUserState();
+        await syncUserToFireBase();
     }
 
     async function updateUserFolder(payload) {
@@ -184,8 +184,8 @@ export const useUserStore = defineStore('user', () => {
 
         user.value['apps'][userAppsIndex] = updatedFolder;
 
-        await syncUserToFireBase();
         await updateUserState();
+        await syncUserToFireBase();
     }
 
     async function removeUserApp(appID) {
@@ -213,8 +213,8 @@ export const useUserStore = defineStore('user', () => {
             user.value.apps = apps;
         }
 
-        await syncUserToFireBase();
         await updateUserState();
+        await syncUserToFireBase();
     }
 
     async function updateAppIndex() {
@@ -225,8 +225,8 @@ export const useUserStore = defineStore('user', () => {
             user.value['apps'] = displayApps.value
         }
 
-        await syncUserToFireBase();
         await updateUserState();
+        await syncUserToFireBase();
     }
 
     async function updateUserState() {
