@@ -168,7 +168,7 @@
             style="margin-bottom: 12px;"
         >
           <div class="newAppIcon rounded-9 userAppStyle folderContainer folderBox" @click="filterApps(element.id)">
-            <div v-if="user.folders[element.id]?.length > 0" style="display: flex;justify-content: center;flex-wrap: wrap;">
+            <div v-if="user.folders[element.id]?.length > 0" style="display: flex;justify-content: center;flex-wrap: wrap;padding: 5px;">
               <img
                   v-for="app in user.folders[element.id].slice(0, 9)"
                   v-bind:key="app.id"
@@ -327,8 +327,8 @@
 
 .backIconPlus {
   position: absolute;
-  top: 19%;
-  left: 25%;
+  top: 17%;
+  left: 26%;
   font-size: 57px;
   font-weight: 100;
 }

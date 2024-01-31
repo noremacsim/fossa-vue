@@ -28,7 +28,7 @@ let showModal = ref(false);
 
   .newAppIconPlus {
     position: absolute;
-    top: 19%;
+    top: 18%;
     left: 25%;
     font-size: 57px;
     font-weight: 100;
