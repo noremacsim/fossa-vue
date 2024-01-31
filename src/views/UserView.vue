@@ -1,12 +1,10 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
-import {defineEmits, ref} from 'vue'
+import { ref } from 'vue'
 import UserProfileTour from "@/components/tours/UserProfileTour.vue";
 const { user } = storeToRefs(useUserStore());
-const { saveUserDetails, logoutUser, uploadUserImage} = useUserStore();
-const showImport = ref(false);
-const emit = defineEmits(['showSettings'])
+const { syncUserToFireBase, logoutUser, uploadUserImage} = useUserStore();
 
 const loadingLogout = ref(false);
 const loadingSave = ref(false)
@@ -17,9 +15,8 @@ function loggingOutUser() {
 }
 async function savingUserDetails() {
   loadingSave.value = true;
-  await saveUserDetails().then(() => {
-    loadingSave.value = false;
-  })
+  await syncUserToFireBase();
+  loadingSave.value = false;
 }
 
 async function imageUploaded() {
@@ -161,7 +158,6 @@ function navigate(link) {
     <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
       <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit currentAppIdCode">
         <div class="ui-textinput ui-corner-all ui-shadow-inset ui-textinput-text ui-body-inherit">
-<!--          <input v-show="!showImport" :value="user.uniqueID" type="text" class="form-control rounded appId" placeholder="Code" aria-label="Code" id="appid" name="appId" style="width: 210px;margin: auto;text-align: center;background: transparent;background: #54b4d3;border: none;font-size: 22px;font-weight: bold;border-radius: 25px 25px 0 0 !important;letter-spacing: 3px;color: white;box-shadow: 0 4px 9px -4px #54b4d3;" readonly="">-->
           <font-awesome-icon @click="shareSite" :icon="'share-nodes'" :class="'shareIcon'" />
         </div>
       </div>
@@ -186,13 +182,6 @@ function navigate(link) {
               label="Email"
               variant="outlined"
           ></v-text-field>
-
-<!--          <v-textarea-->
-<!--              label="Bio"-->
-<!--              v-model="user.bio"-->
-<!--              variant="outlined"-->
-<!--              rows="2"-->
-<!--          ></v-textarea>-->
           <v-btn
               color="success"
               class="mt-4"
@@ -235,7 +224,7 @@ function navigate(link) {
         <v-expansion-panel-title>
           <v-switch
               class="lockingApps"
-              v-model="user.lockapps"
+              v-model="user.lockApps"
               color="green"
               :loading="loadingSave"
               @change="savingUserDetails"
@@ -248,16 +237,6 @@ function navigate(link) {
       </v-expansion-panel>
 
     </v-expansion-panels>
-
-    <v-btn
-        color="success"
-        class="mt-4"
-        style="color: white;"
-        @click="emit('showSettings')"
-        block
-    >
-      Import Profile
-    </v-btn>
 
     <v-btn
         color="primary"

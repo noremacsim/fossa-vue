@@ -1,6 +1,6 @@
 <script setup>
 import fontAwsomeButton from "@/components/buttons/fontAwsomeButton.vue";
-import SettingsButton from "@/components/buttons/settingsButton.vue";
+import loginModal from "@/components/modals/loginModal.vue";
 import HomeFooter from "@/components/HomeFooter.vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
@@ -15,6 +15,8 @@ registerSW({
 
 let background = ref('');
 let subscribeView = ref(false);
+let showLoginModal = ref(false);
+
 
 watch(user, async () => {
   if (user.value?.backgroundImage) {
@@ -34,7 +36,7 @@ function showMain() {
   <!-- PAGE HEADER -->
   <header>
 
-    <SettingsButton :showModal="showModal" className="floatButton settingsButton"/>
+    <loginModal :show="showLoginModal" @close="showLoginModal = false" />
 
     <div class="topNav" role="navigation" v-if="!subscribeView">
 
@@ -51,7 +53,7 @@ function showMain() {
           v-if="!loggedIn"
           icon="user"
           className="floatButton settingsButton"
-          @click="showModal = true"
+          @click="showLoginModal = true"
       />
 
       <router-link to="/">

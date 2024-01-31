@@ -60,7 +60,7 @@ library.add(
     faShare,
     faShareNodes,
     faArrowLeft,
-    faLink
+    faLink,
 );
 
 const fireApp = initializeApp(firebaseConfig);

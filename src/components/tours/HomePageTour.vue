@@ -37,7 +37,7 @@ function finishTour() {
 
 onMounted(() => {
   const app = getCurrentInstance()
-  if (user.value.tour < 1) {
+  if (user.value?.tour < 1) {
     app.appContext.config.globalProperties.$tours['homePageTour'].start();
   }
 });

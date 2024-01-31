@@ -1,39 +1,38 @@
 <script setup>
   import { useUserStore } from "@/stores/user";
   const { signInUser } = useUserStore();
-  import {defineEmits} from 'vue'
+  import {defineEmits, toRefs} from 'vue'
   const emit = defineEmits(['close'])
 
-  defineProps({
+  const props = defineProps({
     show: Boolean,
   })
+
+  const { show } = toRefs(props);
+
 </script>
 
 <template>
-  <Transition name="modal">
-    <div v-if="show" class="modal-mask">
-      <div class="modal-container">
+    <v-dialog
+        v-model="show"
+        max-width="600"
+        class="no-edit-hide"
+    >
+      <v-card class="no-edit-hide">
+        <div class="modal-body no-edit-hide">
 
-        <div class="modalHeader">
-          <h5 class="modal-title align-center text-center">Login</h5>
-          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" @click="emit('close')"></button>
-        </div>
-
-        <div class="modal-body">
-          <div class="card">
-            <div class="card-body" style="background: #f2f2f2">
-              <span style="color: black;text-align: center;" class="text-center">To use more features and save your lists please login using one of the below methods</span>
-              <div style="display: flex;flex-wrap: wrap;align-items: center;justify-content: center;padding-top:15px">
-                <button class="login-with-google-btn" @click="signInUser">
-                  Sign in with Google
-                </button>
-              </div>
-            </div>
+          <div class="modalHeader no-edit-hide">
+            <h5 class="modalTitle no-edit-hide">Login</h5>
+            <button type="button" class="btn-close no-edit-hide" data-mdb-dismiss="modal" aria-label="Close" @click="emit('close')"></button>
           </div>
+          <v-card-text class="no-edit-hide m-auto">
+            <button class="login-with-google-btn" @click="signInUser">
+              Sign in with Google
+            </button>
+          </v-card-text>
         </div>
-      </div>
-    </div>
-  </Transition>
+      </v-card>
+    </v-dialog>
 </template>
 
 <style>

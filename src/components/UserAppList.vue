@@ -61,7 +61,7 @@
     this.$emit('showUpgrade')
   }
   function showAppDeletes() {
-    if (user.value.lockapps !== true && loggedIn.value) {
+    if (user.value.lockApps !== true && loggedIn.value) {
       showDelete.value = true;
     }
   }
@@ -272,7 +272,7 @@
 
 
     <transition name="slide-fade">
-      <new-app-button v-if="user.lockapps !== true && loggedIn" @showAppUpgrade="showingUpgrade" />
+      <new-app-button v-if="user?.lockApps !== true && loggedIn" @showAppUpgrade="showingUpgrade" />
     </transition>
 
     <home-page-tour />

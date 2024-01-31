@@ -26,10 +26,7 @@
   }
 
   function saveFolder() {
-    let data = {
-      name: folderName.value,
-    }
-    addUserFolder(data)
+    addUserFolder(folderName.value)
     emit('close');
   }
 
@@ -147,32 +144,32 @@
           </v-expansion-panel-text>
         </v-expansion-panel>
 
-<!--        <v-expansion-panel-->
-<!--            expand-icon="fas fa-folder"-->
-<!--            v-if="!filter"-->
-<!--            style="border-bottom-left-radius: 10px !important;border-bottom-right-radius: 10px !important;border-top-left-radius: 10px !important;border-top-right-radius: 10px !important;"-->
-<!--        >-->
-<!--          <v-expansion-panel-title>-->
-<!--            <font-awesome-icon-->
-<!--                icon="folder"-->
-<!--                style="background: #29dc8b;margin-right: 10px;font-size: 22px;padding: 15px;border-radius: 10px;"-->
-<!--            ></font-awesome-icon>-->
-<!--            <div class="titleSub">-->
-<!--              Create New Folder-->
-<!--              <span style="color: grey;font-size: 13px;">Catgorise Items into folders</span>-->
-<!--            </div>-->
-<!--          </v-expansion-panel-title>-->
-<!--          <v-expansion-panel-text>-->
-<!--            <v-text-field-->
-<!--                label="Folder name"-->
-<!--                hint="Productivity"-->
-<!--                prepend-icon="fas fa-folder"-->
-<!--                variant="underlined"-->
-<!--                v-model="folderName"-->
-<!--            ></v-text-field>-->
-<!--            <v-btn block color="light-green-lighten-1" rounded="lg" @click="saveFolder">Save</v-btn>-->
-<!--          </v-expansion-panel-text>-->
-<!--        </v-expansion-panel>-->
+        <v-expansion-panel
+            expand-icon="fas fa-folder"
+            v-if="!filter"
+            style="border-bottom-left-radius: 10px !important;border-bottom-right-radius: 10px !important;border-top-left-radius: 10px !important;border-top-right-radius: 10px !important;"
+        >
+          <v-expansion-panel-title>
+            <font-awesome-icon
+                icon="folder"
+                style="background: #29dc8b;margin-right: 10px;font-size: 22px;padding: 15px;border-radius: 10px;"
+            ></font-awesome-icon>
+            <div class="titleSub">
+              Create New Folder
+              <span style="color: grey;font-size: 13px;">Catgorise Items into folders</span>
+            </div>
+          </v-expansion-panel-title>
+          <v-expansion-panel-text>
+            <v-text-field
+                label="Folder name"
+                hint="Productivity"
+                prepend-icon="fas fa-folder"
+                variant="underlined"
+                v-model="folderName"
+            ></v-text-field>
+            <v-btn block color="light-green-lighten-1" rounded="lg" @click="saveFolder">Save</v-btn>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
 
       </v-expansion-panels>
 
