@@ -23,25 +23,10 @@ import UserHeader from "@/components/UserHeader.vue";
 import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
 import UserAppListSkeleton from "@/components/skeleton/UserAppListSkeleton.vue";
 
-import {defineEmits, ref} from 'vue'
-const emit = defineEmits(['showSettings'])
+import { ref } from 'vue'
 
 const { userLoading } = storeToRefs(useUserStore());
-const importedCode = location?.search?.split('code=')[1] ?? '';
-const chromeExtension = location?.search?.split('chrome=')[1] ?? '';
 const showMain = ref(true);
-
-if (chromeExtension && chromeExtension != '') {
-  showMain.value = false;
-} else if (importedCode && importedCode !== '') {
-  emit('showSettings');
-} else {
-  // initUser().then(success => {
-  //   if (success === false) {
-  //     emit('showSettings');
-  //   }
-  // })
-}
 
 </script>
 

@@ -13,18 +13,18 @@ registerSW({
   immediate: true,
 })
 
-let background = ref('');
-let subscribeView = ref(false);
-let showLoginModal = ref(false);
+const background = ref('');
+const subscribeView = ref(false);
+const showLoginModal = ref(false);
 
 
-watch(user, async () => {
+watch(user, (newValue) => {
   if (user.value?.backgroundImage) {
     background.value = `url(${user.value.backgroundImage})`;
   } else {
     background.value = ''
   }
-});
+}, { immediate: true });
 
 function showMain() {
   router.push('/');

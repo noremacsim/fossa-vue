@@ -1,10 +1,10 @@
-import {defineStore} from "pinia";
-import {ref} from 'vue';
-import {useStorage} from '@vueuse/core'
-import {useToast} from "vue-toastification";
-import { starterApps } from "@/common/starterApps";
-import {getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut} from "firebase/auth";
-import {collection, doc, getDoc, getFirestore, setDoc, updateDoc} from "firebase/firestore";
+import { defineStore } from "pinia";
+import { ref } from 'vue';
+import { onAuthStateChanged, getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { useStorage } from '@vueuse/core';
+import { useToast } from 'vue-toastification';
+import { starterApps } from '@/common/starterApps';
 
 export const useUserStore = defineStore('user', () => {
     const user = ref(useStorage('user', []));
@@ -149,7 +149,7 @@ export const useUserStore = defineStore('user', () => {
         }
 
         const matchID = (app) => app.id == payload.id;
-        const userAppsIndex = this.user.apps.findIndex(matchID);
+        const userAppsIndex = user.value.apps.findIndex(matchID);
 
         let updatedApp = {
             id: payload.id,
@@ -172,7 +172,7 @@ export const useUserStore = defineStore('user', () => {
         }
 
         const matchID = (app) => app.id == payload.id;
-        const userAppsIndex = this.user.apps.findIndex(matchID);
+        const userAppsIndex = user.value.apps.findIndex(matchID);
 
         let updatedFolder = {
             id: payload.id,
@@ -257,12 +257,12 @@ export const useUserStore = defineStore('user', () => {
     async function filterApps(filterBy = null) {
 
         if (filterBy === null || filterBy === '') {
-            this.displayApps = user.value['apps'];
+            displayApps.value = user.value['apps'];
         } else {
-            this.displayApps = user.value['folders'][filterBy];
+            displayApps.value = user.value['folders'][filterBy];
         }
 
-        this.filter = filterBy;
+        filter.value = filterBy;
     }
 
     async function uploadUserImage(image) {
