@@ -78,11 +78,11 @@ define(['./workbox-148cb7e5'], (function (workbox) { 'use strict';
    * See https://goo.gl/S9QRab
    */
   workbox.precacheAndRoute([{
-    "url": "index.html",
-    "revision": "904223a2ca73c643789e834854da65d2"
+    "url": "index.css",
+    "revision": "1e167c80998f68c9be3b16137e9d3a3c"
   }, {
-    "url": "index30567.css",
-    "revision": "08078095ab699b4859df67cc5a204129"
+    "url": "index.html",
+    "revision": "10dcb8e46d5b6267a80cc85f1597b53f"
   }, {
     "url": "favicon.ico",
     "revision": "0946d57aecbded317027cab6e37b9ade"
