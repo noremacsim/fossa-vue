@@ -48,8 +48,11 @@ export const useUserStore = defineStore('user', () => {
                     displayName: user.displayName,
                     email: user.email,
                     lockApps: false,
+                    homeTour: false,
+                    profileTour: false,
                     backgroundImage: null,
                     profileImage: user.photoURL || null,
+                    apps: starterApps
                 });
 
                 console.log("User document created successfully!");

@@ -2,8 +2,8 @@
 import {getCurrentInstance, onMounted} from "vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
-const { user } = storeToRefs(useUserStore());
-const { saveUserDetails } = useUserStore();
+const { user, loggedIn } = storeToRefs(useUserStore());
+const { syncUserToFireBase } = useUserStore();
 
 const tourSteps = [
   {
@@ -30,14 +30,14 @@ const myCallbacks = {
 }
 
 function finishTour() {
-  user.value.tour = 1;
-  saveUserDetails(false).then(() => {})
+  user.value.tour = true;
+  syncUserToFireBase();
 }
 
 
 onMounted(() => {
   const app = getCurrentInstance()
-  if (user.value?.tour < 1) {
+  if (loggedIn.value && !user.value?.tour) {
     app.appContext.config.globalProperties.$tours['homePageTour'].start();
   }
 });

@@ -3,13 +3,9 @@ import {getCurrentInstance, onMounted} from "vue";
 import {storeToRefs} from "pinia";
 import {useUserStore} from "@/stores/user";
 const { user } = storeToRefs(useUserStore());
-const { saveUserDetails } = useUserStore();
+const { syncUserToFireBase } = useUserStore();
 
 const tourSteps = [
-  {
-    target: '.appId',  // We're using document.querySelector() under the hood
-    content: `This is your unique ID. You can import this on any device to load your profile`
-  },
   {
     target: '.shareIcon',
     content: 'Quickly share your profile using this button'
@@ -38,14 +34,14 @@ const myCallbacks = {
 }
 
 function finishTour() {
-  user.value.tour = 2;
-  saveUserDetails(false).then(() => {})
+  user.value.profileTour = true;
+  syncUserToFireBase();
 }
 
 
 onMounted(() => {
   const app = getCurrentInstance()
-  if (user.value.tour < 2) {
+  if (!user.value.profileTour) {
     app.appContext.config.globalProperties.$tours['UserProfileTour'].start();
   }
 });
