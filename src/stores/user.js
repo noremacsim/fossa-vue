@@ -70,6 +70,7 @@ export const useUserStore = defineStore('user', () => {
                 const user = result.user;
                 console.log(user);
                 console.log(token);
+                return true;
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -80,6 +81,7 @@ export const useUserStore = defineStore('user', () => {
                 console.log(errorMessage);
                 console.log(email);
                 console.log(credential);
+                return false;
             });
     }
 

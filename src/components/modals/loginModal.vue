@@ -1,7 +1,9 @@
 <script setup>
   import { useUserStore } from "@/stores/user";
   const { signInUser } = useUserStore();
-  import {defineEmits, toRefs} from 'vue'
+  const { loggedIn } = storeToRefs(useUserStore());
+  import {defineEmits, toRefs, watch} from 'vue'
+  import {storeToRefs} from "pinia";
   const emit = defineEmits(['close'])
 
   const props = defineProps({
@@ -9,6 +11,13 @@
   })
 
   const { show } = toRefs(props);
+
+  watch(loggedIn, () => {
+    if (loggedIn.value) {
+      emit('close');
+      console.log('user logged in')
+    }
+  }, { immediate: true });
 
 </script>
 
@@ -25,6 +34,7 @@
             <h5 class="modalTitle no-edit-hide">Login</h5>
             <button type="button" class="btn-close no-edit-hide" data-mdb-dismiss="modal" aria-label="Close" @click="emit('close')"></button>
           </div>
+          <span style="text-align: center;color: grey;font-size: 14px;margin: 0px 10px 5px 10px;"> Sign In Below to create folders, add apps, custom links and personalize your dashboard. Never lose your list again.  </span>
           <v-card-text class="no-edit-hide m-auto">
             <button class="login-with-google-btn" @click="signInUser">
               Sign in with Google

@@ -6,7 +6,7 @@
     <UserHeaderSkeleton v-if="userLoading && showMain" />
 
     <div class="appContainer" role="main">
-      <UserAppList v-if="!userLoading && showMain"/>
+      <UserAppList v-if="!userLoading && showMain" @showLoginModal="emit('showLoginModal')"/>
       <UserAppListSkeleton v-if="userLoading && showMain" />
     </div>
 
@@ -23,10 +23,13 @@ import UserHeader from "@/components/UserHeader.vue";
 import UserHeaderSkeleton from "@/components/skeleton/UserHeaderSkeleton.vue";
 import UserAppListSkeleton from "@/components/skeleton/UserAppListSkeleton.vue";
 
-import { ref } from 'vue'
+import {defineEmits, ref} from 'vue'
 
 const { userLoading } = storeToRefs(useUserStore());
 const showMain = ref(true);
+
+const emit = defineEmits(['showLoginModal'])
+
 
 </script>
 

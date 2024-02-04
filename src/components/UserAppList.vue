@@ -1,7 +1,7 @@
 <script setup>
   import { useUserStore } from "@/stores/user";
   import { storeToRefs } from "pinia";
-  import { onMounted, ref} from "vue";
+  import {defineEmits, onMounted, ref} from "vue";
   import NewAppButton from "@/components/buttons/newAppButton.vue";
   import draggable from 'vuedraggable'
   import HomePageTour from "@/components/tours/HomePageTour.vue";
@@ -11,6 +11,8 @@
   const { user, displayApps, filter, loggedIn } = storeToRefs(useUserStore());
   const { updateAppIndex, filterApps, updateUserApp, updateUserFolder } = useUserStore();
   const drag = ref(false);
+
+  const emit = defineEmits(['showLoginModal'])
 
   const editLinkModal = ref(false);
   const editFolderModal = ref(false);
@@ -23,12 +25,10 @@
 
   onMounted(() => {
 
-    document.querySelector('img').addEventListener('click', function(e) {
-      e.preventDefault();
-    });
-
-    document.querySelector('img').addEventListener('Mousedown', function(e) {
-      e.preventDefault();
+    document.body.addEventListener('click mousedown', function(e) {
+      if (e.target.tagName.toLowerCase() === 'img') {
+        e.preventDefault();
+      }
     });
 
     window.oncontextmenu = function(event) {
@@ -61,9 +61,7 @@
     this.$emit('showUpgrade')
   }
   function showAppDeletes() {
-    if (user.value.lockApps !== true && loggedIn.value) {
-      showDelete.value = true;
-    }
+    showDelete.value = !user.value.lockApps && loggedIn.value;
   }
   function navigate(link) {
     if (showDelete.value === false) {
@@ -126,6 +124,7 @@
     </div>
 
     <EditLinkModel
+        v-if="editLinkModal"
         :showModal="editLinkModal"
         :appName="editAppName"
         :appUrl="editAppUrl"
@@ -139,6 +138,7 @@
     </EditLinkModel>
 
     <EditFolderModal
+        v-if="editFolderModal"
         :showModal="editFolderModal"
         :appName="editAppName"
         :id="editID"
@@ -149,7 +149,8 @@
 
 
     <draggable
-        v-if="displayApps?.length > 0"
+        :key="displayApps.length"
+        v-show="displayApps?.length > 0"
         v-model="displayApps"
         @start="drag=true"
         @end="drag=false"
@@ -171,8 +172,8 @@
             <div v-if="user.folders[element.id]?.length > 0" style="display: flex;justify-content: center;flex-wrap: wrap;padding: 5px;">
               <img
                   v-for="app in user.folders[element.id].slice(0, 9)"
-                  v-bind:key="app.id"
                   loading="lazy"
+                  v-bind:key="app.id"
                   class="folderImage rounded-9 shadow-4 appsImage userAppStyle"
                   :src="app.image"
                   :alt="app.name"
@@ -198,6 +199,7 @@
             <img
                 class="moveAppIcon rounded-9 shadow-4 appsImage userAppStyle"
                 v-bind:data-id="element.id"
+                loading="lazy"
                 :tabindex="`1${index}`"
                 role="button"
                 type="button"
@@ -234,6 +236,7 @@
             <img
                 class="moveAppIcon rounded-9 shadow-4 appsImage userAppStyle"
                 v-bind:data-id="element.id"
+                loading="lazy"
                 :tabindex="`1${index}`"
                 role="button"
                 type="button"
@@ -241,28 +244,27 @@
             >
           </div>
 
-          <transition name="slide-fade">
-            <v-img
-                v-if="element.image"
-                class="rounded-9 shadow-4 appsImage userAppStyle"
-                lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                :src="element.image"
-                :alt="element.name"
-                height="85"
-                width="85"
-                role="button"
-                type="button"
-            >
-              <template v-slot:placeholder>
-                <div class="d-flex align-center justify-center fill-height">
-                  <v-progress-circular
-                      color="grey-lighten-4"
-                      indeterminate
-                  ></v-progress-circular>
-                </div>
-              </template>
-            </v-img>
-          </transition>
+          <v-img
+              v-if="element.image"
+              loading="lazy"
+              class="rounded-9 shadow-4 appsImage userAppStyle"
+              lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+              :src="element.image"
+              :alt="element.name"
+              height="85"
+              width="85"
+              role="button"
+              type="button"
+          >
+            <template v-slot:placeholder>
+              <div class="d-flex align-center justify-center fill-height">
+                <v-progress-circular
+                    color="grey-lighten-4"
+                    indeterminate
+                ></v-progress-circular>
+              </div>
+            </template>
+          </v-img>
           <span class="appTitle">{{ element.name }}</span>
         </div>
 
@@ -271,9 +273,13 @@
     </draggable>
 
 
-    <transition name="slide-fade">
-      <new-app-button v-if="user?.lockApps !== true && loggedIn" @showAppUpgrade="showingUpgrade" />
-    </transition>
+    <new-app-button v-if="user?.lockApps !== true && loggedIn" @showAppUpgrade="showingUpgrade" />
+
+    <div v-if="!loggedIn" class="d-inline-flex position-relative p-2 newAppModalButton" @click="emit('showLoginModal')">
+      <div class="newAppIcon rounded-9 userAppStyle">
+        <font-awesome-icon icon="plus" class="newAppIconPlus" aria-hidden="true" />
+      </div>
+    </div>
 
     <home-page-tour />
 
@@ -281,6 +287,23 @@
 </template>
 
 <style scoped>
+
+.newAppIconPlus {
+  position: absolute;
+  top: 18%;
+  left: 25%;
+  font-size: 57px;
+  font-weight: 100;
+}
+
+.newAppIcon {
+  height: 85px;
+  width: 85px;
+  border: 1px solid #bdc1c7;
+  border-radius: 15px;
+  color: #c0c6cf;
+  background: #ffffff85;
+}
 
 .appTitle {
   display: block;

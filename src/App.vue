@@ -18,7 +18,7 @@ const subscribeView = ref(false);
 const showLoginModal = ref(false);
 
 
-watch(user, (newValue) => {
+watch(user, () => {
   if (user.value?.backgroundImage) {
     background.value = `url(${user.value.backgroundImage})`;
   } else {
@@ -75,7 +75,7 @@ function showMain() {
 
   </header>
 
-  <router-view @showSettings="showModal = true" @showHome="showMain"></router-view>
+  <router-view @showLoginModal="showLoginModal = true" @showHome="showMain"></router-view>
 
   <HomeFooter></HomeFooter>
   </body>
