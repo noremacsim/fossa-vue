@@ -30,14 +30,14 @@ const myCallbacks = {
 }
 
 function finishTour() {
-  user.value.tour = true;
+  user.value.homeTour = true;
   syncUserToFireBase();
 }
 
 
 onMounted(() => {
   const app = getCurrentInstance()
-  if (loggedIn.value && !user.value?.tour) {
+  if (loggedIn.value && !user.value?.homeTour) {
     app.appContext.config.globalProperties.$tours['homePageTour'].start();
   }
 });
