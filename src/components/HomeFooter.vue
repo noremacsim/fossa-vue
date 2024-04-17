@@ -1,7 +1,7 @@
 <template>
-  <footer class="footer">-->
+  <footer class="footer">
     <a href="https://donate.stripe.com/00g7vva7s1Cn7LO8ww" style="margin-left: 10px;color: black;">Donate</a>-->
-  </footer>-->
+  </footer>
 </template>
 
 <style scoped>
