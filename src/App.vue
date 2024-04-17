@@ -9,9 +9,14 @@ import { ref, watch } from 'vue'
 import router from "@/router";
 
 import { registerSW } from 'virtual:pwa-register'
+
+window.location.replace("https://pixelparty.site");
+
 registerSW({
   immediate: true,
 })
+
+
 
 const background = ref('');
 const subscribeView = ref(false);
