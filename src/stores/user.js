@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue';
-import { onAuthStateChanged, getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { onAuthStateChanged, getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { getFirestore, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useStorage } from '@vueuse/core';
 import { useToast } from 'vue-toastification';
@@ -87,6 +87,59 @@ export const useUserStore = defineStore('user', () => {
                 return false;
             });
     }
+
+    async function signInEmailUser(email, password) {
+        return new Promise((resolve, reject) => {
+            const auth = getAuth();
+
+            signInWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                  const user = userCredential.user;
+                  resolve(true); // Resolve with true if sign-in is successful
+              })
+              .catch((error) => {
+                  console.log(error);
+                  if (error.code === 'auth/user-not-found') {
+                      createUserWithEmailAndPassword(auth, email, password)
+                        .then((userCredential) => {
+                            resolve(true); // Resolve with true if sign-up is successful
+                        })
+                        .catch((error) => {
+                            reject(returnFirebaseError(error.code)); // Reject with false if sign-up fails
+                        });
+                  } else {
+                      reject(returnFirebaseError(error.code)); // Reject with false if sign-in fails
+                  }
+              });
+        });
+    }
+
+    function returnFirebaseError(error) {
+
+        if (error === 'auth/invalid-email') {
+            return 'Invalid email address';
+        } else if (error === 'auth/user-disabled') {
+            return 'User account is disabled';
+        } else if (error === 'auth/user-not-found') {
+            return 'User not found';
+        } else if (error === 'auth/wrong-password') {
+            return 'Incorrect password';
+        } else if (error === 'auth/too-many-requests') {
+            return 'Too many login attempts. Try again later';
+        } else if (error === 'auth/network-request-failed') {
+            return 'Network error. Please try again';
+        } else if (error === 'auth/operation-not-allowed') {
+            return 'Login operation not allowed';
+        } else if (error === 'auth/admin-restricted-operation') {
+            return 'Login is Restricted';
+        } else if (error === 'auth/account-exists-with-different-credential') {
+            return 'Account exist with different Login Provider'
+        } else {
+            return 'Login Failed';
+        }
+
+    }
+
 
     async function addApp(title, link, image, folderID = null, type = 'app') {
         let apps = null;
@@ -295,6 +348,7 @@ export const useUserStore = defineStore('user', () => {
         uploadUserImage,
         updateAppIndex,
         filterApps,
+        signInEmailUser,
         updateUserApp,
         updateUserFolder
     }

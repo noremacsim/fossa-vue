@@ -1,16 +1,41 @@
 <script setup>
   import { useUserStore } from "@/stores/user";
-  const { signInUser } = useUserStore();
+  const { signInUser, signInEmailUser } = useUserStore();
   const { loggedIn } = storeToRefs(useUserStore());
-  import {defineEmits, toRefs, watch} from 'vue'
+
+  import { defineEmits, ref, toRefs, watch } from 'vue'
   import {storeToRefs} from "pinia";
   const emit = defineEmits(['close'])
+
+  const email = ref('');
+  const password = ref('');
+  const emailLoading = ref(false);
+  const isLoading = ref(false);
 
   const props = defineProps({
     show: Boolean,
   })
 
   const { show } = toRefs(props);
+
+  function signInEmail() {
+    emailLoading.value = true;
+    isLoading.value = true;
+    signInEmailUser(email.value, password.value).then(() => {
+      emailLoading.value = false;
+      isLoading.value = false;
+      emit('close');
+    }).catch((error) => {
+      console.log(error);
+      emailLoading.value = false;
+      isLoading.value = false;
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Login Failed')
+      }
+    });
+  }
 
   watch(loggedIn, () => {
     if (loggedIn.value) {
@@ -39,6 +64,24 @@
             <button class="login-with-google-btn" @click="signInUser">
               Sign in with Google
             </button>
+            <v-form fast-fail @submit.prevent>
+              <v-text-field
+                variant="outlined"
+                rounded="lg"
+                color="rgb(215 139 156 / 69%)"
+                v-model="email"
+                label="Email"
+              ></v-text-field>
+              <v-text-field
+                variant="outlined"
+                rounded="lg"
+                color="rgb(215 139 156 / 69%)"
+                v-model="password"
+                label="Password"
+                type="password"
+              ></v-text-field>
+              <v-btn :loading="emailLoading" flat size="large" rounded="lg" style="color: white;background: rgb(215, 139, 156);" type="submit" block class="mt-2" @click="signInEmail" >Sign In/Up</v-btn>
+            </v-form>
           </v-card-text>
         </div>
       </v-card>
