@@ -64,7 +64,7 @@
             <button class="login-with-google-btn" @click="signInUser">
               Sign in with Google
             </button>
-            <v-form fast-fail @submit.prevent>
+            <v-form fast-fail @submit.prevent class="mt-3">
               <v-text-field
                 variant="outlined"
                 rounded="lg"
